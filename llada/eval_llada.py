@@ -34,7 +34,14 @@ from tqdm import tqdm
 import os
 from transformers import AutoTokenizer, AutoModel, AutoConfig
 from generate import generate, generate_with_prefix_cache, generate_with_dual_cache
-from model.modeling_llada import LLaDAModelLM
+
+USE_FAST = 1
+if USE_FAST:
+    from model.modeling_llada_fast import LLaDAModelLM
+else:
+    from model.modeling_llada import LLaDAModelLM
+
+
 import json
 import time
 def set_seed(seed):
