@@ -1,0 +1,3088 @@
+Using device: cuda
+* Running on local URL:  http://127.0.0.1:7860
+* Running on public URL: https://f619c52a685de1daaa.gradio.live
+
+This share link expires in 1 week. For free permanent hosting and GPU upgrades, run `gradio deploy` from the terminal in the working directory to deploy to Hugging Face Spaces (https://huggingface.co/spaces)
+Preparation time: 27.797151565551758 ms
+		Step preparation time: 0.08816000074148178 ms
+		Model inference time: 3864.663330078125 ms
+		Gumbel noise and sampling time: 3.9813120365142822 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 17.40902328491211 ms
+			Confidence score gathering time: 3.940351963043213 ms
+		Confidence score calculation time: 21.50092887878418 ms
+		Apply predictions where we have masks time: 9.596927642822266 ms
+		Find transfer index time: 0.19977599382400513 ms
+			Selecting transfer indices time (topk): 21.597183227539062 ms
+			Applying transfer index time (where transfer_index): 0.04198399931192398 ms
+		update token time: 21.75494384765625 ms
+		Step preparation time: 0.06435199826955795 ms
+		Model inference time: 77.64710235595703 ms
+		Gumbel noise and sampling time: 0.17084799706935883 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.822336196899414 ms
+			Confidence score gathering time: 0.08195199817419052 ms
+		Confidence score calculation time: 8.264703750610352 ms
+		Apply predictions where we have masks time: 0.10751999914646149 ms
+		Find transfer index time: 0.08191999793052673 ms
+			Selecting transfer indices time (topk): 2.5579519271850586 ms
+			Applying transfer index time (where transfer_index): 0.03468799963593483 ms
+		update token time: 2.6951680183410645 ms
+		Step preparation time: 0.05615999922156334 ms
+		Model inference time: 75.47772979736328 ms
+		Gumbel noise and sampling time: 0.16793599724769592 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.719935894012451 ms
+			Confidence score gathering time: 0.0727040022611618 ms
+		Confidence score calculation time: 7.910399913787842 ms
+		Apply predictions where we have masks time: 0.08928000181913376 ms
+		Find transfer index time: 0.07868800312280655 ms
+			Selecting transfer indices time (topk): 1.2738560438156128 ms
+			Applying transfer index time (where transfer_index): 0.03363199904561043 ms
+		update token time: 1.4030400514602661 ms
+		Step preparation time: 0.05491200089454651 ms
+		Model inference time: 75.88995361328125 ms
+		Gumbel noise and sampling time: 0.16793599724769592 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.754752159118652 ms
+			Confidence score gathering time: 0.06963200122117996 ms
+		Confidence score calculation time: 7.941120147705078 ms
+		Apply predictions where we have masks time: 0.09616000205278397 ms
+		Find transfer index time: 0.08499199897050858 ms
+			Selecting transfer indices time (topk): 1.6240639686584473 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.756160020828247 ms
+		Step preparation time: 0.05478399991989136 ms
+		Model inference time: 76.83939361572266 ms
+		Gumbel noise and sampling time: 0.1648000031709671 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.6615681648254395 ms
+			Confidence score gathering time: 0.06860800087451935 ms
+		Confidence score calculation time: 7.857312202453613 ms
+		Apply predictions where we have masks time: 0.08806400001049042 ms
+		Find transfer index time: 0.09308800101280212 ms
+			Selecting transfer indices time (topk): 1.087488055229187 ms
+			Applying transfer index time (where transfer_index): 0.03379200026392937 ms
+		update token time: 1.2165119647979736 ms
+		Step preparation time: 0.05318399891257286 ms
+		Model inference time: 76.4738540649414 ms
+		Gumbel noise and sampling time: 0.16672000288963318 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.717887878417969 ms
+			Confidence score gathering time: 0.07065600156784058 ms
+		Confidence score calculation time: 7.90828800201416 ms
+		Apply predictions where we have masks time: 0.0870399996638298 ms
+		Find transfer index time: 0.43641600012779236 ms
+			Selecting transfer indices time (topk): 1.1571840047836304 ms
+			Applying transfer index time (where transfer_index): 0.03471999987959862 ms
+		update token time: 1.2912640571594238 ms
+		Step preparation time: 0.05555199831724167 ms
+		Model inference time: 76.17533111572266 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.7506561279296875 ms
+			Confidence score gathering time: 0.07168000191450119 ms
+		Confidence score calculation time: 7.935999870300293 ms
+		Apply predictions where we have masks time: 0.08716800063848495 ms
+		Find transfer index time: 0.0727040022611618 ms
+			Selecting transfer indices time (topk): 1.117184042930603 ms
+			Applying transfer index time (where transfer_index): 0.03376000002026558 ms
+		update token time: 1.2460800409317017 ms
+		Step preparation time: 0.05363199859857559 ms
+		Model inference time: 76.8529281616211 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.6615681648254395 ms
+			Confidence score gathering time: 0.4106239974498749 ms
+		Confidence score calculation time: 8.19711971282959 ms
+		Apply predictions where we have masks time: 0.1013759970664978 ms
+		Find transfer index time: 0.07168000191450119 ms
+			Selecting transfer indices time (topk): 1.2084800004959106 ms
+			Applying transfer index time (where transfer_index): 0.03372799977660179 ms
+		update token time: 1.3363200426101685 ms
+		Step preparation time: 0.054336000233888626 ms
+		Model inference time: 76.42057800292969 ms
+		Gumbel noise and sampling time: 0.16684800386428833 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.717887878417969 ms
+			Confidence score gathering time: 0.0727040022611618 ms
+		Confidence score calculation time: 7.906303882598877 ms
+		Apply predictions where we have masks time: 0.08684799820184708 ms
+		Find transfer index time: 0.07168000191450119 ms
+			Selecting transfer indices time (topk): 1.2216320037841797 ms
+			Applying transfer index time (where transfer_index): 0.03379200026392937 ms
+		update token time: 1.3467199802398682 ms
+		Step preparation time: 0.05459199845790863 ms
+		Model inference time: 76.16365051269531 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.716864109039307 ms
+			Confidence score gathering time: 0.0655359998345375 ms
+		Confidence score calculation time: 7.899136066436768 ms
+		Apply predictions where we have masks time: 0.45449599623680115 ms
+		Find transfer index time: 0.07257600128650665 ms
+			Selecting transfer indices time (topk): 1.1960320472717285 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.324031949043274 ms
+		Step preparation time: 0.05510399863123894 ms
+		Model inference time: 76.99298858642578 ms
+		Gumbel noise and sampling time: 0.16486400365829468 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.729152202606201 ms
+			Confidence score gathering time: 0.05548800155520439 ms
+		Confidence score calculation time: 7.903232097625732 ms
+		Apply predictions where we have masks time: 0.2396160066127777 ms
+		Find transfer index time: 0.0727040022611618 ms
+			Selecting transfer indices time (topk): 1.1089919805526733 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.2371840476989746 ms
+		Step preparation time: 0.05462399870157242 ms
+		Model inference time: 76.61510467529297 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.717887878417969 ms
+			Confidence score gathering time: 0.449535995721817 ms
+		Confidence score calculation time: 8.29849624633789 ms
+		Apply predictions where we have masks time: 0.0870399996638298 ms
+		Find transfer index time: 0.07168000191450119 ms
+			Selecting transfer indices time (topk): 1.136639952659607 ms
+			Applying transfer index time (where transfer_index): 0.03376000002026558 ms
+		update token time: 1.2984319925308228 ms
+		Step preparation time: 0.05350400134921074 ms
+		Model inference time: 76.0230712890625 ms
+		Gumbel noise and sampling time: 0.16383999586105347 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.725056171417236 ms
+			Confidence score gathering time: 0.06451199948787689 ms
+		Confidence score calculation time: 7.899136066436768 ms
+		Apply predictions where we have masks time: 0.08601599931716919 ms
+		Find transfer index time: 0.07260800153017044 ms
+			Selecting transfer indices time (topk): 1.1182080507278442 ms
+			Applying transfer index time (where transfer_index): 0.03379200026392937 ms
+		update token time: 1.2503039836883545 ms
+		Step preparation time: 0.053408000618219376 ms
+		Model inference time: 76.87709045410156 ms
+		Gumbel noise and sampling time: 0.1669120043516159 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.660543918609619 ms
+			Confidence score gathering time: 0.4055039882659912 ms
+		Confidence score calculation time: 8.18995189666748 ms
+		Apply predictions where we have masks time: 0.08601599931716919 ms
+		Find transfer index time: 0.07168000191450119 ms
+			Selecting transfer indices time (topk): 1.1079679727554321 ms
+			Applying transfer index time (where transfer_index): 0.032607998698949814 ms
+		update token time: 1.2349439859390259 ms
+		Step preparation time: 0.0544000007212162 ms
+		Model inference time: 76.66175842285156 ms
+		Gumbel noise and sampling time: 0.16486400365829468 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.732192039489746 ms
+			Confidence score gathering time: 0.05222399905323982 ms
+		Confidence score calculation time: 7.894015789031982 ms
+		Apply predictions where we have masks time: 0.09625600278377533 ms
+		Find transfer index time: 0.07187200337648392 ms
+			Selecting transfer indices time (topk): 1.0762239694595337 ms
+			Applying transfer index time (where transfer_index): 0.05632000043988228 ms
+		update token time: 1.2339199781417847 ms
+		Step preparation time: 0.05500800162553787 ms
+		Model inference time: 76.18649291992188 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.758848190307617 ms
+			Confidence score gathering time: 0.053247999399900436 ms
+		Confidence score calculation time: 7.923711776733398 ms
+		Apply predictions where we have masks time: 0.08396799862384796 ms
+		Find transfer index time: 0.07065600156784058 ms
+			Selecting transfer indices time (topk): 1.4909440279006958 ms
+			Applying transfer index time (where transfer_index): 0.03372799977660179 ms
+		update token time: 1.623039960861206 ms
+		Step preparation time: 0.05427199974656105 ms
+		Model inference time: 76.99827575683594 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.717887878417969 ms
+			Confidence score gathering time: 0.05734400078654289 ms
+		Confidence score calculation time: 7.90118408203125 ms
+		Apply predictions where we have masks time: 0.09628800302743912 ms
+		Find transfer index time: 0.07168000191450119 ms
+			Selecting transfer indices time (topk): 1.0844160318374634 ms
+			Applying transfer index time (where transfer_index): 0.03379200026392937 ms
+		update token time: 1.21343994140625 ms
+		Step preparation time: 0.05369599908590317 ms
+		Model inference time: 76.88915252685547 ms
+		Gumbel noise and sampling time: 0.1669120043516159 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.775231838226318 ms
+			Confidence score gathering time: 0.4105919897556305 ms
+		Confidence score calculation time: 8.308735847473145 ms
+		Apply predictions where we have masks time: 0.08806400001049042 ms
+		Find transfer index time: 0.07065600156784058 ms
+			Selecting transfer indices time (topk): 1.1550719738006592 ms
+			Applying transfer index time (where transfer_index): 0.033695999532938004 ms
+		update token time: 1.284991979598999 ms
+		Step preparation time: 0.06038400158286095 ms
+		Model inference time: 76.91645050048828 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.739327907562256 ms
+			Confidence score gathering time: 0.054048001766204834 ms
+		Confidence score calculation time: 7.907264232635498 ms
+		Apply predictions where we have masks time: 0.10451199859380722 ms
+		Find transfer index time: 0.0727040022611618 ms
+			Selecting transfer indices time (topk): 1.1008000373840332 ms
+			Applying transfer index time (where transfer_index): 0.03376000002026558 ms
+		update token time: 1.230847954750061 ms
+		Step preparation time: 0.05369599908590317 ms
+		Model inference time: 76.66767883300781 ms
+		Gumbel noise and sampling time: 0.16383999586105347 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.716671943664551 ms
+			Confidence score gathering time: 0.5222399830818176 ms
+		Confidence score calculation time: 8.36899185180664 ms
+		Apply predictions where we have masks time: 0.0870399996638298 ms
+		Find transfer index time: 0.07168000191450119 ms
+			Selecting transfer indices time (topk): 1.1673599481582642 ms
+			Applying transfer index time (where transfer_index): 0.03481600061058998 ms
+		update token time: 1.3004159927368164 ms
+		Step preparation time: 0.054048001766204834 ms
+		Model inference time: 76.78006744384766 ms
+		Gumbel noise and sampling time: 0.1648319959640503 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.773183822631836 ms
+			Confidence score gathering time: 0.05417599901556969 ms
+		Confidence score calculation time: 7.940095901489258 ms
+		Apply predictions where we have masks time: 0.08601599931716919 ms
+		Find transfer index time: 0.09011200070381165 ms
+			Selecting transfer indices time (topk): 1.0915839672088623 ms
+			Applying transfer index time (where transfer_index): 0.033663999289274216 ms
+		update token time: 1.2195839881896973 ms
+		Step preparation time: 0.054496001452207565 ms
+		Model inference time: 76.40780639648438 ms
+		Gumbel noise and sampling time: 0.16486400365829468 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.7209601402282715 ms
+			Confidence score gathering time: 0.05222399905323982 ms
+		Confidence score calculation time: 7.8837761878967285 ms
+		Apply predictions where we have masks time: 0.08601599931716919 ms
+		Find transfer index time: 0.07475200295448303 ms
+			Selecting transfer indices time (topk): 1.1489280462265015 ms
+			Applying transfer index time (where transfer_index): 0.03363199904561043 ms
+		update token time: 1.2789440155029297 ms
+		Step preparation time: 0.054368000477552414 ms
+		Model inference time: 77.48802947998047 ms
+		Gumbel noise and sampling time: 0.16681599617004395 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.784448146820068 ms
+			Confidence score gathering time: 0.053247999399900436 ms
+		Confidence score calculation time: 7.949312210083008 ms
+		Apply predictions where we have masks time: 0.08499199897050858 ms
+		Find transfer index time: 0.07168000191450119 ms
+			Selecting transfer indices time (topk): 1.0803200006484985 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.2083200216293335 ms
+		Step preparation time: 0.054336000233888626 ms
+		Model inference time: 77.33663940429688 ms
+		Gumbel noise and sampling time: 0.16486400365829468 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.774208068847656 ms
+			Confidence score gathering time: 0.4065279960632324 ms
+		Confidence score calculation time: 8.302592277526855 ms
+		Apply predictions where we have masks time: 0.08886399865150452 ms
+		Find transfer index time: 0.09113600105047226 ms
+			Selecting transfer indices time (topk): 1.1262719631195068 ms
+			Applying transfer index time (where transfer_index): 0.03280000016093254 ms
+		update token time: 1.2533760070800781 ms
+		Step preparation time: 0.05423999950289726 ms
+		Model inference time: 76.97811126708984 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.775231838226318 ms
+			Confidence score gathering time: 0.05427199974656105 ms
+		Confidence score calculation time: 7.950528144836426 ms
+		Apply predictions where we have masks time: 0.08508799970149994 ms
+		Find transfer index time: 0.09011200070381165 ms
+			Selecting transfer indices time (topk): 1.1212799549102783 ms
+			Applying transfer index time (where transfer_index): 0.03292800113558769 ms
+		update token time: 1.251520037651062 ms
+		Step preparation time: 0.05344000086188316 ms
+		Model inference time: 76.62041473388672 ms
+		Gumbel noise and sampling time: 0.16486400365829468 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.774208068847656 ms
+			Confidence score gathering time: 0.4136640131473541 ms
+		Confidence score calculation time: 8.311807632446289 ms
+		Apply predictions where we have masks time: 0.08790399879217148 ms
+		Find transfer index time: 0.07158400118350983 ms
+			Selecting transfer indices time (topk): 1.120255947113037 ms
+			Applying transfer index time (where transfer_index): 0.032896000891923904 ms
+		update token time: 1.2492799758911133 ms
+		Step preparation time: 0.05347200110554695 ms
+		Model inference time: 77.07683563232422 ms
+		Gumbel noise and sampling time: 0.16383999586105347 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.715839862823486 ms
+			Confidence score gathering time: 0.0719040036201477 ms
+		Confidence score calculation time: 7.9042558670043945 ms
+		Apply predictions where we have masks time: 0.0870399996638298 ms
+		Find transfer index time: 0.0727040022611618 ms
+			Selecting transfer indices time (topk): 1.1212799549102783 ms
+			Applying transfer index time (where transfer_index): 0.03385600075125694 ms
+		update token time: 1.2502720355987549 ms
+		Step preparation time: 0.058400001376867294 ms
+		Model inference time: 77.08124542236328 ms
+		Gumbel noise and sampling time: 0.16572800278663635 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.717887878417969 ms
+			Confidence score gathering time: 0.42105600237846375 ms
+		Confidence score calculation time: 8.262656211853027 ms
+		Apply predictions where we have masks time: 0.09932799637317657 ms
+		Find transfer index time: 0.07782399654388428 ms
+			Selecting transfer indices time (topk): 1.1265599727630615 ms
+			Applying transfer index time (where transfer_index): 0.03299200162291527 ms
+		update token time: 1.2554240226745605 ms
+		Step preparation time: 0.052928000688552856 ms
+		Model inference time: 76.78614044189453 ms
+		Gumbel noise and sampling time: 0.1812479943037033 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.773312091827393 ms
+			Confidence score gathering time: 0.20496000349521637 ms
+		Confidence score calculation time: 8.104960441589355 ms
+		Apply predictions where we have masks time: 0.1085439994931221 ms
+		Find transfer index time: 0.07168000191450119 ms
+			Selecting transfer indices time (topk): 1.1039680242538452 ms
+			Applying transfer index time (where transfer_index): 0.03359999880194664 ms
+		update token time: 1.2328640222549438 ms
+		Step preparation time: 0.053279999643564224 ms
+		Model inference time: 76.72166442871094 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.815104007720947 ms
+			Confidence score gathering time: 0.05632000043988228 ms
+		Confidence score calculation time: 7.986176013946533 ms
+		Apply predictions where we have masks time: 0.6031360030174255 ms
+		Find transfer index time: 0.07148800045251846 ms
+			Selecting transfer indices time (topk): 1.1337599754333496 ms
+			Applying transfer index time (where transfer_index): 0.03379200026392937 ms
+		update token time: 1.2718080282211304 ms
+		Step preparation time: 0.05299200117588043 ms
+		Model inference time: 77.51567840576172 ms
+		Gumbel noise and sampling time: 0.16601599752902985 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.788544178009033 ms
+			Confidence score gathering time: 0.05222399905323982 ms
+		Confidence score calculation time: 7.953216075897217 ms
+		Apply predictions where we have masks time: 0.08806400001049042 ms
+		Find transfer index time: 0.08499199897050858 ms
+			Selecting transfer indices time (topk): 1.1304960250854492 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.2634880542755127 ms
+		Step preparation time: 0.053568001836538315 ms
+		Model inference time: 77.1157455444336 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.7732157707214355 ms
+			Confidence score gathering time: 0.4136959910392761 ms
+		Confidence score calculation time: 8.31065559387207 ms
+		Apply predictions where we have masks time: 0.08499199897050858 ms
+		Find transfer index time: 0.07065600156784058 ms
+			Selecting transfer indices time (topk): 0.05939200147986412 ms
+			Applying transfer index time (where transfer_index): 0.030719999223947525 ms
+		update token time: 0.17609600722789764 ms
+Block 0 time: 6890.9130859375 ms
+		Step preparation time: 0.05619199946522713 ms
+		Model inference time: 77.14342498779297 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.907135963439941 ms
+			Confidence score gathering time: 0.06758400052785873 ms
+		Confidence score calculation time: 8.094719886779785 ms
+		Apply predictions where we have masks time: 0.09833600372076035 ms
+		Find transfer index time: 0.07168000191450119 ms
+			Selecting transfer indices time (topk): 2.5374720096588135 ms
+			Applying transfer index time (where transfer_index): 0.03270399942994118 ms
+		update token time: 2.6644480228424072 ms
+		Step preparation time: 0.05423999950289726 ms
+		Model inference time: 76.62748718261719 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.822239875793457 ms
+			Confidence score gathering time: 0.05344000086188316 ms
+		Confidence score calculation time: 7.987199783325195 ms
+		Apply predictions where we have masks time: 0.08601599931716919 ms
+		Find transfer index time: 0.07184000313282013 ms
+			Selecting transfer indices time (topk): 1.2707840204238892 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.3968000411987305 ms
+		Step preparation time: 0.05379199981689453 ms
+		Model inference time: 77.46701049804688 ms
+		Gumbel noise and sampling time: 0.16486400365829468 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.7178239822387695 ms
+			Confidence score gathering time: 0.40140798687934875 ms
+		Confidence score calculation time: 8.243200302124023 ms
+		Apply predictions where we have masks time: 0.08601599931716919 ms
+		Find transfer index time: 0.07168000191450119 ms
+			Selecting transfer indices time (topk): 1.1663360595703125 ms
+			Applying transfer index time (where transfer_index): 0.031936001032590866 ms
+		update token time: 1.2933119535446167 ms
+		Step preparation time: 0.05369599908590317 ms
+		Model inference time: 77.0723876953125 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.774208068847656 ms
+			Confidence score gathering time: 0.05215999856591225 ms
+		Confidence score calculation time: 7.937024116516113 ms
+		Apply predictions where we have masks time: 0.0851840004324913 ms
+		Find transfer index time: 0.07168000191450119 ms
+			Selecting transfer indices time (topk): 1.2298239469528198 ms
+			Applying transfer index time (where transfer_index): 0.03283200040459633 ms
+		update token time: 1.3578239679336548 ms
+		Step preparation time: 0.05276799947023392 ms
+		Model inference time: 76.80284881591797 ms
+		Gumbel noise and sampling time: 0.16486400365829468 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.774208068847656 ms
+			Confidence score gathering time: 0.3962880074977875 ms
+		Confidence score calculation time: 8.295424461364746 ms
+		Apply predictions where we have masks time: 0.08499199897050858 ms
+		Find transfer index time: 0.0727040022611618 ms
+			Selecting transfer indices time (topk): 1.1530239582061768 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.284991979598999 ms
+		Step preparation time: 0.052671998739242554 ms
+		Model inference time: 76.68611145019531 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.789567947387695 ms
+			Confidence score gathering time: 0.05222399905323982 ms
+		Confidence score calculation time: 7.953248023986816 ms
+		Apply predictions where we have masks time: 0.08499199897050858 ms
+		Find transfer index time: 0.07065600156784058 ms
+			Selecting transfer indices time (topk): 1.159168004989624 ms
+			Applying transfer index time (where transfer_index): 0.032735999673604965 ms
+		update token time: 1.2851200103759766 ms
+		Step preparation time: 0.053599998354911804 ms
+		Model inference time: 77.44617462158203 ms
+		Gumbel noise and sampling time: 0.16486400365829468 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.775231838226318 ms
+			Confidence score gathering time: 0.46694400906562805 ms
+		Confidence score calculation time: 8.367103576660156 ms
+		Apply predictions where we have masks time: 0.08585599809885025 ms
+		Find transfer index time: 0.07065600156784058 ms
+			Selecting transfer indices time (topk): 1.1212799549102783 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.2472319602966309 ms
+		Step preparation time: 0.05315199866890907 ms
+		Model inference time: 77.17536163330078 ms
+		Gumbel noise and sampling time: 0.18105599284172058 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.778304100036621 ms
+			Confidence score gathering time: 0.053247999399900436 ms
+		Confidence score calculation time: 8.343423843383789 ms
+		Apply predictions where we have masks time: 0.08396799862384796 ms
+		Find transfer index time: 0.07168000191450119 ms
+			Selecting transfer indices time (topk): 1.1980799436569214 ms
+			Applying transfer index time (where transfer_index): 0.03283200040459633 ms
+		update token time: 1.3250880241394043 ms
+		Step preparation time: 0.05382400006055832 ms
+		Model inference time: 76.82454681396484 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.774208068847656 ms
+			Confidence score gathering time: 0.4505600035190582 ms
+		Confidence score calculation time: 8.344575881958008 ms
+		Apply predictions where we have masks time: 0.0870399996638298 ms
+		Find transfer index time: 0.07065600156784058 ms
+			Selecting transfer indices time (topk): 1.134592056274414 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.263551950454712 ms
+		Step preparation time: 0.05369599908590317 ms
+		Model inference time: 76.7610855102539 ms
+		Gumbel noise and sampling time: 0.16486400365829468 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.7946882247924805 ms
+			Confidence score gathering time: 0.053247999399900436 ms
+		Confidence score calculation time: 7.9585280418396 ms
+		Apply predictions where we have masks time: 0.08502399921417236 ms
+		Find transfer index time: 0.0716480016708374 ms
+			Selecting transfer indices time (topk): 1.1038719415664673 ms
+			Applying transfer index time (where transfer_index): 0.03280000016093254 ms
+		update token time: 1.2288000583648682 ms
+		Step preparation time: 0.05417599901556969 ms
+		Model inference time: 77.36278533935547 ms
+		Gumbel noise and sampling time: 0.16486400365829468 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.775167942047119 ms
+			Confidence score gathering time: 0.4116480052471161 ms
+		Confidence score calculation time: 8.309760093688965 ms
+		Apply predictions where we have masks time: 0.08601599931716919 ms
+		Find transfer index time: 0.07043199986219406 ms
+			Selecting transfer indices time (topk): 1.1489280462265015 ms
+			Applying transfer index time (where transfer_index): 0.03359999880194664 ms
+		update token time: 1.2912640571594238 ms
+		Step preparation time: 0.05347200110554695 ms
+		Model inference time: 77.12748718261719 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.775231838226318 ms
+			Confidence score gathering time: 0.05222399905323982 ms
+		Confidence score calculation time: 7.937024116516113 ms
+		Apply predictions where we have masks time: 0.08614400029182434 ms
+		Find transfer index time: 0.07078400254249573 ms
+			Selecting transfer indices time (topk): 1.102720022201538 ms
+			Applying transfer index time (where transfer_index): 0.03174399957060814 ms
+		update token time: 1.2268799543380737 ms
+		Step preparation time: 0.053727999329566956 ms
+		Model inference time: 76.83673858642578 ms
+		Gumbel noise and sampling time: 0.16383999586105347 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.774208068847656 ms
+			Confidence score gathering time: 0.41471999883651733 ms
+		Confidence score calculation time: 8.31385612487793 ms
+		Apply predictions where we have masks time: 0.09212800115346909 ms
+		Find transfer index time: 0.07168000191450119 ms
+			Selecting transfer indices time (topk): 1.1263999938964844 ms
+			Applying transfer index time (where transfer_index): 0.03174399957060814 ms
+		update token time: 1.252351999282837 ms
+		Step preparation time: 0.059776000678539276 ms
+		Model inference time: 76.71708679199219 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.796735763549805 ms
+			Confidence score gathering time: 0.053247999399900436 ms
+		Confidence score calculation time: 7.959648132324219 ms
+		Apply predictions where we have masks time: 0.0870399996638298 ms
+		Find transfer index time: 0.0727040022611618 ms
+			Selecting transfer indices time (topk): 1.2963520288467407 ms
+			Applying transfer index time (where transfer_index): 0.03363199904561043 ms
+		update token time: 1.423359990119934 ms
+		Step preparation time: 0.05417599901556969 ms
+		Model inference time: 77.46809387207031 ms
+		Gumbel noise and sampling time: 0.1669120043516159 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.774208068847656 ms
+			Confidence score gathering time: 0.40646401047706604 ms
+		Confidence score calculation time: 8.301759719848633 ms
+		Apply predictions where we have masks time: 0.0870399996638298 ms
+		Find transfer index time: 0.07174400240182877 ms
+			Selecting transfer indices time (topk): 1.3864959478378296 ms
+			Applying transfer index time (where transfer_index): 0.03379200026392937 ms
+		update token time: 1.516543984413147 ms
+		Step preparation time: 0.05580800026655197 ms
+		Model inference time: 77.2798080444336 ms
+		Gumbel noise and sampling time: 0.1669120043516159 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.774208068847656 ms
+			Confidence score gathering time: 0.053247999399900436 ms
+		Confidence score calculation time: 7.937024116516113 ms
+		Apply predictions where we have masks time: 0.08499199897050858 ms
+		Find transfer index time: 0.07168000191450119 ms
+			Selecting transfer indices time (topk): 1.2165119647979736 ms
+			Applying transfer index time (where transfer_index): 0.03292800113558769 ms
+		update token time: 1.346560001373291 ms
+		Step preparation time: 0.05315199866890907 ms
+		Model inference time: 76.93138885498047 ms
+		Gumbel noise and sampling time: 0.1669120043516159 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.774208068847656 ms
+			Confidence score gathering time: 0.40774399042129517 ms
+		Confidence score calculation time: 8.3056640625 ms
+		Apply predictions where we have masks time: 0.08604799956083298 ms
+		Find transfer index time: 0.0727040022611618 ms
+			Selecting transfer indices time (topk): 1.1643199920654297 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.2902400493621826 ms
+		Step preparation time: 0.053599998354911804 ms
+		Model inference time: 76.61689758300781 ms
+		Gumbel noise and sampling time: 0.16579200327396393 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.7740797996521 ms
+			Confidence score gathering time: 0.19865599274635315 ms
+		Confidence score calculation time: 8.093695640563965 ms
+		Apply predictions where we have masks time: 0.08499199897050858 ms
+		Find transfer index time: 0.06963200122117996 ms
+			Selecting transfer indices time (topk): 1.1141120195388794 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.2410880327224731 ms
+		Step preparation time: 0.060447998344898224 ms
+		Model inference time: 77.0665283203125 ms
+		Gumbel noise and sampling time: 0.16486400365829468 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.77507209777832 ms
+			Confidence score gathering time: 0.4864000082015991 ms
+		Confidence score calculation time: 8.389632225036621 ms
+		Apply predictions where we have masks time: 0.08601599931716919 ms
+		Find transfer index time: 0.07065600156784058 ms
+			Selecting transfer indices time (topk): 1.1644799709320068 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.2912640571594238 ms
+		Step preparation time: 0.053599998354911804 ms
+		Model inference time: 77.44595336914062 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.773183822631836 ms
+			Confidence score gathering time: 0.05305600166320801 ms
+		Confidence score calculation time: 7.9339518547058105 ms
+		Apply predictions where we have masks time: 0.08499199897050858 ms
+		Find transfer index time: 0.07065600156784058 ms
+			Selecting transfer indices time (topk): 1.1427839994430542 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.2688640356063843 ms
+		Step preparation time: 0.05344000086188316 ms
+		Model inference time: 77.14899444580078 ms
+		Gumbel noise and sampling time: 0.16566400229930878 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.774176120758057 ms
+			Confidence score gathering time: 0.05632000043988228 ms
+		Confidence score calculation time: 7.946239948272705 ms
+		Apply predictions where we have masks time: 0.49267199635505676 ms
+		Find transfer index time: 0.06963200122117996 ms
+			Selecting transfer indices time (topk): 1.1694079637527466 ms
+			Applying transfer index time (where transfer_index): 0.03280000016093254 ms
+		update token time: 1.2963839769363403 ms
+		Step preparation time: 0.052319999784231186 ms
+		Model inference time: 76.7303695678711 ms
+		Gumbel noise and sampling time: 0.1658560037612915 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.773183822631836 ms
+			Confidence score gathering time: 0.053247999399900436 ms
+		Confidence score calculation time: 7.935904026031494 ms
+		Apply predictions where we have masks time: 0.08396799862384796 ms
+		Find transfer index time: 0.07065600156784058 ms
+			Selecting transfer indices time (topk): 1.130687952041626 ms
+			Applying transfer index time (where transfer_index): 0.03174399957060814 ms
+		update token time: 1.2596479654312134 ms
+		Step preparation time: 0.05385600030422211 ms
+		Model inference time: 76.70867156982422 ms
+		Gumbel noise and sampling time: 0.16777600347995758 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.812096118927002 ms
+			Confidence score gathering time: 0.4166400134563446 ms
+		Confidence score calculation time: 8.354816436767578 ms
+		Apply predictions where we have masks time: 0.08601599931716919 ms
+		Find transfer index time: 0.07065600156784058 ms
+			Selecting transfer indices time (topk): 1.1786880493164062 ms
+			Applying transfer index time (where transfer_index): 0.03174399957060814 ms
+		update token time: 1.3055039644241333 ms
+		Step preparation time: 0.0634239986538887 ms
+		Model inference time: 77.68479919433594 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.775263786315918 ms
+			Confidence score gathering time: 0.05427199974656105 ms
+		Confidence score calculation time: 7.954239845275879 ms
+		Apply predictions where we have masks time: 0.08479999750852585 ms
+		Find transfer index time: 0.07068800181150436 ms
+			Selecting transfer indices time (topk): 1.1776000261306763 ms
+			Applying transfer index time (where transfer_index): 0.031936001032590866 ms
+		update token time: 1.3056000471115112 ms
+		Step preparation time: 0.052671998739242554 ms
+		Model inference time: 77.2553939819336 ms
+		Gumbel noise and sampling time: 0.16684800386428833 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.776127815246582 ms
+			Confidence score gathering time: 0.41683200001716614 ms
+		Confidence score calculation time: 8.31488037109375 ms
+		Apply predictions where we have masks time: 0.08601599931716919 ms
+		Find transfer index time: 0.07068800181150436 ms
+			Selecting transfer indices time (topk): 1.2083200216293335 ms
+			Applying transfer index time (where transfer_index): 0.03379200026392937 ms
+		update token time: 1.3375359773635864 ms
+		Step preparation time: 0.05331199988722801 ms
+		Model inference time: 76.99830627441406 ms
+		Gumbel noise and sampling time: 0.1669120043516159 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.774112224578857 ms
+			Confidence score gathering time: 0.05222399905323982 ms
+		Confidence score calculation time: 7.935999870300293 ms
+		Apply predictions where we have masks time: 0.08396799862384796 ms
+		Find transfer index time: 0.07046400010585785 ms
+			Selecting transfer indices time (topk): 1.13046395778656 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.257472038269043 ms
+		Step preparation time: 0.05347200110554695 ms
+		Model inference time: 76.6816635131836 ms
+		Gumbel noise and sampling time: 0.16486400365829468 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.774208068847656 ms
+			Confidence score gathering time: 0.4168640077114105 ms
+		Confidence score calculation time: 8.311807632446289 ms
+		Apply predictions where we have masks time: 0.08601599931716919 ms
+		Find transfer index time: 0.070592001080513 ms
+			Selecting transfer indices time (topk): 1.1713600158691406 ms
+			Applying transfer index time (where transfer_index): 0.03292800113558769 ms
+		update token time: 1.2974079847335815 ms
+		Step preparation time: 0.05353600159287453 ms
+		Model inference time: 76.84310150146484 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.787519931793213 ms
+			Confidence score gathering time: 0.05427199974656105 ms
+		Confidence score calculation time: 7.9535040855407715 ms
+		Apply predictions where we have masks time: 0.08601599931716919 ms
+		Find transfer index time: 0.06956800073385239 ms
+			Selecting transfer indices time (topk): 1.136639952659607 ms
+			Applying transfer index time (where transfer_index): 0.03379200026392937 ms
+		update token time: 1.2625919580459595 ms
+		Step preparation time: 0.052639998495578766 ms
+		Model inference time: 77.33904266357422 ms
+		Gumbel noise and sampling time: 0.1669120043516159 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.775231838226318 ms
+			Confidence score gathering time: 0.46886399388313293 ms
+		Confidence score calculation time: 8.363967895507812 ms
+		Apply predictions where we have masks time: 0.0870399996638298 ms
+		Find transfer index time: 0.06963200122117996 ms
+			Selecting transfer indices time (topk): 1.1632640361785889 ms
+			Applying transfer index time (where transfer_index): 0.03379200026392937 ms
+		update token time: 1.2892160415649414 ms
+		Step preparation time: 0.05417599901556969 ms
+		Model inference time: 77.24598693847656 ms
+		Gumbel noise and sampling time: 0.16486400365829468 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.774208068847656 ms
+			Confidence score gathering time: 0.05206400156021118 ms
+		Confidence score calculation time: 7.937024116516113 ms
+		Apply predictions where we have masks time: 0.08505599945783615 ms
+		Find transfer index time: 0.06963200122117996 ms
+			Selecting transfer indices time (topk): 1.1078399419784546 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.233888030052185 ms
+		Step preparation time: 0.053279999643564224 ms
+		Model inference time: 76.97737884521484 ms
+		Gumbel noise and sampling time: 0.16486400365829468 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.776256084442139 ms
+			Confidence score gathering time: 0.40326398611068726 ms
+		Confidence score calculation time: 8.302399635314941 ms
+		Apply predictions where we have masks time: 0.08499199897050858 ms
+		Find transfer index time: 0.06969600170850754 ms
+			Selecting transfer indices time (topk): 1.1622400283813477 ms
+			Applying transfer index time (where transfer_index): 0.03379200026392937 ms
+		update token time: 1.2912640571594238 ms
+		Step preparation time: 0.05398400127887726 ms
+		Model inference time: 76.62627410888672 ms
+		Gumbel noise and sampling time: 0.16582399606704712 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.774208068847656 ms
+			Confidence score gathering time: 0.0522879995405674 ms
+		Confidence score calculation time: 7.9339518547058105 ms
+		Apply predictions where we have masks time: 0.08396799862384796 ms
+		Find transfer index time: 0.07168000191450119 ms
+			Selecting transfer indices time (topk): 0.05936000123620033 ms
+			Applying transfer index time (where transfer_index): 0.03174399957060814 ms
+		update token time: 0.17715199291706085 ms
+Block 1 time: 3052.400634765625 ms
+		Step preparation time: 0.0570559985935688 ms
+		Model inference time: 77.1983642578125 ms
+		Gumbel noise and sampling time: 0.16575999557971954 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.774208068847656 ms
+			Confidence score gathering time: 0.41043201088905334 ms
+		Confidence score calculation time: 8.31488037109375 ms
+		Apply predictions where we have masks time: 0.08601599931716919 ms
+		Find transfer index time: 0.08089599758386612 ms
+			Selecting transfer indices time (topk): 2.3633921146392822 ms
+			Applying transfer index time (where transfer_index): 0.03379200026392937 ms
+		update token time: 2.495584011077881 ms
+		Step preparation time: 0.05302400141954422 ms
+		Model inference time: 77.41075134277344 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.774208068847656 ms
+			Confidence score gathering time: 0.05523199960589409 ms
+		Confidence score calculation time: 7.993343830108643 ms
+		Apply predictions where we have masks time: 0.08601599931716919 ms
+		Find transfer index time: 0.07065600156784058 ms
+			Selecting transfer indices time (topk): 1.2349439859390259 ms
+			Applying transfer index time (where transfer_index): 0.03356799855828285 ms
+		update token time: 1.3608959913253784 ms
+		Step preparation time: 0.053727999329566956 ms
+		Model inference time: 77.26995086669922 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.774208068847656 ms
+			Confidence score gathering time: 0.40438398718833923 ms
+		Confidence score calculation time: 8.299519538879395 ms
+		Apply predictions where we have masks time: 0.0870399996638298 ms
+		Find transfer index time: 0.07065600156784058 ms
+			Selecting transfer indices time (topk): 1.1675200462341309 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.2922879457473755 ms
+		Step preparation time: 0.06108799949288368 ms
+		Model inference time: 76.9615707397461 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.775231838226318 ms
+			Confidence score gathering time: 0.05337600037455559 ms
+		Confidence score calculation time: 7.9462080001831055 ms
+		Apply predictions where we have masks time: 0.08396799862384796 ms
+		Find transfer index time: 0.0727040022611618 ms
+			Selecting transfer indices time (topk): 1.2472000122070312 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.3721599578857422 ms
+		Step preparation time: 0.05331199988722801 ms
+		Model inference time: 76.7237777709961 ms
+		Gumbel noise and sampling time: 0.16486400365829468 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.773183822631836 ms
+			Confidence score gathering time: 0.4116480052471161 ms
+		Confidence score calculation time: 8.30668830871582 ms
+		Apply predictions where we have masks time: 0.0870399996638298 ms
+		Find transfer index time: 0.0727040022611618 ms
+			Selecting transfer indices time (topk): 1.1407359838485718 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.2666239738464355 ms
+		Step preparation time: 0.05305600166320801 ms
+		Model inference time: 76.86140441894531 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.818240165710449 ms
+			Confidence score gathering time: 0.053247999399900436 ms
+		Confidence score calculation time: 7.984127998352051 ms
+		Apply predictions where we have masks time: 0.08396799862384796 ms
+		Find transfer index time: 0.07168000191450119 ms
+			Selecting transfer indices time (topk): 1.1110399961471558 ms
+			Applying transfer index time (where transfer_index): 0.031936001032590866 ms
+		update token time: 1.236799955368042 ms
+		Step preparation time: 0.05350400134921074 ms
+		Model inference time: 77.64054107666016 ms
+		Gumbel noise and sampling time: 0.16486400365829468 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.774208068847656 ms
+			Confidence score gathering time: 0.3829759955406189 ms
+		Confidence score calculation time: 8.278016090393066 ms
+		Apply predictions where we have masks time: 0.08499199897050858 ms
+		Find transfer index time: 0.07168000191450119 ms
+			Selecting transfer indices time (topk): 1.1499520540237427 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.277951955795288 ms
+		Step preparation time: 0.053568001836538315 ms
+		Model inference time: 77.3021469116211 ms
+		Gumbel noise and sampling time: 0.1740799993276596 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.777279853820801 ms
+			Confidence score gathering time: 0.061503998935222626 ms
+		Confidence score calculation time: 7.956384181976318 ms
+		Apply predictions where we have masks time: 0.09216000139713287 ms
+		Find transfer index time: 0.07372800260782242 ms
+			Selecting transfer indices time (topk): 1.3455359935760498 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.4827519655227661 ms
+		Step preparation time: 0.06035200133919716 ms
+		Model inference time: 77.01961517333984 ms
+		Gumbel noise and sampling time: 0.17100800573825836 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.777215957641602 ms
+			Confidence score gathering time: 0.4136959910392761 ms
+		Confidence score calculation time: 8.329216003417969 ms
+		Apply predictions where we have masks time: 0.10044799745082855 ms
+		Find transfer index time: 0.08191999793052673 ms
+			Selecting transfer indices time (topk): 1.8421759605407715 ms
+			Applying transfer index time (where transfer_index): 0.03686400130391121 ms
+		update token time: 1.9865599870681763 ms
+		Step preparation time: 0.06047999858856201 ms
+		Model inference time: 76.76403045654297 ms
+		Gumbel noise and sampling time: 0.16793599724769592 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.776256084442139 ms
+			Confidence score gathering time: 0.05536000058054924 ms
+		Confidence score calculation time: 8.143872261047363 ms
+		Apply predictions where we have masks time: 0.08691199868917465 ms
+		Find transfer index time: 0.07168000191450119 ms
+			Selecting transfer indices time (topk): 1.4102400541305542 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.5525120496749878 ms
+		Step preparation time: 0.05375999957323074 ms
+		Model inference time: 76.59091186523438 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.7740797996521 ms
+			Confidence score gathering time: 0.05423999950289726 ms
+		Confidence score calculation time: 7.9389119148254395 ms
+		Apply predictions where we have masks time: 0.08396799862384796 ms
+		Find transfer index time: 0.07065600156784058 ms
+			Selecting transfer indices time (topk): 1.308735966682434 ms
+			Applying transfer index time (where transfer_index): 0.03686400130391121 ms
+		update token time: 1.4489599466323853 ms
+		Step preparation time: 0.05385600030422211 ms
+		Model inference time: 76.73670196533203 ms
+		Gumbel noise and sampling time: 0.1669120043516159 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.806975841522217 ms
+			Confidence score gathering time: 0.40563198924064636 ms
+		Confidence score calculation time: 8.332287788391113 ms
+		Apply predictions where we have masks time: 0.0859839990735054 ms
+		Find transfer index time: 0.07168000191450119 ms
+			Selecting transfer indices time (topk): 1.124351978302002 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.250175952911377 ms
+		Step preparation time: 0.058687999844551086 ms
+		Model inference time: 77.66738891601562 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.775040149688721 ms
+			Confidence score gathering time: 0.053247999399900436 ms
+		Confidence score calculation time: 7.938975811004639 ms
+		Apply predictions where we have masks time: 0.08499199897050858 ms
+		Find transfer index time: 0.07168000191450119 ms
+			Selecting transfer indices time (topk): 1.141759991645813 ms
+			Applying transfer index time (where transfer_index): 0.032735999673604965 ms
+		update token time: 1.2657920122146606 ms
+		Step preparation time: 0.05382400006055832 ms
+		Model inference time: 77.48365020751953 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.7740159034729 ms
+			Confidence score gathering time: 0.05222399905323982 ms
+		Confidence score calculation time: 7.941120147705078 ms
+		Apply predictions where we have masks time: 0.09216000139713287 ms
+		Find transfer index time: 0.45260798931121826 ms
+			Selecting transfer indices time (topk): 1.2533760070800781 ms
+			Applying transfer index time (where transfer_index): 0.03699199855327606 ms
+		update token time: 1.3998080492019653 ms
+		Step preparation time: 0.05936000123620033 ms
+		Model inference time: 77.38396453857422 ms
+		Gumbel noise and sampling time: 0.16784000396728516 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.833600044250488 ms
+			Confidence score gathering time: 0.06451199948787689 ms
+		Confidence score calculation time: 8.020095825195312 ms
+		Apply predictions where we have masks time: 0.09625600278377533 ms
+		Find transfer index time: 0.0798719972372055 ms
+			Selecting transfer indices time (topk): 1.269760012626648 ms
+			Applying transfer index time (where transfer_index): 0.03686400130391121 ms
+		update token time: 1.4141440391540527 ms
+		Step preparation time: 0.05862399935722351 ms
+		Model inference time: 77.18316650390625 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.775231838226318 ms
+			Confidence score gathering time: 0.053247999399900436 ms
+		Confidence score calculation time: 7.941120147705078 ms
+		Apply predictions where we have masks time: 0.08585599809885025 ms
+		Find transfer index time: 0.07065600156784058 ms
+			Selecting transfer indices time (topk): 1.277951955795288 ms
+			Applying transfer index time (where transfer_index): 0.048128001391887665 ms
+		update token time: 1.4510079622268677 ms
+		Step preparation time: 0.05385600030422211 ms
+		Model inference time: 76.76844787597656 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.774208068847656 ms
+			Confidence score gathering time: 0.4106239974498749 ms
+		Confidence score calculation time: 8.304832458496094 ms
+		Apply predictions where we have masks time: 0.08601599931716919 ms
+		Find transfer index time: 0.06963200122117996 ms
+			Selecting transfer indices time (topk): 1.1458560228347778 ms
+			Applying transfer index time (where transfer_index): 0.033695999532938004 ms
+		update token time: 1.2757439613342285 ms
+		Step preparation time: 0.053119998425245285 ms
+		Model inference time: 76.4525146484375 ms
+		Gumbel noise and sampling time: 0.1669120043516159 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.8100481033325195 ms
+			Confidence score gathering time: 0.05222399905323982 ms
+		Confidence score calculation time: 7.970943927764893 ms
+		Apply predictions where we have masks time: 0.08499199897050858 ms
+		Find transfer index time: 0.06963200122117996 ms
+			Selecting transfer indices time (topk): 1.2441279888153076 ms
+			Applying transfer index time (where transfer_index): 0.03299200162291527 ms
+		update token time: 1.3774720430374146 ms
+		Step preparation time: 0.05331199988722801 ms
+		Model inference time: 77.20025634765625 ms
+		Gumbel noise and sampling time: 0.16569599509239197 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.775231838226318 ms
+			Confidence score gathering time: 0.4055039882659912 ms
+		Confidence score calculation time: 8.301568031311035 ms
+		Apply predictions where we have masks time: 0.08499199897050858 ms
+		Find transfer index time: 0.07065600156784058 ms
+			Selecting transfer indices time (topk): 1.1571199893951416 ms
+			Applying transfer index time (where transfer_index): 0.03280000016093254 ms
+		update token time: 1.2879999876022339 ms
+		Step preparation time: 0.0541439987719059 ms
+		Model inference time: 77.49369812011719 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.779168128967285 ms
+			Confidence score gathering time: 0.058368001133203506 ms
+		Confidence score calculation time: 7.95363187789917 ms
+		Apply predictions where we have masks time: 0.09641599655151367 ms
+		Find transfer index time: 0.0798719972372055 ms
+			Selecting transfer indices time (topk): 1.4007359743118286 ms
+			Applying transfer index time (where transfer_index): 0.03686400130391121 ms
+		update token time: 1.5431679487228394 ms
+		Step preparation time: 0.05375999957323074 ms
+		Model inference time: 77.2925796508789 ms
+		Gumbel noise and sampling time: 0.16383999586105347 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.773183822631836 ms
+			Confidence score gathering time: 0.4136959910392761 ms
+		Confidence score calculation time: 8.3056640625 ms
+		Apply predictions where we have masks time: 0.084927998483181 ms
+		Find transfer index time: 0.07168000191450119 ms
+			Selecting transfer indices time (topk): 1.1683839559555054 ms
+			Applying transfer index time (where transfer_index): 0.03286400064826012 ms
+		update token time: 1.2974079847335815 ms
+		Step preparation time: 0.05299200117588043 ms
+		Model inference time: 76.97388458251953 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.774208068847656 ms
+			Confidence score gathering time: 0.05206400156021118 ms
+		Confidence score calculation time: 7.940095901489258 ms
+		Apply predictions where we have masks time: 0.08495999872684479 ms
+		Find transfer index time: 0.07065600156784058 ms
+			Selecting transfer indices time (topk): 1.1827199459075928 ms
+			Applying transfer index time (where transfer_index): 0.03280000016093254 ms
+		update token time: 1.3107199668884277 ms
+		Step preparation time: 0.05353600159287453 ms
+		Model inference time: 76.7511978149414 ms
+		Gumbel noise and sampling time: 0.16575999557971954 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.773183822631836 ms
+			Confidence score gathering time: 0.4106239974498749 ms
+		Confidence score calculation time: 8.321855545043945 ms
+		Apply predictions where we have masks time: 0.08601599931716919 ms
+		Find transfer index time: 0.07158400118350983 ms
+			Selecting transfer indices time (topk): 1.1786240339279175 ms
+			Applying transfer index time (where transfer_index): 0.03702399879693985 ms
+		update token time: 1.324031949043274 ms
+		Step preparation time: 0.05446400120854378 ms
+		Model inference time: 76.62818908691406 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.775231838226318 ms
+			Confidence score gathering time: 0.1985280066728592 ms
+		Confidence score calculation time: 8.093791961669922 ms
+		Apply predictions where we have masks time: 0.08601599931716919 ms
+		Find transfer index time: 0.06976000219583511 ms
+			Selecting transfer indices time (topk): 1.125216007232666 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.2513279914855957 ms
+		Step preparation time: 0.053599998354911804 ms
+		Model inference time: 76.93113708496094 ms
+		Gumbel noise and sampling time: 0.16383999586105347 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.789567947387695 ms
+			Confidence score gathering time: 0.43212801218032837 ms
+		Confidence score calculation time: 8.345439910888672 ms
+		Apply predictions where we have masks time: 0.08601599931716919 ms
+		Find transfer index time: 0.07065600156784058 ms
+			Selecting transfer indices time (topk): 1.1489280462265015 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.2746880054473877 ms
+		Step preparation time: 0.05455999821424484 ms
+		Model inference time: 77.64656066894531 ms
+		Gumbel noise and sampling time: 0.16486400365829468 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.775231838226318 ms
+			Confidence score gathering time: 0.05241600051522255 ms
+		Confidence score calculation time: 7.936863899230957 ms
+		Apply predictions where we have masks time: 0.08483199775218964 ms
+		Find transfer index time: 0.07065600156784058 ms
+			Selecting transfer indices time (topk): 1.2257280349731445 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.351680040359497 ms
+		Step preparation time: 0.054368000477552414 ms
+		Model inference time: 77.44659423828125 ms
+		Gumbel noise and sampling time: 0.16470399498939514 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.775231838226318 ms
+			Confidence score gathering time: 0.4126720130443573 ms
+		Confidence score calculation time: 8.309760093688965 ms
+		Apply predictions where we have masks time: 0.08588799834251404 ms
+		Find transfer index time: 0.06963200122117996 ms
+			Selecting transfer indices time (topk): 1.2790080308914185 ms
+			Applying transfer index time (where transfer_index): 0.03379200026392937 ms
+		update token time: 1.411072015762329 ms
+		Step preparation time: 0.0549440011382103 ms
+		Model inference time: 77.4111328125 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.774208068847656 ms
+			Confidence score gathering time: 0.05222399905323982 ms
+		Confidence score calculation time: 7.939072132110596 ms
+		Apply predictions where we have masks time: 0.08499199897050858 ms
+		Find transfer index time: 0.07148800045251846 ms
+			Selecting transfer indices time (topk): 1.1376639604568481 ms
+			Applying transfer index time (where transfer_index): 0.0318400003015995 ms
+		update token time: 1.2657279968261719 ms
+		Step preparation time: 0.05488000065088272 ms
+		Model inference time: 77.02210998535156 ms
+		Gumbel noise and sampling time: 0.16486400365829468 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.774208068847656 ms
+			Confidence score gathering time: 0.41075199842453003 ms
+		Confidence score calculation time: 8.306655883789062 ms
+		Apply predictions where we have masks time: 0.08617600053548813 ms
+		Find transfer index time: 0.06963200122117996 ms
+			Selecting transfer indices time (topk): 1.1376639604568481 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.264639973640442 ms
+		Step preparation time: 0.055135998874902725 ms
+		Model inference time: 76.76758575439453 ms
+		Gumbel noise and sampling time: 0.16582399606704712 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.775231838226318 ms
+			Confidence score gathering time: 0.0533440001308918 ms
+		Confidence score calculation time: 7.934976100921631 ms
+		Apply predictions where we have masks time: 0.08399999886751175 ms
+		Find transfer index time: 0.06963200122117996 ms
+			Selecting transfer indices time (topk): 1.120255947113037 ms
+			Applying transfer index time (where transfer_index): 0.03174399957060814 ms
+		update token time: 1.2432960271835327 ms
+		Step preparation time: 0.05430399999022484 ms
+		Model inference time: 78.098876953125 ms
+		Gumbel noise and sampling time: 0.16486400365829468 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.818240165710449 ms
+			Confidence score gathering time: 0.4065279960632324 ms
+		Confidence score calculation time: 8.345600128173828 ms
+		Apply predictions where we have masks time: 0.0942080020904541 ms
+		Find transfer index time: 0.07062400132417679 ms
+			Selecting transfer indices time (topk): 1.140768051147461 ms
+			Applying transfer index time (where transfer_index): 0.03174399957060814 ms
+		update token time: 1.2636159658432007 ms
+		Step preparation time: 0.0530879981815815 ms
+		Model inference time: 77.34819030761719 ms
+		Gumbel noise and sampling time: 0.1669120043516159 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.856128215789795 ms
+			Confidence score gathering time: 0.055296000093221664 ms
+		Confidence score calculation time: 8.019968032836914 ms
+		Apply predictions where we have masks time: 0.08399999886751175 ms
+		Find transfer index time: 0.07049600034952164 ms
+			Selecting transfer indices time (topk): 0.058368001133203506 ms
+			Applying transfer index time (where transfer_index): 0.03174399957060814 ms
+		update token time: 0.17203199863433838 ms
+Block 2 time: 3097.451171875 ms
+		Step preparation time: 0.05603199824690819 ms
+		Model inference time: 77.72614288330078 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.832575798034668 ms
+			Confidence score gathering time: 0.40755200386047363 ms
+		Confidence score calculation time: 8.361984252929688 ms
+		Apply predictions where we have masks time: 0.09728000313043594 ms
+		Find transfer index time: 0.070592001080513 ms
+			Selecting transfer indices time (topk): 2.25164794921875 ms
+			Applying transfer index time (where transfer_index): 0.03379200026392937 ms
+		update token time: 2.3797760009765625 ms
+		Step preparation time: 0.05452800169587135 ms
+		Model inference time: 77.83535766601562 ms
+		Gumbel noise and sampling time: 0.16681599617004395 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.831552028656006 ms
+			Confidence score gathering time: 0.053247999399900436 ms
+		Confidence score calculation time: 7.996416091918945 ms
+		Apply predictions where we have masks time: 0.08499199897050858 ms
+		Find transfer index time: 0.07065600156784058 ms
+			Selecting transfer indices time (topk): 1.1745280027389526 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.3004800081253052 ms
+		Step preparation time: 0.05516799911856651 ms
+		Model inference time: 77.65078735351562 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.8305277824401855 ms
+			Confidence score gathering time: 0.41260799765586853 ms
+		Confidence score calculation time: 8.364031791687012 ms
+		Apply predictions where we have masks time: 0.08601599931716919 ms
+		Find transfer index time: 0.070592001080513 ms
+			Selecting transfer indices time (topk): 1.1304960250854492 ms
+			Applying transfer index time (where transfer_index): 0.043007999658584595 ms
+		update token time: 1.2666879892349243 ms
+		Step preparation time: 0.05289600044488907 ms
+		Model inference time: 77.5363540649414 ms
+		Gumbel noise and sampling time: 0.16678400337696075 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.832575798034668 ms
+			Confidence score gathering time: 0.0544000007212162 ms
+		Confidence score calculation time: 8.069120407104492 ms
+		Apply predictions where we have masks time: 0.08591999858617783 ms
+		Find transfer index time: 0.07353600114583969 ms
+			Selecting transfer indices time (topk): 1.2206079959869385 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.3465280532836914 ms
+		Step preparation time: 0.053727999329566956 ms
+		Model inference time: 77.32911682128906 ms
+		Gumbel noise and sampling time: 0.1669120043516159 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.832575798034668 ms
+			Confidence score gathering time: 0.4148159921169281 ms
+		Confidence score calculation time: 8.368127822875977 ms
+		Apply predictions where we have masks time: 0.08601599931716919 ms
+		Find transfer index time: 0.07065600156784058 ms
+			Selecting transfer indices time (topk): 1.1284480094909668 ms
+			Applying transfer index time (where transfer_index): 0.03283200040459633 ms
+		update token time: 1.2533119916915894 ms
+		Step preparation time: 0.05337600037455559 ms
+		Model inference time: 77.1214370727539 ms
+		Gumbel noise and sampling time: 0.1669120043516159 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.832575798034668 ms
+			Confidence score gathering time: 0.05222399905323982 ms
+		Confidence score calculation time: 7.990272045135498 ms
+		Apply predictions where we have masks time: 0.08601599931716919 ms
+		Find transfer index time: 0.07168000191450119 ms
+			Selecting transfer indices time (topk): 1.1233279705047607 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.2533760070800781 ms
+		Step preparation time: 0.05366399884223938 ms
+		Model inference time: 77.13488006591797 ms
+		Gumbel noise and sampling time: 0.16486400365829468 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.831552028656006 ms
+			Confidence score gathering time: 0.40857601165771484 ms
+		Confidence score calculation time: 8.364031791687012 ms
+		Apply predictions where we have masks time: 0.08806400001049042 ms
+		Find transfer index time: 0.07168000191450119 ms
+			Selecting transfer indices time (topk): 1.1376639604568481 ms
+			Applying transfer index time (where transfer_index): 0.03190400078892708 ms
+		update token time: 1.264639973640442 ms
+		Step preparation time: 0.05430399999022484 ms
+		Model inference time: 77.22566223144531 ms
+		Gumbel noise and sampling time: 0.1669120043516159 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.855072021484375 ms
+			Confidence score gathering time: 0.05225599929690361 ms
+		Confidence score calculation time: 8.014975547790527 ms
+		Apply predictions where we have masks time: 0.08601599931716919 ms
+		Find transfer index time: 0.06963200122117996 ms
+			Selecting transfer indices time (topk): 1.120255947113037 ms
+			Applying transfer index time (where transfer_index): 0.03376000002026558 ms
+		update token time: 1.2462079524993896 ms
+		Step preparation time: 0.054496001452207565 ms
+		Model inference time: 77.60409545898438 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.836671829223633 ms
+			Confidence score gathering time: 0.46489599347114563 ms
+		Confidence score calculation time: 8.423423767089844 ms
+		Apply predictions where we have masks time: 0.08617600053548813 ms
+		Find transfer index time: 0.07065600156784058 ms
+			Selecting transfer indices time (topk): 1.1407359838485718 ms
+			Applying transfer index time (where transfer_index): 0.0318400003015995 ms
+		update token time: 1.2779840230941772 ms
+		Step preparation time: 0.05455999821424484 ms
+		Model inference time: 77.98979187011719 ms
+		Gumbel noise and sampling time: 0.17100800573825836 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.831552028656006 ms
+			Confidence score gathering time: 0.05222399905323982 ms
+		Confidence score calculation time: 7.99129581451416 ms
+		Apply predictions where we have masks time: 0.08499199897050858 ms
+		Find transfer index time: 0.07065600156784058 ms
+			Selecting transfer indices time (topk): 1.1141120195388794 ms
+			Applying transfer index time (where transfer_index): 0.03177599981427193 ms
+		update token time: 1.2369920015335083 ms
+		Step preparation time: 0.05257600173354149 ms
+		Model inference time: 77.80550384521484 ms
+		Gumbel noise and sampling time: 0.16486400365829468 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.831552028656006 ms
+			Confidence score gathering time: 0.05427199974656105 ms
+		Confidence score calculation time: 8.42240047454834 ms
+		Apply predictions where we have masks time: 0.08601599931716919 ms
+		Find transfer index time: 0.07168000191450119 ms
+			Selecting transfer indices time (topk): 1.1429439783096313 ms
+			Applying transfer index time (where transfer_index): 0.03283200040459633 ms
+		update token time: 1.2696959972381592 ms
+		Step preparation time: 0.05395200103521347 ms
+		Model inference time: 77.66668701171875 ms
+		Gumbel noise and sampling time: 0.1669120043516159 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.832352161407471 ms
+			Confidence score gathering time: 0.05119999870657921 ms
+		Confidence score calculation time: 7.989247798919678 ms
+		Apply predictions where we have masks time: 0.08313599973917007 ms
+		Find transfer index time: 0.06860800087451935 ms
+			Selecting transfer indices time (topk): 1.0956799983978271 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.2194240093231201 ms
+		Step preparation time: 0.05507199838757515 ms
+		Model inference time: 77.66015625 ms
+		Gumbel noise and sampling time: 0.16383999586105347 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.832575798034668 ms
+			Confidence score gathering time: 0.4341759979724884 ms
+		Confidence score calculation time: 8.386624336242676 ms
+		Apply predictions where we have masks time: 0.08601599931716919 ms
+		Find transfer index time: 0.0687360018491745 ms
+			Selecting transfer indices time (topk): 1.2329920530319214 ms
+			Applying transfer index time (where transfer_index): 0.03359999880194664 ms
+		update token time: 1.3598719835281372 ms
+		Step preparation time: 0.05353600159287453 ms
+		Model inference time: 77.4615707397461 ms
+		Gumbel noise and sampling time: 0.16486400365829468 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.833600044250488 ms
+			Confidence score gathering time: 0.052191998809576035 ms
+		Confidence score calculation time: 7.9923200607299805 ms
+		Apply predictions where we have masks time: 0.08396799862384796 ms
+		Find transfer index time: 0.07065600156784058 ms
+			Selecting transfer indices time (topk): 1.1641279458999634 ms
+			Applying transfer index time (where transfer_index): 0.03177599981427193 ms
+		update token time: 1.2892160415649414 ms
+		Step preparation time: 0.05302400141954422 ms
+		Model inference time: 77.18077087402344 ms
+		Gumbel noise and sampling time: 0.16582399606704712 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.831552028656006 ms
+			Confidence score gathering time: 0.4126720130443573 ms
+		Confidence score calculation time: 8.365056037902832 ms
+		Apply predictions where we have masks time: 0.08601599931716919 ms
+		Find transfer index time: 0.07065600156784058 ms
+			Selecting transfer indices time (topk): 1.2953599691390991 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.4242240190505981 ms
+		Step preparation time: 0.05321599915623665 ms
+		Model inference time: 77.07740783691406 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.831552028656006 ms
+			Confidence score gathering time: 0.05215999856591225 ms
+		Confidence score calculation time: 7.9923200607299805 ms
+		Apply predictions where we have masks time: 0.08416000008583069 ms
+		Find transfer index time: 0.07056000083684921 ms
+			Selecting transfer indices time (topk): 1.13155198097229 ms
+			Applying transfer index time (where transfer_index): 0.03292800113558769 ms
+		update token time: 1.2564480304718018 ms
+		Step preparation time: 0.05273599922657013 ms
+		Model inference time: 77.166015625 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.831552028656006 ms
+			Confidence score gathering time: 0.4126720130443573 ms
+		Confidence score calculation time: 8.364992141723633 ms
+		Apply predictions where we have masks time: 0.08591999858617783 ms
+		Find transfer index time: 0.07065600156784058 ms
+			Selecting transfer indices time (topk): 1.1857919692993164 ms
+			Applying transfer index time (where transfer_index): 0.03280000016093254 ms
+		update token time: 1.3148159980773926 ms
+		Step preparation time: 0.05417599901556969 ms
+		Model inference time: 77.25577545166016 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.879680156707764 ms
+			Confidence score gathering time: 0.05344000086188316 ms
+		Confidence score calculation time: 8.041472434997559 ms
+		Apply predictions where we have masks time: 0.08499199897050858 ms
+		Find transfer index time: 0.07065600156784058 ms
+			Selecting transfer indices time (topk): 1.0393600463867188 ms
+			Applying transfer index time (where transfer_index): 0.03174399957060814 ms
+		update token time: 1.1603840589523315 ms
+		Step preparation time: 0.052639998495578766 ms
+		Model inference time: 77.78726196289062 ms
+		Gumbel noise and sampling time: 0.16486400365829468 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.8397440910339355 ms
+			Confidence score gathering time: 0.055296000093221664 ms
+		Confidence score calculation time: 8.425503730773926 ms
+		Apply predictions where we have masks time: 0.08396799862384796 ms
+		Find transfer index time: 0.07065600156784058 ms
+			Selecting transfer indices time (topk): 1.1724799871444702 ms
+			Applying transfer index time (where transfer_index): 0.03379200026392937 ms
+		update token time: 1.3002879619598389 ms
+		Step preparation time: 0.05475199967622757 ms
+		Model inference time: 77.740478515625 ms
+		Gumbel noise and sampling time: 0.33689600229263306 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.8335041999816895 ms
+			Confidence score gathering time: 0.05222399905323982 ms
+		Confidence score calculation time: 7.997439861297607 ms
+		Apply predictions where we have masks time: 0.08601599931716919 ms
+		Find transfer index time: 0.07158400118350983 ms
+			Selecting transfer indices time (topk): 1.223680019378662 ms
+			Applying transfer index time (where transfer_index): 0.03296000137925148 ms
+		update token time: 1.351647973060608 ms
+		Step preparation time: 0.053568001836538315 ms
+		Model inference time: 77.84864044189453 ms
+		Gumbel noise and sampling time: 0.16486400365829468 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.8324480056762695 ms
+			Confidence score gathering time: 0.449535995721817 ms
+		Confidence score calculation time: 8.415231704711914 ms
+		Apply predictions where we have masks time: 0.08588799834251404 ms
+		Find transfer index time: 0.07065600156784058 ms
+			Selecting transfer indices time (topk): 1.1479040384292603 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.274880051612854 ms
+		Step preparation time: 0.05286400020122528 ms
+		Model inference time: 77.81116485595703 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.832575798034668 ms
+			Confidence score gathering time: 0.05427199974656105 ms
+		Confidence score calculation time: 8.010687828063965 ms
+		Apply predictions where we have masks time: 0.08406399935483932 ms
+		Find transfer index time: 0.06963200122117996 ms
+			Selecting transfer indices time (topk): 1.1253759860992432 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.2542400360107422 ms
+		Step preparation time: 0.05375999957323074 ms
+		Model inference time: 77.59555053710938 ms
+		Gumbel noise and sampling time: 0.16486400365829468 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.832575798034668 ms
+			Confidence score gathering time: 0.4148159921169281 ms
+		Confidence score calculation time: 8.368127822875977 ms
+		Apply predictions where we have masks time: 0.08499199897050858 ms
+		Find transfer index time: 0.07065600156784058 ms
+			Selecting transfer indices time (topk): 1.1519999504089355 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.2759040594100952 ms
+		Step preparation time: 0.05363199859857559 ms
+		Model inference time: 77.84950256347656 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.83238410949707 ms
+			Confidence score gathering time: 0.05119999870657921 ms
+		Confidence score calculation time: 7.989215850830078 ms
+		Apply predictions where we have masks time: 0.0841279998421669 ms
+		Find transfer index time: 0.06963200122117996 ms
+			Selecting transfer indices time (topk): 1.1479040384292603 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.2759040594100952 ms
+		Step preparation time: 0.05379199981689453 ms
+		Model inference time: 77.54441833496094 ms
+		Gumbel noise and sampling time: 0.16383999586105347 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.83241605758667 ms
+			Confidence score gathering time: 0.05427199974656105 ms
+		Confidence score calculation time: 8.38969612121582 ms
+		Apply predictions where we have masks time: 0.08396799862384796 ms
+		Find transfer index time: 0.06860800087451935 ms
+			Selecting transfer indices time (topk): 1.2861440181732178 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.4120960235595703 ms
+		Step preparation time: 0.05375999957323074 ms
+		Model inference time: 77.37353515625 ms
+		Gumbel noise and sampling time: 0.16687999665737152 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.831552028656006 ms
+			Confidence score gathering time: 0.05939200147986412 ms
+		Confidence score calculation time: 8.002559661865234 ms
+		Apply predictions where we have masks time: 0.08499199897050858 ms
+		Find transfer index time: 0.07072000205516815 ms
+			Selecting transfer indices time (topk): 1.2903679609298706 ms
+			Applying transfer index time (where transfer_index): 0.03286400064826012 ms
+		update token time: 1.4162559509277344 ms
+		Step preparation time: 0.05347200110554695 ms
+		Model inference time: 77.2547836303711 ms
+		Gumbel noise and sampling time: 0.16486400365829468 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.832575798034668 ms
+			Confidence score gathering time: 0.4137279987335205 ms
+		Confidence score calculation time: 8.37014389038086 ms
+		Apply predictions where we have masks time: 0.08604799956083298 ms
+		Find transfer index time: 0.07065600156784058 ms
+			Selecting transfer indices time (topk): 1.2357759475708008 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.3619199991226196 ms
+		Step preparation time: 0.054048001766204834 ms
+		Model inference time: 77.10953521728516 ms
+		Gumbel noise and sampling time: 0.1669120043516159 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.831552028656006 ms
+			Confidence score gathering time: 0.053247999399900436 ms
+		Confidence score calculation time: 7.995391845703125 ms
+		Apply predictions where we have masks time: 0.0870399996638298 ms
+		Find transfer index time: 0.07168000191450119 ms
+			Selecting transfer indices time (topk): 1.2165119647979736 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.3404159545898438 ms
+		Step preparation time: 0.0544000007212162 ms
+		Model inference time: 77.1684799194336 ms
+		Gumbel noise and sampling time: 0.16569599509239197 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.832575798034668 ms
+			Confidence score gathering time: 0.05539200082421303 ms
+		Confidence score calculation time: 8.451071739196777 ms
+		Apply predictions where we have masks time: 0.08691199868917465 ms
+		Find transfer index time: 0.07062400132417679 ms
+			Selecting transfer indices time (topk): 1.308608055114746 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.4366719722747803 ms
+		Step preparation time: 0.0530879981815815 ms
+		Model inference time: 77.3018569946289 ms
+		Gumbel noise and sampling time: 0.1669120043516159 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.887872219085693 ms
+			Confidence score gathering time: 0.05321599915623665 ms
+		Confidence score calculation time: 8.046591758728027 ms
+		Apply predictions where we have masks time: 0.0841279998421669 ms
+		Find transfer index time: 0.07065600156784058 ms
+			Selecting transfer indices time (topk): 1.2206079959869385 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.3466559648513794 ms
+		Step preparation time: 0.05363199859857559 ms
+		Model inference time: 77.73014068603516 ms
+		Gumbel noise and sampling time: 0.16675199568271637 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.845888137817383 ms
+			Confidence score gathering time: 0.055296000093221664 ms
+		Confidence score calculation time: 8.487936019897461 ms
+		Apply predictions where we have masks time: 0.08499199897050858 ms
+		Find transfer index time: 0.07065600156784058 ms
+			Selecting transfer indices time (topk): 1.176576018333435 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.3056000471115112 ms
+		Step preparation time: 0.05353600159287453 ms
+		Model inference time: 77.72383880615234 ms
+		Gumbel noise and sampling time: 0.1669120043516159 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.841792106628418 ms
+			Confidence score gathering time: 0.053247999399900436 ms
+		Confidence score calculation time: 8.003583908081055 ms
+		Apply predictions where we have masks time: 0.08396799862384796 ms
+		Find transfer index time: 0.07065600156784058 ms
+			Selecting transfer indices time (topk): 0.05641600117087364 ms
+			Applying transfer index time (where transfer_index): 0.030912000685930252 ms
+		update token time: 0.1730560064315796 ms
+Block 3 time: 3138.839599609375 ms
+		Step preparation time: 0.05689600110054016 ms
+		Model inference time: 77.97881317138672 ms
+		Gumbel noise and sampling time: 0.16467200219631195 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.8305277824401855 ms
+			Confidence score gathering time: 0.06470400094985962 ms
+		Confidence score calculation time: 8.426495552062988 ms
+		Apply predictions where we have masks time: 0.08505599945783615 ms
+		Find transfer index time: 0.07168000191450119 ms
+			Selecting transfer indices time (topk): 2.2753279209136963 ms
+			Applying transfer index time (where transfer_index): 0.03363199904561043 ms
+		update token time: 2.403167963027954 ms
+		Step preparation time: 0.056703999638557434 ms
+		Model inference time: 77.8189468383789 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.832575798034668 ms
+			Confidence score gathering time: 0.05222399905323982 ms
+		Confidence score calculation time: 7.9923200607299805 ms
+		Apply predictions where we have masks time: 0.08499199897050858 ms
+		Find transfer index time: 0.06963200122117996 ms
+			Selecting transfer indices time (topk): 1.193984031677246 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.3209919929504395 ms
+		Step preparation time: 0.054368000477552414 ms
+		Model inference time: 77.94528198242188 ms
+		Gumbel noise and sampling time: 0.16383999586105347 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.831424236297607 ms
+			Confidence score gathering time: 0.055296000093221664 ms
+		Confidence score calculation time: 8.418304443359375 ms
+		Apply predictions where we have masks time: 0.08499199897050858 ms
+		Find transfer index time: 0.07168000191450119 ms
+			Selecting transfer indices time (topk): 1.146880030632019 ms
+			Applying transfer index time (where transfer_index): 0.03270399942994118 ms
+		update token time: 1.2706880569458008 ms
+		Step preparation time: 0.053119998425245285 ms
+		Model inference time: 77.98121643066406 ms
+		Gumbel noise and sampling time: 0.16579200327396393 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.832575798034668 ms
+			Confidence score gathering time: 0.05318399891257286 ms
+		Confidence score calculation time: 7.992224216461182 ms
+		Apply predictions where we have masks time: 0.08486399799585342 ms
+		Find transfer index time: 0.07065600156784058 ms
+			Selecting transfer indices time (topk): 1.2390400171279907 ms
+			Applying transfer index time (where transfer_index): 0.03190400078892708 ms
+		update token time: 1.363968014717102 ms
+		Step preparation time: 0.05462399870157242 ms
+		Model inference time: 77.80242919921875 ms
+		Gumbel noise and sampling time: 0.16486400365829468 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.8305277824401855 ms
+			Confidence score gathering time: 0.4136959910392761 ms
+		Confidence score calculation time: 8.370176315307617 ms
+		Apply predictions where we have masks time: 0.08582399785518646 ms
+		Find transfer index time: 0.06963200122117996 ms
+			Selecting transfer indices time (topk): 1.1674879789352417 ms
+			Applying transfer index time (where transfer_index): 0.03283200040459633 ms
+		update token time: 1.2943040132522583 ms
+		Step preparation time: 0.06028800085186958 ms
+		Model inference time: 77.79039764404297 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.833600044250488 ms
+			Confidence score gathering time: 0.053247999399900436 ms
+		Confidence score calculation time: 7.997568130493164 ms
+		Apply predictions where we have masks time: 0.08396799862384796 ms
+		Find transfer index time: 0.06963200122117996 ms
+			Selecting transfer indices time (topk): 1.218559980392456 ms
+			Applying transfer index time (where transfer_index): 0.03379200026392937 ms
+		update token time: 1.3463679552078247 ms
+		Step preparation time: 0.05452800169587135 ms
+		Model inference time: 77.76306915283203 ms
+		Gumbel noise and sampling time: 0.16486400365829468 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.831552028656006 ms
+			Confidence score gathering time: 0.057151999324560165 ms
+		Confidence score calculation time: 8.423423767089844 ms
+		Apply predictions where we have masks time: 0.08499199897050858 ms
+		Find transfer index time: 0.07062400132417679 ms
+			Selecting transfer indices time (topk): 1.1130880117416382 ms
+			Applying transfer index time (where transfer_index): 0.03174399957060814 ms
+		update token time: 1.240064024925232 ms
+		Step preparation time: 0.05516799911856651 ms
+		Model inference time: 77.73308563232422 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.832543849945068 ms
+			Confidence score gathering time: 0.05423999950289726 ms
+		Confidence score calculation time: 7.995391845703125 ms
+		Apply predictions where we have masks time: 0.08499199897050858 ms
+		Find transfer index time: 0.06969600170850754 ms
+			Selecting transfer indices time (topk): 1.1038719415664673 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.2410880327224731 ms
+		Step preparation time: 0.0562559999525547 ms
+		Model inference time: 77.68729400634766 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.836671829223633 ms
+			Confidence score gathering time: 0.055296000093221664 ms
+		Confidence score calculation time: 8.457216262817383 ms
+		Apply predictions where we have masks time: 0.08601599931716919 ms
+		Find transfer index time: 0.07072000205516815 ms
+			Selecting transfer indices time (topk): 1.1386879682540894 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.2636159658432007 ms
+		Step preparation time: 0.05430399999022484 ms
+		Model inference time: 77.53218841552734 ms
+		Gumbel noise and sampling time: 0.16675199568271637 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.835648059844971 ms
+			Confidence score gathering time: 0.05222399905323982 ms
+		Confidence score calculation time: 8.001567840576172 ms
+		Apply predictions where we have masks time: 0.08396799862384796 ms
+		Find transfer index time: 0.07065600156784058 ms
+			Selecting transfer indices time (topk): 1.1950080394744873 ms
+			Applying transfer index time (where transfer_index): 0.03587200120091438 ms
+		update token time: 1.3344639539718628 ms
+		Step preparation time: 0.06294400244951248 ms
+		Model inference time: 77.66767883300781 ms
+		Gumbel noise and sampling time: 0.16383999586105347 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.83462381362915 ms
+			Confidence score gathering time: 0.05427199974656105 ms
+		Confidence score calculation time: 8.423423767089844 ms
+		Apply predictions where we have masks time: 0.08396799862384796 ms
+		Find transfer index time: 0.07782399654388428 ms
+			Selecting transfer indices time (topk): 1.30457603931427 ms
+			Applying transfer index time (where transfer_index): 0.03686400130391121 ms
+		update token time: 1.448032021522522 ms
+		Step preparation time: 0.059039998799562454 ms
+		Model inference time: 77.55757141113281 ms
+		Gumbel noise and sampling time: 0.16486400365829468 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.831552028656006 ms
+			Confidence score gathering time: 0.05740800127387047 ms
+		Confidence score calculation time: 8.007648468017578 ms
+		Apply predictions where we have masks time: 0.09516800194978714 ms
+		Find transfer index time: 0.07798399776220322 ms
+			Selecting transfer indices time (topk): 1.1335680484771729 ms
+			Applying transfer index time (where transfer_index): 0.03379200026392937 ms
+		update token time: 1.2615679502487183 ms
+		Step preparation time: 0.05344000086188316 ms
+		Model inference time: 77.67424011230469 ms
+		Gumbel noise and sampling time: 0.16486400365829468 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.831552028656006 ms
+			Confidence score gathering time: 0.05119999870657921 ms
+		Confidence score calculation time: 7.990143775939941 ms
+		Apply predictions where we have masks time: 0.08294399827718735 ms
+		Find transfer index time: 0.06963200122117996 ms
+			Selecting transfer indices time (topk): 1.1509759426116943 ms
+			Applying transfer index time (where transfer_index): 0.03379200026392937 ms
+		update token time: 1.277951955795288 ms
+		Step preparation time: 0.05321599915623665 ms
+		Model inference time: 77.50089263916016 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.832575798034668 ms
+			Confidence score gathering time: 0.05427199974656105 ms
+		Confidence score calculation time: 8.417280197143555 ms
+		Apply predictions where we have masks time: 0.08499199897050858 ms
+		Find transfer index time: 0.06963200122117996 ms
+			Selecting transfer indices time (topk): 1.0977280139923096 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.2215039730072021 ms
+		Step preparation time: 0.054207999259233475 ms
+		Model inference time: 77.36153411865234 ms
+		Gumbel noise and sampling time: 0.16572800278663635 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.8305277824401855 ms
+			Confidence score gathering time: 0.053247999399900436 ms
+		Confidence score calculation time: 7.997439861297607 ms
+		Apply predictions where we have masks time: 0.08294399827718735 ms
+		Find transfer index time: 0.07065600156784058 ms
+			Selecting transfer indices time (topk): 1.1141120195388794 ms
+			Applying transfer index time (where transfer_index): 0.03280000016093254 ms
+		update token time: 1.2389440536499023 ms
+		Step preparation time: 0.05347200110554695 ms
+		Model inference time: 77.27811431884766 ms
+		Gumbel noise and sampling time: 0.16582399606704712 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.83139181137085 ms
+			Confidence score gathering time: 0.05423999950289726 ms
+		Confidence score calculation time: 8.409088134765625 ms
+		Apply predictions where we have masks time: 0.08499199897050858 ms
+		Find transfer index time: 0.07065600156784058 ms
+			Selecting transfer indices time (topk): 1.1169919967651367 ms
+			Applying transfer index time (where transfer_index): 0.03190400078892708 ms
+		update token time: 1.2421760559082031 ms
+		Step preparation time: 0.05299200117588043 ms
+		Model inference time: 77.17977905273438 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.831552028656006 ms
+			Confidence score gathering time: 0.05119999870657921 ms
+		Confidence score calculation time: 7.990272045135498 ms
+		Apply predictions where we have masks time: 0.08396799862384796 ms
+		Find transfer index time: 0.07065600156784058 ms
+			Selecting transfer indices time (topk): 1.118016004562378 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.2617599964141846 ms
+		Step preparation time: 0.05475199967622757 ms
+		Model inference time: 77.08863830566406 ms
+		Gumbel noise and sampling time: 0.16678400337696075 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.831552028656006 ms
+			Confidence score gathering time: 0.05427199974656105 ms
+		Confidence score calculation time: 8.41420841217041 ms
+		Apply predictions where we have masks time: 0.08499199897050858 ms
+		Find transfer index time: 0.07065600156784058 ms
+			Selecting transfer indices time (topk): 1.1284480094909668 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.2533760070800781 ms
+		Step preparation time: 0.05302400141954422 ms
+		Model inference time: 77.09123229980469 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.831552028656006 ms
+			Confidence score gathering time: 0.07168000191450119 ms
+		Confidence score calculation time: 8.020992279052734 ms
+		Apply predictions where we have masks time: 0.08396799862384796 ms
+		Find transfer index time: 0.07487999647855759 ms
+			Selecting transfer indices time (topk): 1.1233279705047607 ms
+			Applying transfer index time (where transfer_index): 0.032607998698949814 ms
+		update token time: 1.2472319602966309 ms
+		Step preparation time: 0.05385600030422211 ms
+		Model inference time: 77.18921661376953 ms
+		Gumbel noise and sampling time: 0.16486400365829468 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.8305277824401855 ms
+			Confidence score gathering time: 0.054368000477552414 ms
+		Confidence score calculation time: 8.406144142150879 ms
+		Apply predictions where we have masks time: 0.08601599931716919 ms
+		Find transfer index time: 0.0697920024394989 ms
+			Selecting transfer indices time (topk): 1.1212799549102783 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.248255968093872 ms
+		Step preparation time: 0.05471999943256378 ms
+		Model inference time: 77.12834930419922 ms
+		Gumbel noise and sampling time: 0.16486400365829468 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.832575798034668 ms
+			Confidence score gathering time: 0.053247999399900436 ms
+		Confidence score calculation time: 8.009632110595703 ms
+		Apply predictions where we have masks time: 0.08390399813652039 ms
+		Find transfer index time: 0.06963200122117996 ms
+			Selecting transfer indices time (topk): 1.1233279705047607 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.248255968093872 ms
+		Step preparation time: 0.052639998495578766 ms
+		Model inference time: 77.28125 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.863296031951904 ms
+			Confidence score gathering time: 0.05612799897789955 ms
+		Confidence score calculation time: 8.451071739196777 ms
+		Apply predictions where we have masks time: 0.08595199882984161 ms
+		Find transfer index time: 0.07065600156784058 ms
+			Selecting transfer indices time (topk): 1.1100159883499146 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.2349439859390259 ms
+		Step preparation time: 0.0541439987719059 ms
+		Model inference time: 77.27401733398438 ms
+		Gumbel noise and sampling time: 0.24985599517822266 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.8919677734375 ms
+			Confidence score gathering time: 0.05222399905323982 ms
+		Confidence score calculation time: 8.054783821105957 ms
+		Apply predictions where we have masks time: 0.08294399827718735 ms
+		Find transfer index time: 0.07049600034952164 ms
+			Selecting transfer indices time (topk): 1.1384960412979126 ms
+			Applying transfer index time (where transfer_index): 0.03174399957060814 ms
+		update token time: 1.2604800462722778 ms
+		Step preparation time: 0.05392000079154968 ms
+		Model inference time: 77.52156829833984 ms
+		Gumbel noise and sampling time: 0.16486400365829468 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.871488094329834 ms
+			Confidence score gathering time: 0.0551999993622303 ms
+		Confidence score calculation time: 8.453120231628418 ms
+		Apply predictions where we have masks time: 0.08499199897050858 ms
+		Find transfer index time: 0.07168000191450119 ms
+			Selecting transfer indices time (topk): 1.124351978302002 ms
+			Applying transfer index time (where transfer_index): 0.03379200026392937 ms
+		update token time: 1.251423954963684 ms
+		Step preparation time: 0.05423999950289726 ms
+		Model inference time: 77.89836883544922 ms
+		Gumbel noise and sampling time: 0.1669120043516159 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.912447929382324 ms
+			Confidence score gathering time: 0.05315199866890907 ms
+		Confidence score calculation time: 8.074336051940918 ms
+		Apply predictions where we have masks time: 0.08393599838018417 ms
+		Find transfer index time: 0.06947200000286102 ms
+			Selecting transfer indices time (topk): 1.159168004989624 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.2832319736480713 ms
+		Step preparation time: 0.05395200103521347 ms
+		Model inference time: 77.60636901855469 ms
+		Gumbel noise and sampling time: 0.16486400365829468 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.864319801330566 ms
+			Confidence score gathering time: 0.0551999993622303 ms
+		Confidence score calculation time: 8.436736106872559 ms
+		Apply predictions where we have masks time: 0.08313599973917007 ms
+		Find transfer index time: 0.07065600156784058 ms
+			Selecting transfer indices time (topk): 1.1456639766693115 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.2728320360183716 ms
+		Step preparation time: 0.0541439987719059 ms
+		Model inference time: 77.59705352783203 ms
+		Gumbel noise and sampling time: 0.16486400365829468 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.848959922790527 ms
+			Confidence score gathering time: 0.05344000086188316 ms
+		Confidence score calculation time: 8.013792037963867 ms
+		Apply predictions where we have masks time: 0.08601599931716919 ms
+		Find transfer index time: 0.06870400160551071 ms
+			Selecting transfer indices time (topk): 1.159168004989624 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.284224033355713 ms
+		Step preparation time: 0.05395200103521347 ms
+		Model inference time: 77.61030578613281 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.846911907196045 ms
+			Confidence score gathering time: 0.055296000093221664 ms
+		Confidence score calculation time: 8.436736106872559 ms
+		Apply predictions where we have masks time: 0.0870399996638298 ms
+		Find transfer index time: 0.07065600156784058 ms
+			Selecting transfer indices time (topk): 1.1356159448623657 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.2707840204238892 ms
+		Step preparation time: 0.05423999950289726 ms
+		Model inference time: 77.61145782470703 ms
+		Gumbel noise and sampling time: 0.16486400365829468 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.8448638916015625 ms
+			Confidence score gathering time: 0.053247999399900436 ms
+		Confidence score calculation time: 8.008768081665039 ms
+		Apply predictions where we have masks time: 0.08294399827718735 ms
+		Find transfer index time: 0.07049600034952164 ms
+			Selecting transfer indices time (topk): 1.150015950202942 ms
+			Applying transfer index time (where transfer_index): 0.03379200026392937 ms
+		update token time: 1.2768959999084473 ms
+		Step preparation time: 0.0663359984755516 ms
+		Model inference time: 77.60431671142578 ms
+		Gumbel noise and sampling time: 0.16569599509239197 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.8397440910339355 ms
+			Confidence score gathering time: 0.055456001311540604 ms
+		Confidence score calculation time: 8.430591583251953 ms
+		Apply predictions where we have masks time: 0.08499199897050858 ms
+		Find transfer index time: 0.06963200122117996 ms
+			Selecting transfer indices time (topk): 1.1284480094909668 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.2514560222625732 ms
+		Step preparation time: 0.054207999259233475 ms
+		Model inference time: 77.62764739990234 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.840767860412598 ms
+			Confidence score gathering time: 0.05222399905323982 ms
+		Confidence score calculation time: 8.00051212310791 ms
+		Apply predictions where we have masks time: 0.08499199897050858 ms
+		Find transfer index time: 0.07056000083684921 ms
+			Selecting transfer indices time (topk): 1.1489280462265015 ms
+			Applying transfer index time (where transfer_index): 0.03174399957060814 ms
+		update token time: 1.2739200592041016 ms
+		Step preparation time: 0.0541439987719059 ms
+		Model inference time: 77.75846099853516 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.83955192565918 ms
+			Confidence score gathering time: 0.055296000093221664 ms
+		Confidence score calculation time: 8.423328399658203 ms
+		Apply predictions where we have masks time: 0.08601599931716919 ms
+		Find transfer index time: 0.07065600156784058 ms
+			Selecting transfer indices time (topk): 0.058368001133203506 ms
+			Applying transfer index time (where transfer_index): 0.030719999223947525 ms
+		update token time: 0.17510400712490082 ms
+Block 4 time: 3180.06982421875 ms
+		Step preparation time: 0.05615999922156334 ms
+		Model inference time: 78.07756805419922 ms
+		Gumbel noise and sampling time: 0.1669120043516159 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.8919677734375 ms
+			Confidence score gathering time: 0.0623680017888546 ms
+		Confidence score calculation time: 8.063039779663086 ms
+		Apply predictions where we have masks time: 0.08499199897050858 ms
+		Find transfer index time: 0.07168000191450119 ms
+			Selecting transfer indices time (topk): 2.402143955230713 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 2.5273280143737793 ms
+		Step preparation time: 0.05347200110554695 ms
+		Model inference time: 77.45523071289062 ms
+		Gumbel noise and sampling time: 0.42188799381256104 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.863264083862305 ms
+			Confidence score gathering time: 0.054207999259233475 ms
+		Confidence score calculation time: 8.027135848999023 ms
+		Apply predictions where we have masks time: 0.08585599809885025 ms
+		Find transfer index time: 0.07168000191450119 ms
+			Selecting transfer indices time (topk): 1.2124160528182983 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.3608959913253784 ms
+		Step preparation time: 0.060256000608205795 ms
+		Model inference time: 77.73721313476562 ms
+		Gumbel noise and sampling time: 0.16592000424861908 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.858047962188721 ms
+			Confidence score gathering time: 0.055424001067876816 ms
+		Confidence score calculation time: 8.441984176635742 ms
+		Apply predictions where we have masks time: 0.08396799862384796 ms
+		Find transfer index time: 0.07065600156784058 ms
+			Selecting transfer indices time (topk): 1.1876800060272217 ms
+			Applying transfer index time (where transfer_index): 0.03686400130391121 ms
+		update token time: 1.3486080169677734 ms
+		Step preparation time: 0.05366399884223938 ms
+		Model inference time: 77.67052459716797 ms
+		Gumbel noise and sampling time: 0.1669120043516159 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.90937614440918 ms
+			Confidence score gathering time: 0.05222399905323982 ms
+		Confidence score calculation time: 8.072223663330078 ms
+		Apply predictions where we have masks time: 0.08310399949550629 ms
+		Find transfer index time: 0.06963200122117996 ms
+			Selecting transfer indices time (topk): 1.3127679824829102 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.4407680034637451 ms
+		Step preparation time: 0.05407999828457832 ms
+		Model inference time: 77.55907440185547 ms
+		Gumbel noise and sampling time: 0.16582399606704712 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.857151985168457 ms
+			Confidence score gathering time: 0.05417599901556969 ms
+		Confidence score calculation time: 8.446880340576172 ms
+		Apply predictions where we have masks time: 0.08499199897050858 ms
+		Find transfer index time: 0.07078400254249573 ms
+			Selecting transfer indices time (topk): 1.214400053024292 ms
+			Applying transfer index time (where transfer_index): 0.03891199827194214 ms
+		update token time: 1.3494399785995483 ms
+		Step preparation time: 0.05305600166320801 ms
+		Model inference time: 77.82723236083984 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.908351898193359 ms
+			Confidence score gathering time: 0.053247999399900436 ms
+		Confidence score calculation time: 8.070143699645996 ms
+		Apply predictions where we have masks time: 0.084927998483181 ms
+		Find transfer index time: 0.07577600330114365 ms
+			Selecting transfer indices time (topk): 1.18886399269104 ms
+			Applying transfer index time (where transfer_index): 0.03379200026392937 ms
+		update token time: 1.3158400058746338 ms
+		Step preparation time: 0.054207999259233475 ms
+		Model inference time: 77.71158599853516 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.918399810791016 ms
+			Confidence score gathering time: 0.053408000618219376 ms
+		Confidence score calculation time: 8.083295822143555 ms
+		Apply predictions where we have masks time: 0.08499199897050858 ms
+		Find transfer index time: 0.0727040022611618 ms
+			Selecting transfer indices time (topk): 1.2472319602966309 ms
+			Applying transfer index time (where transfer_index): 0.032575998455286026 ms
+		update token time: 1.3864959478378296 ms
+		Step preparation time: 0.05350400134921074 ms
+		Model inference time: 77.46623992919922 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.884736061096191 ms
+			Confidence score gathering time: 0.055456001311540604 ms
+		Confidence score calculation time: 8.537088394165039 ms
+		Apply predictions where we have masks time: 0.08502399921417236 ms
+		Find transfer index time: 0.0798719972372055 ms
+			Selecting transfer indices time (topk): 1.250175952911377 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.3752319812774658 ms
+		Step preparation time: 0.05251200124621391 ms
+		Model inference time: 77.68284606933594 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.920639991760254 ms
+			Confidence score gathering time: 0.1955839991569519 ms
+		Confidence score calculation time: 8.234175682067871 ms
+		Apply predictions where we have masks time: 0.12902399897575378 ms
+		Find transfer index time: 0.07052800059318542 ms
+			Selecting transfer indices time (topk): 1.257472038269043 ms
+			Applying transfer index time (where transfer_index): 0.033695999532938004 ms
+		update token time: 1.3824000358581543 ms
+		Step preparation time: 0.05395200103521347 ms
+		Model inference time: 77.476318359375 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.860223770141602 ms
+			Confidence score gathering time: 0.055296000093221664 ms
+		Confidence score calculation time: 8.526847839355469 ms
+		Apply predictions where we have masks time: 0.08406399935483932 ms
+		Find transfer index time: 0.07065600156784058 ms
+			Selecting transfer indices time (topk): 1.2124160528182983 ms
+			Applying transfer index time (where transfer_index): 0.032735999673604965 ms
+		update token time: 1.338528037071228 ms
+		Step preparation time: 0.054207999259233475 ms
+		Model inference time: 77.25714874267578 ms
+		Gumbel noise and sampling time: 0.16492800414562225 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.867199897766113 ms
+			Confidence score gathering time: 0.058368001133203506 ms
+		Confidence score calculation time: 8.041343688964844 ms
+		Apply predictions where we have masks time: 0.08294399827718735 ms
+		Find transfer index time: 0.07152000069618225 ms
+			Selecting transfer indices time (topk): 1.2514879703521729 ms
+			Applying transfer index time (where transfer_index): 0.0318400003015995 ms
+		update token time: 1.3772799968719482 ms
+		Step preparation time: 0.053279999643564224 ms
+		Model inference time: 77.35968017578125 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.889920234680176 ms
+			Confidence score gathering time: 0.055296000093221664 ms
+		Confidence score calculation time: 8.488800048828125 ms
+		Apply predictions where we have masks time: 0.08396799862384796 ms
+		Find transfer index time: 0.07065600156784058 ms
+			Selecting transfer indices time (topk): 1.2297279834747314 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.3527040481567383 ms
+		Step preparation time: 0.053727999329566956 ms
+		Model inference time: 77.35356903076172 ms
+		Gumbel noise and sampling time: 0.16486400365829468 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.868415832519531 ms
+			Confidence score gathering time: 0.050303999334573746 ms
+		Confidence score calculation time: 8.0250883102417 ms
+		Apply predictions where we have masks time: 0.08294399827718735 ms
+		Find transfer index time: 0.06860800087451935 ms
+			Selecting transfer indices time (topk): 1.1960320472717285 ms
+			Applying transfer index time (where transfer_index): 0.03254399821162224 ms
+		update token time: 1.3208320140838623 ms
+		Step preparation time: 0.05385600030422211 ms
+		Model inference time: 77.35865783691406 ms
+		Gumbel noise and sampling time: 0.1740799993276596 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.895040035247803 ms
+			Confidence score gathering time: 0.07475200295448303 ms
+		Confidence score calculation time: 8.517631530761719 ms
+		Apply predictions where we have masks time: 0.12201599776744843 ms
+		Find transfer index time: 0.09113600105047226 ms
+			Selecting transfer indices time (topk): 3.256319999694824 ms
+			Applying transfer index time (where transfer_index): 0.03481600061058998 ms
+		update token time: 3.3863039016723633 ms
+		Step preparation time: 0.06204799935221672 ms
+		Model inference time: 77.1141128540039 ms
+		Gumbel noise and sampling time: 0.16896000504493713 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.833600044250488 ms
+			Confidence score gathering time: 0.41471999883651733 ms
+		Confidence score calculation time: 8.366144180297852 ms
+		Apply predictions where we have masks time: 0.09011200070381165 ms
+		Find transfer index time: 0.0727040022611618 ms
+			Selecting transfer indices time (topk): 2.381824016571045 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 2.5077760219573975 ms
+		Step preparation time: 0.056703999638557434 ms
+		Model inference time: 77.525634765625 ms
+		Gumbel noise and sampling time: 0.16784000396728516 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.831424236297607 ms
+			Confidence score gathering time: 0.4270080029964447 ms
+		Confidence score calculation time: 8.37936019897461 ms
+		Apply predictions where we have masks time: 0.08803199976682663 ms
+		Find transfer index time: 0.07158400118350983 ms
+			Selecting transfer indices time (topk): 1.314911961555481 ms
+			Applying transfer index time (where transfer_index): 0.031808000057935715 ms
+		update token time: 1.4407680034637451 ms
+		Step preparation time: 0.05459199845790863 ms
+		Model inference time: 77.0967025756836 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.833600044250488 ms
+			Confidence score gathering time: 0.060447998344898224 ms
+		Confidence score calculation time: 8.003583908081055 ms
+		Apply predictions where we have masks time: 0.08601599931716919 ms
+		Find transfer index time: 0.07065600156784058 ms
+			Selecting transfer indices time (topk): 1.2556159496307373 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.3803520202636719 ms
+		Step preparation time: 0.05536000058054924 ms
+		Model inference time: 77.26380920410156 ms
+		Gumbel noise and sampling time: 0.16486400365829468 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.8888959884643555 ms
+			Confidence score gathering time: 0.056223999708890915 ms
+		Confidence score calculation time: 8.500224113464355 ms
+		Apply predictions where we have masks time: 0.08601599931716919 ms
+		Find transfer index time: 0.07065600156784058 ms
+			Selecting transfer indices time (topk): 1.2513279914855957 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.376255989074707 ms
+		Step preparation time: 0.05369599908590317 ms
+		Model inference time: 77.3515853881836 ms
+		Gumbel noise and sampling time: 0.1669120043516159 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.89299201965332 ms
+			Confidence score gathering time: 0.05132799968123436 ms
+		Confidence score calculation time: 8.050687789916992 ms
+		Apply predictions where we have masks time: 0.08287999778985977 ms
+		Find transfer index time: 0.06860800087451935 ms
+			Selecting transfer indices time (topk): 1.136639952659607 ms
+			Applying transfer index time (where transfer_index): 0.03174399957060814 ms
+		update token time: 1.2595200538635254 ms
+		Step preparation time: 0.05369599908590317 ms
+		Model inference time: 77.37321472167969 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.890944004058838 ms
+			Confidence score gathering time: 0.05443200096487999 ms
+		Confidence score calculation time: 8.505279541015625 ms
+		Apply predictions where we have masks time: 0.08499199897050858 ms
+		Find transfer index time: 0.06860800087451935 ms
+			Selecting transfer indices time (topk): 1.2492480278015137 ms
+			Applying transfer index time (where transfer_index): 0.031936001032590866 ms
+		update token time: 1.372223973274231 ms
+		Step preparation time: 0.05392000079154968 ms
+		Model inference time: 77.31587219238281 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.83238410949707 ms
+			Confidence score gathering time: 0.05222399905323982 ms
+		Confidence score calculation time: 7.993343830108643 ms
+		Apply predictions where we have masks time: 0.08499199897050858 ms
+		Find transfer index time: 0.06963200122117996 ms
+			Selecting transfer indices time (topk): 1.2707840204238892 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.393664002418518 ms
+		Step preparation time: 0.05475199967622757 ms
+		Model inference time: 77.44937896728516 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.888031959533691 ms
+			Confidence score gathering time: 0.05225599929690361 ms
+		Confidence score calculation time: 8.468480110168457 ms
+		Apply predictions where we have masks time: 0.08396799862384796 ms
+		Find transfer index time: 0.06963200122117996 ms
+			Selecting transfer indices time (topk): 1.117184042930603 ms
+			Applying transfer index time (where transfer_index): 0.031808000057935715 ms
+		update token time: 1.2401280403137207 ms
+		Step preparation time: 0.054016001522541046 ms
+		Model inference time: 77.48941040039062 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.889920234680176 ms
+			Confidence score gathering time: 0.05119999870657921 ms
+		Confidence score calculation time: 8.04851245880127 ms
+		Apply predictions where we have masks time: 0.08377599716186523 ms
+		Find transfer index time: 0.06860800087451935 ms
+			Selecting transfer indices time (topk): 1.259552001953125 ms
+			Applying transfer index time (where transfer_index): 0.03174399957060814 ms
+		update token time: 1.3864320516586304 ms
+		Step preparation time: 0.05337600037455559 ms
+		Model inference time: 77.24310302734375 ms
+		Gumbel noise and sampling time: 0.16486400365829468 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.832575798034668 ms
+			Confidence score gathering time: 0.05427199974656105 ms
+		Confidence score calculation time: 8.41926383972168 ms
+		Apply predictions where we have masks time: 0.08294399827718735 ms
+		Find transfer index time: 0.06860800087451935 ms
+			Selecting transfer indices time (topk): 1.1827199459075928 ms
+			Applying transfer index time (where transfer_index): 0.03580800071358681 ms
+		update token time: 1.3310400247573853 ms
+		Step preparation time: 0.059808000922203064 ms
+		Model inference time: 76.84178924560547 ms
+		Gumbel noise and sampling time: 0.16486400365829468 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.774208068847656 ms
+			Confidence score gathering time: 0.05222399905323982 ms
+		Confidence score calculation time: 7.935999870300293 ms
+		Apply predictions where we have masks time: 0.08403199911117554 ms
+		Find transfer index time: 0.06963200122117996 ms
+			Selecting transfer indices time (topk): 1.2420799732208252 ms
+			Applying transfer index time (where transfer_index): 0.03174399957060814 ms
+		update token time: 1.3660160303115845 ms
+		Step preparation time: 0.054816000163555145 ms
+		Model inference time: 76.73641967773438 ms
+		Gumbel noise and sampling time: 0.16383999586105347 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.772160053253174 ms
+			Confidence score gathering time: 0.053247999399900436 ms
+		Confidence score calculation time: 8.350720405578613 ms
+		Apply predictions where we have masks time: 0.08499199897050858 ms
+		Find transfer index time: 0.06963200122117996 ms
+			Selecting transfer indices time (topk): 1.120255947113037 ms
+			Applying transfer index time (where transfer_index): 0.032735999673604965 ms
+		update token time: 1.2451839447021484 ms
+		Step preparation time: 0.05238400027155876 ms
+		Model inference time: 76.67407989501953 ms
+		Gumbel noise and sampling time: 0.16579200327396393 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.7742719650268555 ms
+			Confidence score gathering time: 0.05119999870657921 ms
+		Confidence score calculation time: 7.934815883636475 ms
+		Apply predictions where we have masks time: 0.08396799862384796 ms
+		Find transfer index time: 0.06860800087451935 ms
+			Selecting transfer indices time (topk): 1.1816960573196411 ms
+			Applying transfer index time (where transfer_index): 0.03254399821162224 ms
+		update token time: 1.3065600395202637 ms
+		Step preparation time: 0.053888000547885895 ms
+		Model inference time: 76.71833801269531 ms
+		Gumbel noise and sampling time: 0.16383999586105347 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.773183822631836 ms
+			Confidence score gathering time: 0.05734400078654289 ms
+		Confidence score calculation time: 8.363007545471191 ms
+		Apply predictions where we have masks time: 0.09113600105047226 ms
+		Find transfer index time: 0.06876800209283829 ms
+			Selecting transfer indices time (topk): 1.1242879629135132 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.2471359968185425 ms
+		Step preparation time: 0.05315199866890907 ms
+		Model inference time: 76.71049499511719 ms
+		Gumbel noise and sampling time: 0.16569599509239197 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.773183822631836 ms
+			Confidence score gathering time: 0.05222399905323982 ms
+		Confidence score calculation time: 7.934976100921631 ms
+		Apply predictions where we have masks time: 0.08294399827718735 ms
+		Find transfer index time: 0.06963200122117996 ms
+			Selecting transfer indices time (topk): 1.146880030632019 ms
+			Applying transfer index time (where transfer_index): 0.03174399957060814 ms
+		update token time: 1.2687360048294067 ms
+		Step preparation time: 0.053408000618219376 ms
+		Model inference time: 76.742431640625 ms
+		Gumbel noise and sampling time: 0.16486400365829468 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.773183822631836 ms
+			Confidence score gathering time: 0.05427199974656105 ms
+		Confidence score calculation time: 8.356863975524902 ms
+		Apply predictions where we have masks time: 0.08191999793052673 ms
+		Find transfer index time: 0.06860800087451935 ms
+			Selecting transfer indices time (topk): 1.112064003944397 ms
+			Applying transfer index time (where transfer_index): 0.03174399957060814 ms
+		update token time: 1.2390400171279907 ms
+		Step preparation time: 0.053247999399900436 ms
+		Model inference time: 76.70783996582031 ms
+		Gumbel noise and sampling time: 0.16486400365829468 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.773183822631836 ms
+			Confidence score gathering time: 0.04915200173854828 ms
+		Confidence score calculation time: 7.930880069732666 ms
+		Apply predictions where we have masks time: 0.08211199939250946 ms
+		Find transfer index time: 0.06860800087451935 ms
+			Selecting transfer indices time (topk): 1.1334079504013062 ms
+			Applying transfer index time (where transfer_index): 0.03177599981427193 ms
+		update token time: 1.2554240226745605 ms
+		Step preparation time: 0.06335999816656113 ms
+		Model inference time: 76.6365737915039 ms
+		Gumbel noise and sampling time: 0.16486400365829468 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.772160053253174 ms
+			Confidence score gathering time: 0.053247999399900436 ms
+		Confidence score calculation time: 8.368096351623535 ms
+		Apply predictions where we have masks time: 0.08303999900817871 ms
+		Find transfer index time: 0.06963200122117996 ms
+			Selecting transfer indices time (topk): 0.05939200147986412 ms
+			Applying transfer index time (where transfer_index): 0.03174399957060814 ms
+		update token time: 0.1730560064315796 ms
+Block 5 time: 3208.43505859375 ms
+		Step preparation time: 0.054816000163555145 ms
+		Model inference time: 76.60598754882812 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.774208068847656 ms
+			Confidence score gathering time: 0.07187200337648392 ms
+		Confidence score calculation time: 7.957503795623779 ms
+		Apply predictions where we have masks time: 0.08294399827718735 ms
+		Find transfer index time: 0.0799039974808693 ms
+			Selecting transfer indices time (topk): 2.3818559646606445 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 2.505728006362915 ms
+		Step preparation time: 0.059039998799562454 ms
+		Model inference time: 76.84233856201172 ms
+		Gumbel noise and sampling time: 0.16579200327396393 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.773087978363037 ms
+			Confidence score gathering time: 0.050175998359918594 ms
+		Confidence score calculation time: 7.930880069732666 ms
+		Apply predictions where we have masks time: 0.08499199897050858 ms
+		Find transfer index time: 0.06963200122117996 ms
+			Selecting transfer indices time (topk): 1.1673599481582642 ms
+			Applying transfer index time (where transfer_index): 0.03174399957060814 ms
+		update token time: 1.2903679609298706 ms
+		Step preparation time: 0.05385600030422211 ms
+		Model inference time: 76.85574340820312 ms
+		Gumbel noise and sampling time: 0.16383999586105347 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.772160053253174 ms
+			Confidence score gathering time: 0.05427199974656105 ms
+		Confidence score calculation time: 8.354816436767578 ms
+		Apply predictions where we have masks time: 0.08396799862384796 ms
+		Find transfer index time: 0.06963200122117996 ms
+			Selecting transfer indices time (topk): 1.1263999938964844 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.2554240226745605 ms
+		Step preparation time: 0.05193600058555603 ms
+		Model inference time: 76.73632049560547 ms
+		Gumbel noise and sampling time: 0.16486400365829468 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.77507209777832 ms
+			Confidence score gathering time: 0.058368001133203506 ms
+		Confidence score calculation time: 7.948319911956787 ms
+		Apply predictions where we have masks time: 0.0942080020904541 ms
+		Find transfer index time: 0.07683199644088745 ms
+			Selecting transfer indices time (topk): 1.6005120277404785 ms
+			Applying transfer index time (where transfer_index): 0.03174399957060814 ms
+		update token time: 1.7274880409240723 ms
+		Step preparation time: 0.05955199897289276 ms
+		Model inference time: 76.74761962890625 ms
+		Gumbel noise and sampling time: 0.16470399498939514 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.773183822631836 ms
+			Confidence score gathering time: 0.053247999399900436 ms
+		Confidence score calculation time: 7.934016227722168 ms
+		Apply predictions where we have masks time: 0.08499199897050858 ms
+		Find transfer index time: 0.07052800059318542 ms
+			Selecting transfer indices time (topk): 1.3188159465789795 ms
+			Applying transfer index time (where transfer_index): 0.40959998965263367 ms
+		update token time: 1.8462719917297363 ms
+		Step preparation time: 0.059007998555898666 ms
+		Model inference time: 76.78396606445312 ms
+		Gumbel noise and sampling time: 0.16383999586105347 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.774208068847656 ms
+			Confidence score gathering time: 0.05040000006556511 ms
+		Confidence score calculation time: 7.9297919273376465 ms
+		Apply predictions where we have masks time: 0.08377599716186523 ms
+		Find transfer index time: 0.06950400024652481 ms
+			Selecting transfer indices time (topk): 1.2410880327224731 ms
+			Applying transfer index time (where transfer_index): 0.03379200026392937 ms
+		update token time: 1.3803520202636719 ms
+		Step preparation time: 0.05244800075888634 ms
+		Model inference time: 76.88774108886719 ms
+		Gumbel noise and sampling time: 0.16486400365829468 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.775231838226318 ms
+			Confidence score gathering time: 0.05222399905323982 ms
+		Confidence score calculation time: 7.934976100921631 ms
+		Apply predictions where we have masks time: 0.08390399813652039 ms
+		Find transfer index time: 0.06956800073385239 ms
+			Selecting transfer indices time (topk): 1.127392053604126 ms
+			Applying transfer index time (where transfer_index): 0.032896000891923904 ms
+		update token time: 1.2544000148773193 ms
+		Step preparation time: 0.05286400020122528 ms
+		Model inference time: 77.07670593261719 ms
+		Gumbel noise and sampling time: 0.16486400365829468 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.773183822631836 ms
+			Confidence score gathering time: 0.05443200096487999 ms
+		Confidence score calculation time: 8.355839729309082 ms
+		Apply predictions where we have masks time: 0.08396799862384796 ms
+		Find transfer index time: 0.06860800087451935 ms
+			Selecting transfer indices time (topk): 1.2165119647979736 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.342527985572815 ms
+		Step preparation time: 0.05347200110554695 ms
+		Model inference time: 76.8779525756836 ms
+		Gumbel noise and sampling time: 0.16281600296497345 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.773183822631836 ms
+			Confidence score gathering time: 0.052352000027894974 ms
+		Confidence score calculation time: 7.932896137237549 ms
+		Apply predictions where we have masks time: 0.08089599758386612 ms
+		Find transfer index time: 0.06963200122117996 ms
+			Selecting transfer indices time (topk): 1.6406079530715942 ms
+			Applying transfer index time (where transfer_index): 0.03174399957060814 ms
+		update token time: 1.7725759744644165 ms
+		Step preparation time: 0.0522879995405674 ms
+		Model inference time: 76.92758178710938 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.774144172668457 ms
+			Confidence score gathering time: 0.05023999884724617 ms
+		Confidence score calculation time: 7.93071985244751 ms
+		Apply predictions where we have masks time: 0.08294399827718735 ms
+		Find transfer index time: 0.07372800260782242 ms
+			Selecting transfer indices time (topk): 1.2071360349655151 ms
+			Applying transfer index time (where transfer_index): 0.03174399957060814 ms
+		update token time: 1.32915198802948 ms
+		Step preparation time: 0.052799999713897705 ms
+		Model inference time: 76.93321228027344 ms
+		Gumbel noise and sampling time: 0.16383999586105347 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.772160053253174 ms
+			Confidence score gathering time: 0.06460800021886826 ms
+		Confidence score calculation time: 8.363007545471191 ms
+		Apply predictions where we have masks time: 0.08294399827718735 ms
+		Find transfer index time: 0.06860800087451935 ms
+			Selecting transfer indices time (topk): 1.1315200328826904 ms
+			Applying transfer index time (where transfer_index): 0.03187200054526329 ms
+		update token time: 1.2544000148773193 ms
+		Step preparation time: 0.05321599915623665 ms
+		Model inference time: 76.94409942626953 ms
+		Gumbel noise and sampling time: 0.17919999361038208 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.774240016937256 ms
+			Confidence score gathering time: 0.05004800111055374 ms
+		Confidence score calculation time: 7.929855823516846 ms
+		Apply predictions where we have masks time: 0.08396799862384796 ms
+		Find transfer index time: 0.06860800087451935 ms
+			Selecting transfer indices time (topk): 1.4673919677734375 ms
+			Applying transfer index time (where transfer_index): 0.03270399942994118 ms
+		update token time: 1.5973440408706665 ms
+		Step preparation time: 0.05276799947023392 ms
+		Model inference time: 77.02278137207031 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.773183822631836 ms
+			Confidence score gathering time: 0.052032001316547394 ms
+		Confidence score calculation time: 7.932928085327148 ms
+		Apply predictions where we have masks time: 0.08191999793052673 ms
+		Find transfer index time: 0.06764800101518631 ms
+			Selecting transfer indices time (topk): 1.2472319602966309 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.3721599578857422 ms
+		Step preparation time: 0.05257600173354149 ms
+		Model inference time: 77.05081939697266 ms
+		Gumbel noise and sampling time: 0.16281600296497345 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.773183822631836 ms
+			Confidence score gathering time: 0.05427199974656105 ms
+		Confidence score calculation time: 8.356863975524902 ms
+		Apply predictions where we have masks time: 0.08294399827718735 ms
+		Find transfer index time: 0.06963200122117996 ms
+			Selecting transfer indices time (topk): 1.090559959411621 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.2144639492034912 ms
+		Step preparation time: 0.05417599901556969 ms
+		Model inference time: 77.02288055419922 ms
+		Gumbel noise and sampling time: 0.16383999586105347 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.772096157073975 ms
+			Confidence score gathering time: 0.05119999870657921 ms
+		Confidence score calculation time: 7.9337921142578125 ms
+		Apply predictions where we have masks time: 0.08294399827718735 ms
+		Find transfer index time: 0.06860800087451935 ms
+			Selecting transfer indices time (topk): 1.644544005393982 ms
+			Applying transfer index time (where transfer_index): 0.03174399957060814 ms
+		update token time: 1.7715200185775757 ms
+		Step preparation time: 0.052960000932216644 ms
+		Model inference time: 77.21142578125 ms
+		Gumbel noise and sampling time: 0.16476799547672272 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.774208068847656 ms
+			Confidence score gathering time: 0.050175998359918594 ms
+		Confidence score calculation time: 7.928864002227783 ms
+		Apply predictions where we have masks time: 0.08479999750852585 ms
+		Find transfer index time: 0.06963200122117996 ms
+			Selecting transfer indices time (topk): 1.1550719738006592 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.2821120023727417 ms
+		Step preparation time: 0.05270399898290634 ms
+		Model inference time: 77.2113265991211 ms
+		Gumbel noise and sampling time: 0.16467200219631195 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.773183822631836 ms
+			Confidence score gathering time: 0.05318399891257286 ms
+		Confidence score calculation time: 8.353792190551758 ms
+		Apply predictions where we have masks time: 0.08294399827718735 ms
+		Find transfer index time: 0.06963200122117996 ms
+			Selecting transfer indices time (topk): 1.112064003944397 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.2390400171279907 ms
+		Step preparation time: 0.052639998495578766 ms
+		Model inference time: 77.23426818847656 ms
+		Gumbel noise and sampling time: 0.16467200219631195 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.774208068847656 ms
+			Confidence score gathering time: 0.056384000927209854 ms
+		Confidence score calculation time: 7.939072132110596 ms
+		Apply predictions where we have masks time: 0.08294399827718735 ms
+		Find transfer index time: 0.07395199686288834 ms
+			Selecting transfer indices time (topk): 1.1130880117416382 ms
+			Applying transfer index time (where transfer_index): 0.0318400003015995 ms
+		update token time: 1.2380160093307495 ms
+		Step preparation time: 0.05321599915623665 ms
+		Model inference time: 77.29821014404297 ms
+		Gumbel noise and sampling time: 0.16486400365829468 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.774208068847656 ms
+			Confidence score gathering time: 0.05119999870657921 ms
+		Confidence score calculation time: 7.935999870300293 ms
+		Apply predictions where we have masks time: 0.08294399827718735 ms
+		Find transfer index time: 0.06758400052785873 ms
+			Selecting transfer indices time (topk): 1.4929920434951782 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.6220159530639648 ms
+		Step preparation time: 0.05270399898290634 ms
+		Model inference time: 77.44172668457031 ms
+		Gumbel noise and sampling time: 0.16486400365829468 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.775296211242676 ms
+			Confidence score gathering time: 0.05011200159788132 ms
+		Confidence score calculation time: 7.929728031158447 ms
+		Apply predictions where we have masks time: 0.084927998483181 ms
+		Find transfer index time: 0.06963200122117996 ms
+			Selecting transfer indices time (topk): 1.2021759748458862 ms
+			Applying transfer index time (where transfer_index): 0.03174399957060814 ms
+		update token time: 1.3279039859771729 ms
+		Step preparation time: 0.053888000547885895 ms
+		Model inference time: 77.1596450805664 ms
+		Gumbel noise and sampling time: 0.16486400365829468 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.774208068847656 ms
+			Confidence score gathering time: 0.05427199974656105 ms
+		Confidence score calculation time: 8.357695579528809 ms
+		Apply predictions where we have masks time: 0.08588799834251404 ms
+		Find transfer index time: 0.06963200122117996 ms
+			Selecting transfer indices time (topk): 1.1603840589523315 ms
+			Applying transfer index time (where transfer_index): 0.032735999673604965 ms
+		update token time: 1.2879999876022339 ms
+		Step preparation time: 0.053119998425245285 ms
+		Model inference time: 77.09571075439453 ms
+		Gumbel noise and sampling time: 0.1637759953737259 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.786496162414551 ms
+			Confidence score gathering time: 0.051231998950242996 ms
+		Confidence score calculation time: 7.9431681632995605 ms
+		Apply predictions where we have masks time: 0.08102399855852127 ms
+		Find transfer index time: 0.06860800087451935 ms
+			Selecting transfer indices time (topk): 1.5646719932556152 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.6948479413986206 ms
+		Step preparation time: 0.054207999259233475 ms
+		Model inference time: 77.3071060180664 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.865344047546387 ms
+			Confidence score gathering time: 0.05119999870657921 ms
+		Confidence score calculation time: 8.026111602783203 ms
+		Apply predictions where we have masks time: 0.08396799862384796 ms
+		Find transfer index time: 0.06963200122117996 ms
+			Selecting transfer indices time (topk): 1.4888960123062134 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.6179200410842896 ms
+		Step preparation time: 0.05462399870157242 ms
+		Model inference time: 76.97203063964844 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.825407981872559 ms
+			Confidence score gathering time: 0.05222399905323982 ms
+		Confidence score calculation time: 7.985151767730713 ms
+		Apply predictions where we have masks time: 0.08380799740552902 ms
+		Find transfer index time: 0.06860800087451935 ms
+			Selecting transfer indices time (topk): 1.4704639911651611 ms
+			Applying transfer index time (where transfer_index): 0.03379200026392937 ms
+		update token time: 1.602560043334961 ms
+		Step preparation time: 0.05276799947023392 ms
+		Model inference time: 76.94233703613281 ms
+		Gumbel noise and sampling time: 0.16486400365829468 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.807040214538574 ms
+			Confidence score gathering time: 0.05446400120854378 ms
+		Confidence score calculation time: 7.986144065856934 ms
+		Apply predictions where we have masks time: 0.08499199897050858 ms
+		Find transfer index time: 0.06963200122117996 ms
+			Selecting transfer indices time (topk): 1.184607982635498 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.3107199668884277 ms
+		Step preparation time: 0.05500800162553787 ms
+		Model inference time: 76.64173126220703 ms
+		Gumbel noise and sampling time: 0.4464319944381714 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.775231838226318 ms
+			Confidence score gathering time: 0.05222399905323982 ms
+		Confidence score calculation time: 7.944191932678223 ms
+		Apply predictions where we have masks time: 0.0838719978928566 ms
+		Find transfer index time: 0.07782399654388428 ms
+			Selecting transfer indices time (topk): 1.2902400493621826 ms
+			Applying transfer index time (where transfer_index): 0.03174399957060814 ms
+		update token time: 1.4140160083770752 ms
+		Step preparation time: 0.05251200124621391 ms
+		Model inference time: 76.67094421386719 ms
+		Gumbel noise and sampling time: 0.16383999586105347 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.774208068847656 ms
+			Confidence score gathering time: 0.0533440001308918 ms
+		Confidence score calculation time: 8.375295639038086 ms
+		Apply predictions where we have masks time: 0.08294399827718735 ms
+		Find transfer index time: 0.06963200122117996 ms
+			Selecting transfer indices time (topk): 1.136639952659607 ms
+			Applying transfer index time (where transfer_index): 0.032607998698949814 ms
+		update token time: 1.260543942451477 ms
+		Step preparation time: 0.053119998425245285 ms
+		Model inference time: 76.88655853271484 ms
+		Gumbel noise and sampling time: 0.16575999557971954 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.831552028656006 ms
+			Confidence score gathering time: 0.051392000168561935 ms
+		Confidence score calculation time: 7.99129581451416 ms
+		Apply predictions where we have masks time: 0.0828159973025322 ms
+		Find transfer index time: 0.06943999975919724 ms
+			Selecting transfer indices time (topk): 1.4714879989624023 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.6015360355377197 ms
+		Step preparation time: 0.05318399891257286 ms
+		Model inference time: 76.6605453491211 ms
+		Gumbel noise and sampling time: 0.16383999586105347 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.772160053253174 ms
+			Confidence score gathering time: 0.05119999870657921 ms
+		Confidence score calculation time: 7.929855823516846 ms
+		Apply predictions where we have masks time: 0.08396799862384796 ms
+		Find transfer index time: 0.06860800087451935 ms
+			Selecting transfer indices time (topk): 1.6312320232391357 ms
+			Applying transfer index time (where transfer_index): 0.031936001032590866 ms
+		update token time: 1.760256052017212 ms
+		Step preparation time: 0.05241600051522255 ms
+		Model inference time: 76.62326049804688 ms
+		Gumbel noise and sampling time: 0.16486400365829468 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.774144172668457 ms
+			Confidence score gathering time: 0.051072001457214355 ms
+		Confidence score calculation time: 7.9339518547058105 ms
+		Apply predictions where we have masks time: 0.08297599852085114 ms
+		Find transfer index time: 0.06860800087451935 ms
+			Selecting transfer indices time (topk): 1.2410880327224731 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.3670400381088257 ms
+		Step preparation time: 0.05289600044488907 ms
+		Model inference time: 76.95372772216797 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.775231838226318 ms
+			Confidence score gathering time: 0.05305600166320801 ms
+		Confidence score calculation time: 7.9431681632995605 ms
+		Apply predictions where we have masks time: 0.08294399827718735 ms
+		Find transfer index time: 0.0727040022611618 ms
+			Selecting transfer indices time (topk): 1.1724799871444702 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.2984319925308228 ms
+		Step preparation time: 0.05375999957323074 ms
+		Model inference time: 76.67314910888672 ms
+		Gumbel noise and sampling time: 0.16486400365829468 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.776256084442139 ms
+			Confidence score gathering time: 0.05446400120854378 ms
+		Confidence score calculation time: 8.373248100280762 ms
+		Apply predictions where we have masks time: 0.08396799862384796 ms
+		Find transfer index time: 0.06963200122117996 ms
+			Selecting transfer indices time (topk): 0.05827200040221214 ms
+			Applying transfer index time (where transfer_index): 0.0307839997112751 ms
+		update token time: 0.17417599260807037 ms
+Block 6 time: 3219.867431640625 ms
+		Step preparation time: 0.05644800141453743 ms
+		Model inference time: 76.94671630859375 ms
+		Gumbel noise and sampling time: 0.16486400365829468 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.831552028656006 ms
+			Confidence score gathering time: 0.0623680017888546 ms
+		Confidence score calculation time: 8.004608154296875 ms
+		Apply predictions where we have masks time: 0.08908800035715103 ms
+		Find transfer index time: 0.0697920024394989 ms
+			Selecting transfer indices time (topk): 2.2016000747680664 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 2.3265280723571777 ms
+		Step preparation time: 0.05875200033187866 ms
+		Model inference time: 77.12995147705078 ms
+		Gumbel noise and sampling time: 0.3962880074977875 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.832575798034668 ms
+			Confidence score gathering time: 0.05427199974656105 ms
+		Confidence score calculation time: 7.996416091918945 ms
+		Apply predictions where we have masks time: 0.07894399762153625 ms
+		Find transfer index time: 0.07062400132417679 ms
+			Selecting transfer indices time (topk): 1.1632000207901 ms
+			Applying transfer index time (where transfer_index): 0.03283200040459633 ms
+		update token time: 1.2902400493621826 ms
+		Step preparation time: 0.05788800120353699 ms
+		Model inference time: 77.36870574951172 ms
+		Gumbel noise and sampling time: 0.1669120043516159 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.774208068847656 ms
+			Confidence score gathering time: 0.05222399905323982 ms
+		Confidence score calculation time: 7.9350080490112305 ms
+		Apply predictions where we have masks time: 0.078015998005867 ms
+		Find transfer index time: 0.06963200122117996 ms
+			Selecting transfer indices time (topk): 1.112064003944397 ms
+			Applying transfer index time (where transfer_index): 0.03174399957060814 ms
+		update token time: 1.2350080013275146 ms
+		Step preparation time: 0.05852799862623215 ms
+		Model inference time: 77.29376220703125 ms
+		Gumbel noise and sampling time: 0.536575973033905 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.833600044250488 ms
+			Confidence score gathering time: 0.05119999870657921 ms
+		Confidence score calculation time: 7.997439861297607 ms
+		Apply predictions where we have masks time: 0.08089599758386612 ms
+		Find transfer index time: 0.06963200122117996 ms
+			Selecting transfer indices time (topk): 1.1448320150375366 ms
+			Applying transfer index time (where transfer_index): 0.03270399942994118 ms
+		update token time: 1.2677119970321655 ms
+		Step preparation time: 0.058111999183893204 ms
+		Model inference time: 77.61309051513672 ms
+		Gumbel noise and sampling time: 0.5232639908790588 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.832575798034668 ms
+			Confidence score gathering time: 0.05119999870657921 ms
+		Confidence score calculation time: 7.99129581451416 ms
+		Apply predictions where we have masks time: 0.07785599678754807 ms
+		Find transfer index time: 0.06860800087451935 ms
+			Selecting transfer indices time (topk): 1.2432639598846436 ms
+			Applying transfer index time (where transfer_index): 0.03782400116324425 ms
+		update token time: 1.4161920547485352 ms
+		Step preparation time: 0.05795200169086456 ms
+		Model inference time: 77.69683074951172 ms
+		Gumbel noise and sampling time: 0.3993600010871887 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.832575798034668 ms
+			Confidence score gathering time: 0.05222399905323982 ms
+		Confidence score calculation time: 7.995232105255127 ms
+		Apply predictions where we have masks time: 0.0799039974808693 ms
+		Find transfer index time: 0.07065600156784058 ms
+			Selecting transfer indices time (topk): 1.0987520217895508 ms
+			Applying transfer index time (where transfer_index): 0.03286400064826012 ms
+		update token time: 1.223680019378662 ms
+		Step preparation time: 0.06028800085186958 ms
+		Model inference time: 77.1196517944336 ms
+		Gumbel noise and sampling time: 0.5263360142707825 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.79366397857666 ms
+			Confidence score gathering time: 0.05119999870657921 ms
+		Confidence score calculation time: 7.9534077644348145 ms
+		Apply predictions where we have masks time: 0.07884799689054489 ms
+		Find transfer index time: 0.06860800087451935 ms
+			Selecting transfer indices time (topk): 1.1531200408935547 ms
+			Applying transfer index time (where transfer_index): 0.0318400003015995 ms
+		update token time: 1.2780799865722656 ms
+		Step preparation time: 0.05817599967122078 ms
+		Model inference time: 77.19318389892578 ms
+		Gumbel noise and sampling time: 0.5323519706726074 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.8837761878967285 ms
+			Confidence score gathering time: 0.053119998425245285 ms
+		Confidence score calculation time: 8.045568466186523 ms
+		Apply predictions where we have masks time: 0.07782399654388428 ms
+		Find transfer index time: 0.06960000097751617 ms
+			Selecting transfer indices time (topk): 1.0895359516143799 ms
+			Applying transfer index time (where transfer_index): 0.03267199918627739 ms
+		update token time: 1.2124160528182983 ms
+		Step preparation time: 0.0575999990105629 ms
+		Model inference time: 77.108642578125 ms
+		Gumbel noise and sampling time: 0.5273600220680237 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.833600044250488 ms
+			Confidence score gathering time: 0.05119999870657921 ms
+		Confidence score calculation time: 7.9923200607299805 ms
+		Apply predictions where we have masks time: 0.07782399654388428 ms
+		Find transfer index time: 0.06860800087451935 ms
+			Selecting transfer indices time (topk): 1.1663360595703125 ms
+			Applying transfer index time (where transfer_index): 0.0318400003015995 ms
+		update token time: 1.2934399843215942 ms
+		Step preparation time: 0.05795200169086456 ms
+		Model inference time: 76.81922912597656 ms
+		Gumbel noise and sampling time: 0.16569599509239197 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.8305277824401855 ms
+			Confidence score gathering time: 0.053247999399900436 ms
+		Confidence score calculation time: 7.995423793792725 ms
+		Apply predictions where we have masks time: 0.08006399869918823 ms
+		Find transfer index time: 0.06963200122117996 ms
+			Selecting transfer indices time (topk): 1.129472017288208 ms
+			Applying transfer index time (where transfer_index): 0.0318400003015995 ms
+		update token time: 1.2544959783554077 ms
+		Step preparation time: 0.05881600081920624 ms
+		Model inference time: 76.95011138916016 ms
+		Gumbel noise and sampling time: 0.532480001449585 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.831552028656006 ms
+			Confidence score gathering time: 0.051072001457214355 ms
+		Confidence score calculation time: 7.99129581451416 ms
+		Apply predictions where we have masks time: 0.07788799703121185 ms
+		Find transfer index time: 0.06870400160551071 ms
+			Selecting transfer indices time (topk): 1.132416009902954 ms
+			Applying transfer index time (where transfer_index): 0.0318400003015995 ms
+		update token time: 1.2554240226745605 ms
+		Step preparation time: 0.05827200040221214 ms
+		Model inference time: 76.9359359741211 ms
+		Gumbel noise and sampling time: 0.5282559990882874 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.831552028656006 ms
+			Confidence score gathering time: 0.05225599929690361 ms
+		Confidence score calculation time: 7.996416091918945 ms
+		Apply predictions where we have masks time: 0.07897599786520004 ms
+		Find transfer index time: 0.06864000111818314 ms
+			Selecting transfer indices time (topk): 1.1223039627075195 ms
+			Applying transfer index time (where transfer_index): 0.03174399957060814 ms
+		update token time: 1.2472319602966309 ms
+		Step preparation time: 0.05913599953055382 ms
+		Model inference time: 76.89881896972656 ms
+		Gumbel noise and sampling time: 0.5251200199127197 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.833600044250488 ms
+			Confidence score gathering time: 0.07065600156784058 ms
+		Confidence score calculation time: 8.01689624786377 ms
+		Apply predictions where we have masks time: 0.08076799660921097 ms
+		Find transfer index time: 0.06860800087451935 ms
+			Selecting transfer indices time (topk): 1.1552319526672363 ms
+			Applying transfer index time (where transfer_index): 0.03174399957060814 ms
+		update token time: 1.2789759635925293 ms
+		Step preparation time: 0.05881600081920624 ms
+		Model inference time: 77.27327728271484 ms
+		Gumbel noise and sampling time: 0.5294079780578613 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.8305277824401855 ms
+			Confidence score gathering time: 0.053247999399900436 ms
+		Confidence score calculation time: 7.995391845703125 ms
+		Apply predictions where we have masks time: 0.07884799689054489 ms
+		Find transfer index time: 0.06774400174617767 ms
+			Selecting transfer indices time (topk): 1.1683839559555054 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.2953599691390991 ms
+		Step preparation time: 0.05788800120353699 ms
+		Model inference time: 77.0656967163086 ms
+		Gumbel noise and sampling time: 0.5345280170440674 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.773183822631836 ms
+			Confidence score gathering time: 0.053247999399900436 ms
+		Confidence score calculation time: 7.940095901489258 ms
+		Apply predictions where we have masks time: 0.07884799689054489 ms
+		Find transfer index time: 0.06963200122117996 ms
+			Selecting transfer indices time (topk): 1.1337599754333496 ms
+			Applying transfer index time (where transfer_index): 0.03190400078892708 ms
+		update token time: 1.2565439939498901 ms
+		Step preparation time: 0.05795200169086456 ms
+		Model inference time: 77.2356185913086 ms
+		Gumbel noise and sampling time: 0.5273600220680237 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.773183822631836 ms
+			Confidence score gathering time: 0.05222399905323982 ms
+		Confidence score calculation time: 7.937215805053711 ms
+		Apply predictions where we have masks time: 0.07884799689054489 ms
+		Find transfer index time: 0.06758400052785873 ms
+			Selecting transfer indices time (topk): 1.1357760429382324 ms
+			Applying transfer index time (where transfer_index): 0.03174399957060814 ms
+		update token time: 1.2584960460662842 ms
+		Step preparation time: 0.05766399949789047 ms
+		Model inference time: 77.68233489990234 ms
+		Gumbel noise and sampling time: 0.5263360142707825 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.833600044250488 ms
+			Confidence score gathering time: 0.0522879995405674 ms
+		Confidence score calculation time: 7.9984002113342285 ms
+		Apply predictions where we have masks time: 0.07875200361013412 ms
+		Find transfer index time: 0.06950400024652481 ms
+			Selecting transfer indices time (topk): 1.1253440380096436 ms
+			Applying transfer index time (where transfer_index): 0.03174399957060814 ms
+		update token time: 1.2503039836883545 ms
+		Step preparation time: 0.058687999844551086 ms
+		Model inference time: 77.41693115234375 ms
+		Gumbel noise and sampling time: 0.5294079780578613 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.835455894470215 ms
+			Confidence score gathering time: 0.05222399905323982 ms
+		Confidence score calculation time: 7.998464107513428 ms
+		Apply predictions where we have masks time: 0.07884799689054489 ms
+		Find transfer index time: 0.06860800087451935 ms
+			Selecting transfer indices time (topk): 1.240064024925232 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.3660160303115845 ms
+		Step preparation time: 0.05881600081920624 ms
+		Model inference time: 77.21446228027344 ms
+		Gumbel noise and sampling time: 0.16486400365829468 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.856128215789795 ms
+			Confidence score gathering time: 0.05222399905323982 ms
+		Confidence score calculation time: 8.026111602783203 ms
+		Apply predictions where we have masks time: 0.07795199751853943 ms
+		Find transfer index time: 0.06963200122117996 ms
+			Selecting transfer indices time (topk): 1.171455979347229 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.2944960594177246 ms
+		Step preparation time: 0.060095999389886856 ms
+		Model inference time: 77.10070037841797 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.831552028656006 ms
+			Confidence score gathering time: 0.05222399905323982 ms
+		Confidence score calculation time: 7.994368076324463 ms
+		Apply predictions where we have masks time: 0.07884799689054489 ms
+		Find transfer index time: 0.06880000233650208 ms
+			Selecting transfer indices time (topk): 1.2052479982376099 ms
+			Applying transfer index time (where transfer_index): 0.032607998698949814 ms
+		update token time: 1.3301759958267212 ms
+		Step preparation time: 0.05907199904322624 ms
+		Model inference time: 76.95423889160156 ms
+		Gumbel noise and sampling time: 0.5284159779548645 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.832575798034668 ms
+			Confidence score gathering time: 0.05315199866890907 ms
+		Confidence score calculation time: 7.996416091918945 ms
+		Apply predictions where we have masks time: 0.0788159966468811 ms
+		Find transfer index time: 0.06956800073385239 ms
+			Selecting transfer indices time (topk): 1.2113920450210571 ms
+			Applying transfer index time (where transfer_index): 0.030848000198602676 ms
+		update token time: 1.3332480192184448 ms
+		Step preparation time: 0.05852799862623215 ms
+		Model inference time: 76.94818878173828 ms
+		Gumbel noise and sampling time: 0.3951680064201355 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.832575798034668 ms
+			Confidence score gathering time: 0.07574400305747986 ms
+		Confidence score calculation time: 8.020992279052734 ms
+		Apply predictions where we have masks time: 0.0798719972372055 ms
+		Find transfer index time: 0.06860800087451935 ms
+			Selecting transfer indices time (topk): 1.1633280515670776 ms
+			Applying transfer index time (where transfer_index): 0.03276799991726875 ms
+		update token time: 1.2883199453353882 ms
+		Step preparation time: 0.05804799869656563 ms
+		Model inference time: 76.95587158203125 ms
+		Gumbel noise and sampling time: 0.5263360142707825 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.832575798034668 ms
+			Confidence score gathering time: 0.05321599915623665 ms
+		Confidence score calculation time: 7.997344017028809 ms
+		Apply predictions where we have masks time: 0.0798719972372055 ms
+		Find transfer index time: 0.06963200122117996 ms
+			Selecting transfer indices time (topk): 1.2122559547424316 ms
+			Applying transfer index time (where transfer_index): 0.032735999673604965 ms
+		update token time: 1.3343679904937744 ms
+		Step preparation time: 0.059039998799562454 ms
+		Model inference time: 77.32256317138672 ms
+		Gumbel noise and sampling time: 0.39321601390838623 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.831552028656006 ms
+			Confidence score gathering time: 0.053247999399900436 ms
+		Confidence score calculation time: 8.012800216674805 ms
+		Apply predictions where we have masks time: 0.0798719972372055 ms
+		Find transfer index time: 0.06963200122117996 ms
+			Selecting transfer indices time (topk): 1.18886399269104 ms
+			Applying transfer index time (where transfer_index): 0.03174399957060814 ms
+		update token time: 1.3137919902801514 ms
+		Step preparation time: 0.05936000123620033 ms
+		Model inference time: 77.4326400756836 ms
+		Gumbel noise and sampling time: 0.3962880074977875 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.833600044250488 ms
+			Confidence score gathering time: 0.05119999870657921 ms
+		Confidence score calculation time: 7.996416091918945 ms
+		Apply predictions where we have masks time: 0.0798719972372055 ms
+		Find transfer index time: 0.06876800209283829 ms
+			Selecting transfer indices time (topk): 1.1325440406799316 ms
+			Applying transfer index time (where transfer_index): 0.03174399957060814 ms
+		update token time: 1.2554240226745605 ms
+		Step preparation time: 0.05795200169086456 ms
+		Model inference time: 77.700927734375 ms
+		Gumbel noise and sampling time: 0.4065279960632324 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.8305277824401855 ms
+			Confidence score gathering time: 0.05407999828457832 ms
+		Confidence score calculation time: 7.99948787689209 ms
+		Apply predictions where we have masks time: 0.07900799810886383 ms
+		Find transfer index time: 0.06860800087451935 ms
+			Selecting transfer indices time (topk): 1.242143988609314 ms
+			Applying transfer index time (where transfer_index): 0.03177599981427193 ms
+		update token time: 1.3660160303115845 ms
+		Step preparation time: 0.059647999703884125 ms
+		Model inference time: 77.08870697021484 ms
+		Gumbel noise and sampling time: 0.4044800102710724 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.791615962982178 ms
+			Confidence score gathering time: 0.05222399905323982 ms
+		Confidence score calculation time: 7.957280158996582 ms
+		Apply predictions where we have masks time: 0.07884799689054489 ms
+		Find transfer index time: 0.07065600156784058 ms
+			Selecting transfer indices time (topk): 1.2562880516052246 ms
+			Applying transfer index time (where transfer_index): 0.03174399957060814 ms
+		update token time: 1.3834240436553955 ms
+		Step preparation time: 0.05955199897289276 ms
+		Model inference time: 77.1810531616211 ms
+		Gumbel noise and sampling time: 0.5263360142707825 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.862271785736084 ms
+			Confidence score gathering time: 0.051231998950242996 ms
+		Confidence score calculation time: 8.022144317626953 ms
+		Apply predictions where we have masks time: 0.07702399790287018 ms
+		Find transfer index time: 0.06883200258016586 ms
+			Selecting transfer indices time (topk): 1.2072960138320923 ms
+			Applying transfer index time (where transfer_index): 0.03081599995493889 ms
+		update token time: 1.32915198802948 ms
+		Step preparation time: 0.05993599817156792 ms
+		Model inference time: 76.84937286376953 ms
+		Gumbel noise and sampling time: 0.532480001449585 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.823200225830078 ms
+			Confidence score gathering time: 0.05119999870657921 ms
+		Confidence score calculation time: 7.982944011688232 ms
+		Apply predictions where we have masks time: 0.07785599678754807 ms
+		Find transfer index time: 0.06963200122117996 ms
+			Selecting transfer indices time (topk): 1.2339199781417847 ms
+			Applying transfer index time (where transfer_index): 0.03174399957060814 ms
+		update token time: 1.3590400218963623 ms
+		Step preparation time: 0.058368001133203506 ms
+		Model inference time: 76.99267578125 ms
+		Gumbel noise and sampling time: 0.16793599724769592 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.833600044250488 ms
+			Confidence score gathering time: 0.27324798703193665 ms
+		Confidence score calculation time: 8.242176055908203 ms
+		Apply predictions where we have masks time: 0.09113600105047226 ms
+		Find transfer index time: 0.07884799689054489 ms
+			Selecting transfer indices time (topk): 1.358847975730896 ms
+			Applying transfer index time (where transfer_index): 0.03686400130391121 ms
+		update token time: 1.499135971069336 ms
+		Step preparation time: 0.05795200169086456 ms
+		Model inference time: 77.02642822265625 ms
+		Gumbel noise and sampling time: 0.1658879965543747 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.836671829223633 ms
+			Confidence score gathering time: 0.27750399708747864 ms
+		Confidence score calculation time: 8.624128341674805 ms
+		Apply predictions where we have masks time: 0.09011200070381165 ms
+		Find transfer index time: 0.07680000364780426 ms
+			Selecting transfer indices time (topk): 1.2687360048294067 ms
+			Applying transfer index time (where transfer_index): 0.035840000957250595 ms
+		update token time: 1.4088319540023804 ms
+		Step preparation time: 0.06054399907588959 ms
+		Model inference time: 77.2218246459961 ms
+		Gumbel noise and sampling time: 0.39526399970054626 ms
+			=> type of logits: torch.bfloat16
+			Softmax calculation time: 7.831647872924805 ms
+			Confidence score gathering time: 0.056352000683546066 ms
+		Confidence score calculation time: 8.003583908081055 ms
+		Apply predictions where we have masks time: 0.23343999683856964 ms
+		Find transfer index time: 0.0687360018491745 ms
+			Selecting transfer indices time (topk): 0.05632000043988228 ms
+			Applying transfer index time (where transfer_index): 0.03174399957060814 ms
+		update token time: 0.17100800573825836 ms
+Block 7 time: 3266.171142578125 ms
+Keyboard interruption in main thread... closing server.
+Killing tunnel 127.0.0.1:7860 <> https://f619c52a685de1daaa.gradio.live

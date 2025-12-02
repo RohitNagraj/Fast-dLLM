@@ -17,6 +17,8 @@
 
 from __future__ import annotations
 
+import json
+
 import logging
 import math
 import sys
@@ -674,7 +676,16 @@ class LLaDABlock(nn.Module):
         Computes scaled dot product attention on query, key and value tensors, using an optional
         attention mask if passed, and applying dropout if a probability greater than 0.0 is specified.
         """
+        try:
+            from flash_attn import flash_attn_func  # type: ignore
+
+            self.flash_attn_func = flash_attn_func
+        except ModuleNotFoundError:
+            pass
+
+        # print(self.flash_attn_func, attn_mask)
         if self.flash_attn_func is not None and attn_mask is None:
+            # print(f"Using flash attention")
             r = self.flash_attn_func(
                 q.transpose(1, 2), k.transpose(1, 2), v.transpose(1, 2), dropout_p=dropout_p, causal=False
             )
@@ -710,6 +721,21 @@ class LLaDABlock(nn.Module):
         use_cache: bool = False,
         replace_position: Optional[torch.Tensor] = None,
     ) -> Tuple[torch.Tensor, Optional[Tuple[torch.Tensor, torch.Tensor]]]:
+        
+        profile = True
+        profile = False
+        if profile:
+            _start = torch.cuda.Event(enable_timing=True)
+            _end = torch.cuda.Event(enable_timing=True)
+            _start.record()
+            size_log = {
+                "input": {
+                    "q": q.size(),
+                    "k": k.size(),
+                    "v": v.size(),
+                }
+            }
+
         B, T, C = q.size()  # batch size, sequence length, d_model
         dtype = k.dtype
 
@@ -717,6 +743,12 @@ class LLaDABlock(nn.Module):
         if self.q_norm is not None and self.k_norm is not None: #self.q_norm: None, self.k_norm: None
             q = self.q_norm(q).to(dtype=dtype)
             k = self.k_norm(k).to(dtype=dtype)
+
+        if profile:
+            _end.record()
+            torch.cuda.synchronize()
+            # print(f"\t - Attention norm time: {_start.elapsed_time(_end)} ms")
+            _start.record()
 
         # Move head forward to be next to the batch dim.
         # shape: (B, nh, T, hs)
@@ -727,6 +759,20 @@ class LLaDABlock(nn.Module):
         # shape: (B, n_kv_h, T, hs)
         v = v.view(B, T, self.config.effective_n_kv_heads, C // self.config.n_heads).transpose(1, 2)
 
+        if profile:
+            _end.record()
+            torch.cuda.synchronize()
+            # print(f"\t - Attention transpose time: {_start.elapsed_time(_end)} ms")
+            size_log["after_transpose"] = {
+                "q": q.size(),
+                "k": k.size(),
+                "v": v.size(),
+            }
+            _start.record()
+
+
+        # print(f"(before layer_past) q shape: {q.shape}, k shape: {k.shape}, v shape: {v.shape}")
+        # print(f"(Replace position)", replace_position)
         if layer_past is not None: 
             past_key, past_value = layer_past
             if replace_position is None:
@@ -754,6 +800,17 @@ class LLaDABlock(nn.Module):
         present = (k, v) if use_cache else None #present: None
         query_len, key_len = q.shape[-2], k.shape[-2]  # could be different if layer_past not None
 
+        if profile:
+            _end.record()
+            torch.cuda.synchronize()
+            # print(f"\t - Attention +layer_past time: {_start.elapsed_time(_end)} ms")
+            size_log["after_layer_past"] = {
+                "q": q.size(),
+                "k": k.size(),
+                "v": v.size(),
+            }
+            _start.record()
+
         if self.config.rope:
             # Apply rotary embeddings.
             if replace_position is None:
@@ -762,6 +819,17 @@ class LLaDABlock(nn.Module):
                 # For batched replace_position, use the maximum position across all batches
                 max_replace_pos = replace_position.nonzero(as_tuple=True)[1].max() + 1 if replace_position.any() else key_len
                 q, k = self.rotary_emb(q, k, max_replace_pos)
+
+        if profile:
+            _end.record()
+            torch.cuda.synchronize()
+            # print(f"\t - Attention RoPE time: {_start.elapsed_time(_end)} ms")
+            size_log["after_rope"] = {
+                "q": q.size(),
+                "k": k.size(),
+                "v": v.size(),
+            }
+            _start.record()
 
         if attention_bias is not None:
             # Resize and cast attention bias.
@@ -775,6 +843,8 @@ class LLaDABlock(nn.Module):
 
         # Get the attention scores.
         # shape: (B, nh, T, hs)
+        # print(f"q shape: {q.shape}, k shape: {k.shape}, v shape: {v.shape}")
+        # print(f"\tattn_mask: {mask is not None}, is_causal: False")
         att = self._scaled_dot_product_attention(
             q,
             k,
@@ -783,11 +853,33 @@ class LLaDABlock(nn.Module):
             dropout_p=0.0 if not self.training else self.config.attention_dropout,
             is_causal=False,
         )
+
+        if profile:
+            _end.record()
+            torch.cuda.synchronize()
+            # print(f"\t - Scaled dot-product attention time: {_start.elapsed_time(_end)} ms")
+            size_log["after_attention"] = {
+                "att": att.size(),
+            }
+            _start.record()
+
         # Re-assemble all head outputs side-by-side.
         att = att.transpose(1, 2).contiguous().view(B, T, C)
 
         # Apply output projection.
-        return self.attn_out(att), present
+        ret =  self.attn_out(att), present
+
+        if profile:
+            _end.record()
+            torch.cuda.synchronize()
+            # print(f"\t - Attention transpose + output projection time: {_start.elapsed_time(_end)} ms")
+            size_log["output"] = {
+                "att": ret[0].shape,
+                "cache": None if ret[1] is None else (ret[1][0].shape, ret[1][1].shape),
+            }
+            print(json.dumps(size_log))
+
+        return ret
 
 
     @abstractmethod
@@ -965,10 +1057,59 @@ class LLaDALlamaBlock(LLaDABlock):
         #                      k, v: (batch_size, seq_len, d_model // n_heads)
         #  - for group query attn q: (batch_size, seq_len, d_model)
         #                      k, v: (batch_size, seq_len, d_model // n_kv_heads)
+
+        profile = True
+        profile = False
+        if profile:
+            _start = torch.cuda.Event(enable_timing=True)
+            _end = torch.cuda.Event(enable_timing=True)
+            __start = torch.cuda.Event(enable_timing=True)
+            __end = torch.cuda.Event(enable_timing=True)
+            _start.record()
+            __start.record()
+            time_log = {}
+            size_log = {}
+
+            size_log['attn_norm'] = {"from": x.shape}
+
         x_normed = self.attn_norm(x) #x:torch.Size([2, 168, 4096])
+
+        if profile:
+            _end.record()
+            torch.cuda.synchronize()
+            # print(f"\t - x norm time: {_start.elapsed_time(_end)} ms")
+            time_log['x norm'] = _start.elapsed_time(_end)
+            size_log['attn_norm']['to'] = x_normed.shape
+
+            _start.record()
+
         q = self.q_proj(x_normed) #q:torch.Size([2, 168, 4096])
+
+        if profile:
+            _end.record()
+            torch.cuda.synchronize()
+            # print(f"\t - q proj time: {_start.elapsed_time(_end)} ms")
+            time_log['q proj'] = _start.elapsed_time(_end)
+            size_log['q_proj'] = {"from": x_normed.shape, "to": q.shape}
+            _start.record()
+
         k = self.k_proj(x_normed) #k:torch.Size([2, 168, 4096])
         v = self.v_proj(x_normed) #v:torch.Size([2, 168, 4096])
+
+        if profile:
+            _end.record()
+            torch.cuda.synchronize()
+            # print(f"\t - k,v proj time: {_start.elapsed_time(_end)} ms")
+            time_log['k,v proj'] = _start.elapsed_time(_end)
+            size_log['k_proj'] = {"from": x_normed.shape, "to": k.shape}
+            size_log['v_proj'] = {"from": x_normed.shape, "to": v.shape}
+            _start.record()
+
+            __end.record()
+            torch.cuda.synchronize()
+            # print(f" - Total attn norm + qkv proj time: {__start.elapsed_time(__end)} ms")
+            time_log['Total attn norm + qkv proj'] = __start.elapsed_time(__end)
+
         # attention_bias: None
         # layer_past: None
         # use_cache: False
@@ -979,6 +1120,25 @@ class LLaDALlamaBlock(LLaDABlock):
             )
         else:
             att, cache = self.attention(q, k, v, attention_bias, layer_past=layer_past, use_cache=use_cache,replace_position=replace_position)
+
+        if profile:
+            _end.record()
+            torch.cuda.synchronize()
+            # print(f" - attention time: {_start.elapsed_time(_end)} ms")
+            time_log['attention'] = _start.elapsed_time(_end)
+            size_log['attention'] = {
+                "from": {
+                    "q": q.shape,
+                    "k": k.shape,
+                    "v": v.shape
+                }, 
+                "to": {
+                    "att": att.shape,
+                    "cache": None if cache is None else (cache[0].shape, cache[1].shape)
+                }
+            }
+            _start.record()
+
 
         # Add attention scores.
         # shape: (B, T, C)
@@ -991,15 +1151,43 @@ class LLaDALlamaBlock(LLaDABlock):
             x = self._activation_checkpoint_fn(self.ff_norm, x)  # type: ignore
         else:
             x = self.ff_norm(x)
-        x, x_up = self.ff_proj(x), self.up_proj(x) # new add
+        x, x_up = self.ff_proj(x), self.up_proj(x) # new add.   [up from dim 4096 to 12288, both x and x_up]
         if self._activation_checkpoint_fn is not None:
-            x = self._activation_checkpoint_fn(self.act, x)  # type: ignore
+            x = self._activation_checkpoint_fn(self.act, x)  # type: ignore   [12288]
         else:
-            x = self.act(x)
-        x = x * x_up # new add
+            x = self.act(x) #    [12288]
+
+        if profile:
+            _end.record()
+            torch.cuda.synchronize()
+            # print(f" - drop out + ff norm + proj + act time: {_start.elapsed_time(_end)} ms")
+            time_log['drop out + ff norm + proj + act'] = _start.elapsed_time(_end)
+            size_log['drop out + ff norm + proj + act'] = { "from": att.shape, "to": x.shape}
+            size_log['mult + ff final proj + dropout + residual'] = {"from": x.shape}
+            _start.record()
+        
+        x = x * x_up # new add   [12288]
         x = self.ff_out(x)
         x = self.dropout(x)
         x = og_x + x
+
+        if profile:
+            _end.record()
+            torch.cuda.synchronize()
+            # print(f" - mult + ff final proj + dropout + residual time: {_start.elapsed_time(_end)} ms")
+            time_log['mult + ff final proj + dropout + residual'] = _start.elapsed_time(_end)
+            size_log['mult + ff final proj + dropout + residual'] = {"to": x.shape}
+
+            total_time = time_log['Total attn norm + qkv proj'] \
+                + time_log['attention'] \
+                + time_log['drop out + ff norm + proj + act'] \
+                + time_log['mult + ff final proj + dropout + residual']
+            time_log['__total_time__'] = total_time
+
+            for k, v in time_log.items():
+                time_log[k] = round(v, 3)
+            print(json.dumps(size_log), flush=True)
+            print(json.dumps(time_log), flush=True)
 
         return x, cache
 
@@ -1348,6 +1536,19 @@ class LLaDAModel(nn.Module):
         output_hidden_states: Optional[bool] = None,
         replace_position: Optional[torch.Tensor] = None,
     ) -> LLaDAOutput:
+        
+        # print("forward args:")
+        # print(f"\tinput_ids: {input_ids.shape}")
+        # print(f"\tinput_embeddings: {input_embeddings.shape if input_embeddings is not None else 'None'}")
+        # print(f"\tattention_mask: {attention_mask.shape if attention_mask is not None else 'None'}")
+        # print(f"\tattention_bias: {attention_bias.shape if attention_bias is not None else 'None'}")
+        # print(f"\tpast_key_values: {len(past_key_values) if past_key_values is not None else 'None'}")
+        # print(f"\tuse_cache: {use_cache}")
+        # print(f"\tlast_logits_only: {last_logits_only}")
+        # print(f"\toutput_hidden_states: {output_hidden_states}")
+        # print(f"\treplace_position: {replace_position.shape if replace_position is not None else 'None'}")
+        # print()
+
         """
         :param input_ids: A tensor of shape `(batch_size, seq_len)`.
         :param input_embeddings: A tensor of shape `(batch_size, seq_len, d_model)` with input
@@ -1534,6 +1735,12 @@ class LLaDAModel(nn.Module):
             logits = self.transformer.ff_out(x)  # type: ignore
         if self.config.scale_logits:
             logits.mul_(1 / math.sqrt(self.config.d_model))
+
+        # print("forward output:")
+        # print(f"\tlogits: {logits.shape}")
+        # print(f"\tattn_key_values: {len(attn_key_values) if attn_key_values is not None else 'None'}")
+        # print(f"\thidden_states: {len(all_hidden_states) if output_hidden_states else 'None'}")
+        # print("-----" * 10)
 
         return LLaDAOutput(logits=logits, attn_key_values=attn_key_values, hidden_states=tuple(all_hidden_states) if output_hidden_states else None)  # type: ignore[arg-type]
 

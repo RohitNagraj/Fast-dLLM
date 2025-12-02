@@ -1,0 +1,1630 @@
+Using device: cuda
+forward args:
+	input_ids: torch.Size([1, 325])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: None
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 325, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+### Model inference [initial] time for block 0: 934.399169921875 ms
+### torch.Size([1, 325]) 69 101
+forward args:
+	input_ids: torch.Size([1, 256])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 256, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 0, step 1: 239.59039306640625 ms
+### torch.Size([1, 325]) 69 101
+forward args:
+	input_ids: torch.Size([1, 256])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 256, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 0, step 256: 62.83251190185547 ms
+### torch.Size([1, 325]) 69 101
+forward args:
+	input_ids: torch.Size([1, 256])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 256, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 0, step 256: 61.9683837890625 ms
+### torch.Size([1, 325]) 69 101
+forward args:
+	input_ids: torch.Size([1, 256])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 256, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 0, step 256: 61.8260498046875 ms
+### torch.Size([1, 325]) 69 101
+forward args:
+	input_ids: torch.Size([1, 256])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 256, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 0, step 256: 61.72159957885742 ms
+### torch.Size([1, 325]) 69 101
+forward args:
+	input_ids: torch.Size([1, 256])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 256, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 0, step 256: 61.630462646484375 ms
+### torch.Size([1, 325]) 69 101
+forward args:
+	input_ids: torch.Size([1, 256])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 256, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 0, step 256: 61.724449157714844 ms
+### torch.Size([1, 325]) 69 101
+forward args:
+	input_ids: torch.Size([1, 256])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 256, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 0, step 256: 62.150657653808594 ms
+### torch.Size([1, 325]) 69 101
+forward args:
+	input_ids: torch.Size([1, 256])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 256, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 0, step 256: 62.14553451538086 ms
+### torch.Size([1, 325]) 69 101
+forward args:
+	input_ids: torch.Size([1, 256])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 256, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 0, step 256: 62.39971160888672 ms
+### torch.Size([1, 325]) 69 101
+forward args:
+	input_ids: torch.Size([1, 256])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 256, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 0, step 256: 62.39846420288086 ms
+### torch.Size([1, 325]) 69 101
+forward args:
+	input_ids: torch.Size([1, 256])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 256, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 0, step 256: 62.49574279785156 ms
+### torch.Size([1, 325]) 69 101
+forward args:
+	input_ids: torch.Size([1, 256])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 256, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 0, step 256: 62.58278274536133 ms
+forward args:
+	input_ids: torch.Size([1, 325])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: None
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 325, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+### Model inference [initial] time for block 1: 73.99811553955078 ms
+### torch.Size([1, 325]) 101 133
+forward args:
+	input_ids: torch.Size([1, 224])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 224, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 1, step 1: 59.3623046875 ms
+### torch.Size([1, 325]) 101 133
+forward args:
+	input_ids: torch.Size([1, 224])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 224, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 1, step 256: 59.013118743896484 ms
+### torch.Size([1, 325]) 101 133
+forward args:
+	input_ids: torch.Size([1, 224])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 224, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 1, step 256: 60.475582122802734 ms
+### torch.Size([1, 325]) 101 133
+forward args:
+	input_ids: torch.Size([1, 224])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 224, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 1, step 256: 59.998207092285156 ms
+### torch.Size([1, 325]) 101 133
+forward args:
+	input_ids: torch.Size([1, 224])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 224, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 1, step 256: 60.1262092590332 ms
+### torch.Size([1, 325]) 101 133
+forward args:
+	input_ids: torch.Size([1, 224])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 224, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 1, step 256: 59.696128845214844 ms
+### torch.Size([1, 325]) 101 133
+forward args:
+	input_ids: torch.Size([1, 224])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 224, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 1, step 256: 59.222015380859375 ms
+### torch.Size([1, 325]) 101 133
+forward args:
+	input_ids: torch.Size([1, 224])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 224, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 1, step 256: 59.27628707885742 ms
+forward args:
+	input_ids: torch.Size([1, 325])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: None
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 325, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+### Model inference [initial] time for block 2: 73.88191986083984 ms
+### torch.Size([1, 325]) 133 165
+forward args:
+	input_ids: torch.Size([1, 192])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 192, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 2, step 1: 54.02009582519531 ms
+### torch.Size([1, 325]) 133 165
+forward args:
+	input_ids: torch.Size([1, 192])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 192, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 2, step 256: 50.48524856567383 ms
+### torch.Size([1, 325]) 133 165
+forward args:
+	input_ids: torch.Size([1, 192])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 192, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 2, step 256: 51.26451110839844 ms
+### torch.Size([1, 325]) 133 165
+forward args:
+	input_ids: torch.Size([1, 192])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 192, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 2, step 256: 52.351905822753906 ms
+### torch.Size([1, 325]) 133 165
+forward args:
+	input_ids: torch.Size([1, 192])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 192, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 2, step 256: 51.1363525390625 ms
+### torch.Size([1, 325]) 133 165
+forward args:
+	input_ids: torch.Size([1, 192])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 192, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 2, step 256: 51.516414642333984 ms
+### torch.Size([1, 325]) 133 165
+forward args:
+	input_ids: torch.Size([1, 192])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 192, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 2, step 256: 50.923423767089844 ms
+### torch.Size([1, 325]) 133 165
+forward args:
+	input_ids: torch.Size([1, 192])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 192, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 2, step 256: 51.65260696411133 ms
+forward args:
+	input_ids: torch.Size([1, 325])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: None
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 325, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+### Model inference [initial] time for block 3: 73.49491119384766 ms
+### torch.Size([1, 325]) 165 197
+forward args:
+	input_ids: torch.Size([1, 160])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 160, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 3, step 1: 43.09196853637695 ms
+### torch.Size([1, 325]) 165 197
+forward args:
+	input_ids: torch.Size([1, 160])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 160, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 3, step 256: 42.773502349853516 ms
+### torch.Size([1, 325]) 165 197
+forward args:
+	input_ids: torch.Size([1, 160])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 160, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 3, step 256: 42.93119812011719 ms
+### torch.Size([1, 325]) 165 197
+forward args:
+	input_ids: torch.Size([1, 160])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 160, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 3, step 256: 42.93017578125 ms
+### torch.Size([1, 325]) 165 197
+forward args:
+	input_ids: torch.Size([1, 160])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 160, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 3, step 256: 43.03257751464844 ms
+### torch.Size([1, 325]) 165 197
+forward args:
+	input_ids: torch.Size([1, 160])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 160, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 3, step 256: 42.893310546875 ms
+### torch.Size([1, 325]) 165 197
+forward args:
+	input_ids: torch.Size([1, 160])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 160, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 3, step 256: 43.19744110107422 ms
+### torch.Size([1, 325]) 165 197
+forward args:
+	input_ids: torch.Size([1, 160])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 160, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 3, step 256: 43.10927963256836 ms
+### torch.Size([1, 325]) 165 197
+forward args:
+	input_ids: torch.Size([1, 160])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 160, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 3, step 256: 43.005950927734375 ms
+### torch.Size([1, 325]) 165 197
+forward args:
+	input_ids: torch.Size([1, 160])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 160, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 3, step 256: 43.077632904052734 ms
+### torch.Size([1, 325]) 165 197
+forward args:
+	input_ids: torch.Size([1, 160])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 160, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 3, step 256: 43.07353591918945 ms
+### torch.Size([1, 325]) 165 197
+forward args:
+	input_ids: torch.Size([1, 160])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 160, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 3, step 256: 43.07353591918945 ms
+### torch.Size([1, 325]) 165 197
+forward args:
+	input_ids: torch.Size([1, 160])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 160, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 3, step 256: 43.077632904052734 ms
+### torch.Size([1, 325]) 165 197
+forward args:
+	input_ids: torch.Size([1, 160])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 160, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 3, step 256: 43.09695816040039 ms
+### torch.Size([1, 325]) 165 197
+forward args:
+	input_ids: torch.Size([1, 160])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 160, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 3, step 256: 43.11449432373047 ms
+### torch.Size([1, 325]) 165 197
+forward args:
+	input_ids: torch.Size([1, 160])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 160, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 3, step 256: 43.09913635253906 ms
+### torch.Size([1, 325]) 165 197
+forward args:
+	input_ids: torch.Size([1, 160])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 160, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 3, step 256: 43.25990295410156 ms
+forward args:
+	input_ids: torch.Size([1, 325])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: None
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 325, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+### Model inference [initial] time for block 4: 75.0271987915039 ms
+### torch.Size([1, 325]) 197 229
+forward args:
+	input_ids: torch.Size([1, 128])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 128, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 4, step 1: 54.57817459106445 ms
+### torch.Size([1, 325]) 197 229
+forward args:
+	input_ids: torch.Size([1, 128])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 128, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 4, step 256: 53.749759674072266 ms
+### torch.Size([1, 325]) 197 229
+forward args:
+	input_ids: torch.Size([1, 128])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 128, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 4, step 256: 41.0214729309082 ms
+### torch.Size([1, 325]) 197 229
+forward args:
+	input_ids: torch.Size([1, 128])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 128, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 4, step 256: 41.2836799621582 ms
+### torch.Size([1, 325]) 197 229
+forward args:
+	input_ids: torch.Size([1, 128])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 128, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 4, step 256: 41.30815887451172 ms
+### torch.Size([1, 325]) 197 229
+forward args:
+	input_ids: torch.Size([1, 128])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 128, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 4, step 256: 41.62678527832031 ms
+### torch.Size([1, 325]) 197 229
+forward args:
+	input_ids: torch.Size([1, 128])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 128, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 4, step 256: 40.985633850097656 ms
+### torch.Size([1, 325]) 197 229
+forward args:
+	input_ids: torch.Size([1, 128])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 128, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 4, step 256: 41.28246307373047 ms
+### torch.Size([1, 325]) 197 229
+forward args:
+	input_ids: torch.Size([1, 128])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 128, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 4, step 256: 41.11769485473633 ms
+### torch.Size([1, 325]) 197 229
+forward args:
+	input_ids: torch.Size([1, 128])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 128, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 4, step 256: 41.23062515258789 ms
+### torch.Size([1, 325]) 197 229
+forward args:
+	input_ids: torch.Size([1, 128])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 128, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 4, step 256: 41.86931228637695 ms
+### torch.Size([1, 325]) 197 229
+forward args:
+	input_ids: torch.Size([1, 128])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 128, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 4, step 256: 41.24873733520508 ms
+### torch.Size([1, 325]) 197 229
+forward args:
+	input_ids: torch.Size([1, 128])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 128, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 4, step 256: 41.185279846191406 ms
+### torch.Size([1, 325]) 197 229
+forward args:
+	input_ids: torch.Size([1, 128])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 128, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 4, step 256: 41.23955154418945 ms
+### torch.Size([1, 325]) 197 229
+forward args:
+	input_ids: torch.Size([1, 128])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 128, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 4, step 256: 41.1412467956543 ms
+### torch.Size([1, 325]) 197 229
+forward args:
+	input_ids: torch.Size([1, 128])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 128, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 4, step 256: 41.380863189697266 ms
+### torch.Size([1, 325]) 197 229
+forward args:
+	input_ids: torch.Size([1, 128])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 128, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 4, step 256: 41.19142532348633 ms
+### torch.Size([1, 325]) 197 229
+forward args:
+	input_ids: torch.Size([1, 128])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 128, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 4, step 256: 41.624576568603516 ms
+### torch.Size([1, 325]) 197 229
+forward args:
+	input_ids: torch.Size([1, 128])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 128, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 4, step 256: 41.53343963623047 ms
+### torch.Size([1, 325]) 197 229
+forward args:
+	input_ids: torch.Size([1, 128])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 128, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 4, step 256: 41.66758346557617 ms
+### torch.Size([1, 325]) 197 229
+forward args:
+	input_ids: torch.Size([1, 128])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 128, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 4, step 256: 41.66041564941406 ms
+### torch.Size([1, 325]) 197 229
+forward args:
+	input_ids: torch.Size([1, 128])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 128, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 4, step 256: 41.5549430847168 ms
+forward args:
+	input_ids: torch.Size([1, 325])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: None
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 325, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+### Model inference [initial] time for block 5: 73.39497375488281 ms
+### torch.Size([1, 325]) 229 261
+forward args:
+	input_ids: torch.Size([1, 96])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 96, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 5, step 1: 42.14067077636719 ms
+### torch.Size([1, 325]) 229 261
+forward args:
+	input_ids: torch.Size([1, 96])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 96, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 5, step 256: 42.37001419067383 ms
+### torch.Size([1, 325]) 229 261
+forward args:
+	input_ids: torch.Size([1, 96])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 96, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 5, step 256: 45.34489440917969 ms
+forward args:
+	input_ids: torch.Size([1, 325])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: None
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 325, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+### Model inference [initial] time for block 6: 73.95724487304688 ms
+### torch.Size([1, 325]) 261 293
+forward args:
+	input_ids: torch.Size([1, 64])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 64, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 6, step 1: 42.477569580078125 ms
+### torch.Size([1, 325]) 261 293
+forward args:
+	input_ids: torch.Size([1, 64])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 64, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 6, step 256: 42.054656982421875 ms
+### torch.Size([1, 325]) 261 293
+forward args:
+	input_ids: torch.Size([1, 64])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 64, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 6, step 256: 41.997310638427734 ms
+### torch.Size([1, 325]) 261 293
+forward args:
+	input_ids: torch.Size([1, 64])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 64, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 6, step 256: 41.9686393737793 ms
+### torch.Size([1, 325]) 261 293
+forward args:
+	input_ids: torch.Size([1, 64])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 64, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 6, step 256: 42.15727996826172 ms
+forward args:
+	input_ids: torch.Size([1, 325])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: None
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 325, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+### Model inference [initial] time for block 7: 73.96031951904297 ms
+### torch.Size([1, 325]) 293 325
+forward args:
+	input_ids: torch.Size([1, 32])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 32, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 7, step 1: 41.51897430419922 ms
+### torch.Size([1, 325]) 293 325
+forward args:
+	input_ids: torch.Size([1, 32])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 32, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 7, step 256: 41.3306884765625 ms
+### torch.Size([1, 325]) 293 325
+forward args:
+	input_ids: torch.Size([1, 32])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 32, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 7, step 256: 41.269248962402344 ms
+### torch.Size([1, 325]) 293 325
+forward args:
+	input_ids: torch.Size([1, 32])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 32, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 7, step 256: 41.494529724121094 ms
+### torch.Size([1, 325]) 293 325
+forward args:
+	input_ids: torch.Size([1, 32])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 32, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 7, step 256: 41.33375930786133 ms
+### torch.Size([1, 325]) 293 325
+forward args:
+	input_ids: torch.Size([1, 32])
+	input_embeddings: None
+	attention_mask: None
+	attention_bias: None
+	past_key_values: 32
+	use_cache: True
+	last_logits_only: False
+	output_hidden_states: None
+	replace_position: None
+
+forward output:
+	logits: torch.Size([1, 32, 126464])
+	attn_key_values: 32
+	hidden_states: None
+--------------------------------------------------
+ ### Model inference [logits] time for block 7, step 256: 41.603233337402344 ms
+Final response: To determine how many double-flips Tyler did, we need to follow these steps:
+
+Step 1: Identify the number of triple-flips Jen did.
+Jen did sixteen triple-flips.
+
+Step 2: Determine how many triple-flips Tyler did.
+Tyler flipped in the air half the number of times Jen did. Therefore, we calculate:
+\[ \text{Number of triple-flips Tyler did} = \frac{16}{2} = 8 \]
+
+Step 3: Calculate the number of double-flips Tyler did.
+Since Tyler did 8 triple-flips, and each triple-flip consists of 3 flips, we can find the total number of flips Tyler did by multiplying the number of triple-flips by 3:
+\[ \text{Total number of flips Tyler did} = 8 \times 3 = 24 \]
+Since each double-flip consists of 2 flips, the number of double-flips Tyler did is:
+\[ \text{Number of double-flips Tyler did} = \frac{24}{2} = 12 \]
+
+Therefore, the final answer is:
+\[\boxed{12} \]

@@ -7,6 +7,12 @@ from model.modeling_llada import LLaDAModelLM
 import time
 import re
 
+
+def printdebug(*args, **kwargs):
+    print(*args, **kwargs)
+    import sys
+    sys.stdout.flush()
+
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 print(f"Using device: {device}")
 
@@ -144,7 +150,19 @@ def generate_response_with_visualization_cache_and_parallel(model, tokenizer, de
     Returns:
         List of visualization states showing the progression and final text
     """
-    
+    START = torch.cuda.Event(enable_timing=True)
+    END = torch.cuda.Event(enable_timing=True)
+    MODEL_START = torch.cuda.Event(enable_timing=True)
+    MODEL_END = torch.cuda.Event(enable_timing=True)
+    MODEL_TIME = []
+    START.record()
+
+    profile = True
+    profile = False
+    if profile:
+        _start = torch.cuda.Event(enable_timing=True)
+        _end = torch.cuda.Event(enable_timing=True)
+
     # Process constraints
     if constraints is None:
         constraints = {}
@@ -203,7 +221,20 @@ def generate_response_with_visualization_cache_and_parallel(model, tokenizer, de
         block_mask_index = (x[:, current_block_start:current_block_end] == MASK_ID)
         num_transfer_tokens = get_num_transfer_tokens(block_mask_index, steps)
 
+        if profile:
+            _start.record()
+
+        MODEL_START.record()
         output = model(x, use_cache=True)
+        MODEL_END.record()
+        torch.cuda.synchronize()
+        MODEL_TIME.append(MODEL_START.elapsed_time(MODEL_END))
+
+        if profile:
+            _end.record()
+            torch.cuda.synchronize()
+            print(f"### Model inference [initial] time for block {num_block}: {_start.elapsed_time(_end)} ms")
+        
         past_key_values = output.past_key_values
 
         mask_index = (x == MASK_ID)
@@ -234,10 +265,23 @@ def generate_response_with_visualization_cache_and_parallel(model, tokenizer, de
         visualization_states.append(current_state)
         i = 1
         while True:
+            # print("###", x.shape, current_block_start, current_block_end)
             mask_index = (x[:, current_block_start:] == MASK_ID)
             mask_index[:, block_length:] = 0
 
+            if profile:
+                _start.record()
+
+            MODEL_START.record()
             logits = model(x[:, current_block_start:], past_key_values=past_key_values, use_cache=True).logits
+            MODEL_END.record()
+            torch.cuda.synchronize()
+            MODEL_TIME.append(MODEL_START.elapsed_time(MODEL_END))
+
+            if profile:
+                _end.record()
+                torch.cuda.synchronize()
+                print(f" ### Model inference [logits] time for block {num_block}, step {i}: {_start.elapsed_time(_end)} ms")
 
             logits_with_noise = add_gumbel_noise(logits, temperature=temperature)
             x0 = torch.argmax(logits_with_noise, dim=-1) # b, l
@@ -262,7 +306,14 @@ def generate_response_with_visualization_cache_and_parallel(model, tokenizer, de
             if (x[:, current_block_start:current_block_end] == MASK_ID).sum() == 0:
                 break
             i += 1
-    
+
+    END.record()
+    torch.cuda.synchronize()
+    printdebug(f"[fast] Total generation time: {START.elapsed_time(END)} ms")
+    printdebug(f"[fast] \t\tModel execution time: {sum(MODEL_TIME)} ms over {len(MODEL_TIME)} calls")
+    printdebug(f"[fast] \t\tMean model time per call: {sum(MODEL_TIME)/len(MODEL_TIME)} ms")
+    printdebug(f"[fast] \t\tOther time: {START.elapsed_time(END) - sum(MODEL_TIME)} ms")
+
     # Extract final text (just the assistant's response)
     response_tokens = x[0, prompt_length:]
     final_text = tokenizer.decode(response_tokens, 
@@ -318,7 +369,24 @@ def generate_response_with_visualization(model, tokenizer, device, messages, gen
     Returns:
         List of visualization states showing the progression and final text
     """
-    
+    START = torch.cuda.Event(enable_timing=True)
+    END = torch.cuda.Event(enable_timing=True)
+    MODEL_START = torch.cuda.Event(enable_timing=True)
+    MODEL_END = torch.cuda.Event(enable_timing=True)
+    MODEL_TIME = []
+    START.record()
+
+    profile = True
+    profile = False
+    if profile:
+        _start = torch.cuda.Event(enable_timing=True)
+        _end = torch.cuda.Event(enable_timing=True)
+        _block_start = torch.cuda.Event(enable_timing=True)
+        _block_end = torch.cuda.Event(enable_timing=True)
+        _tmp_start = torch.cuda.Event(enable_timing=True)
+        _tmp_end = torch.cuda.Event(enable_timing=True)
+        _start.record()
+
     # Process constraints
     if constraints is None:
         constraints = {}
@@ -331,13 +399,20 @@ def generate_response_with_visualization(model, tokenizer, device, messages, gen
             processed_constraints[pos + i] = token_id
     
     # Prepare the prompt using chat template
+    # printdebug(f"messages_input: {messages}")
+
     chat_input = tokenizer.apply_chat_template(messages, add_generation_prompt=True, tokenize=False)
+
+    # printdebug(f"chat_input: {chat_input}")
+
     input_ids = tokenizer(chat_input)['input_ids']
     input_ids = torch.tensor(input_ids).to(device).unsqueeze(0)
     
     # For generation
     prompt_length = input_ids.shape[1]
     
+    # printdebug(f"mask_id: {MASK_ID} =? 126336, prompt_length: {prompt_length}, gen_length: {gen_length}")
+
     # Initialize the sequence with masks for the response part
     x = torch.full((1, prompt_length + gen_length), MASK_ID, dtype=torch.long).to(device)
     x[:, :prompt_length] = input_ids.clone()
@@ -348,6 +423,8 @@ def generate_response_with_visualization(model, tokenizer, device, messages, gen
     # Add initial state (all masked)
     initial_state = [(MASK_TOKEN, "#444444") for _ in range(gen_length)]
     visualization_states.append(initial_state)
+
+    # printdebug(f"no constraints? {len(processed_constraints)}")
     
     # Apply constraints to the initial state
     for pos, token_id in processed_constraints.items():
@@ -357,6 +434,8 @@ def generate_response_with_visualization(model, tokenizer, device, messages, gen
     
     # Mark prompt positions to exclude them from masking during classifier-free guidance
     prompt_index = (x != MASK_ID)
+
+    # printdebug(f"prompt_index: {prompt_index}")
     
     # Ensure block_length is valid
     if block_length > gen_length:
@@ -371,15 +450,31 @@ def generate_response_with_visualization(model, tokenizer, device, messages, gen
     steps_per_block = steps // num_blocks
     if steps_per_block < 1:
         steps_per_block = 1
+
+    # printdebug(f"block_length: {block_length}")
+    # printdebug(f"steps_per_block: {steps_per_block}, steps: {steps}, num_blocks: {num_blocks}")
     
+    if profile:
+        _end.record()
+        torch.cuda.synchronize()
+        printdebug(f"Preparation time: {_start.elapsed_time(_end)} ms")
+
     # Process each block
     for num_block in range(num_blocks):
+
+        if profile:
+            _block_start.record()
+
         # Calculate the start and end indices for the current block
         block_start = prompt_length + num_block * block_length
         block_end = min(prompt_length + (num_block + 1) * block_length, x.shape[1])
+
+        # printdebug(f"\tnum_block: {num_block}, block_start: {block_start}, block_end: {block_end}")
         
         # Get mask indices for the current block
         block_mask_index = (x[:, block_start:block_end] == MASK_ID)
+
+        # printdebug(f"\tblock_mask_index: {block_mask_index}")
         
         # Skip if no masks in this block
         if not block_mask_index.any():
@@ -387,48 +482,157 @@ def generate_response_with_visualization(model, tokenizer, device, messages, gen
         
         # Calculate number of tokens to unmask at each step
         num_transfer_tokens = get_num_transfer_tokens(block_mask_index, steps_per_block)
-        
+
+        # printdebug(f"doing transfer tokens: In the reverse process, the interval [0, 1] is uniformly discretized into steps intervals.")
+        # printdebug(f"\tnum_transfer_tokens: {num_transfer_tokens}")
+
         # Process each step
         for i in range(steps_per_block):
+
+
+            if profile:
+                _start.record()
+
+            # printdebug(f"\t\tstep: {i}/{steps_per_block}")
+
             # Get all mask positions in the current sequence
             mask_index = (x == MASK_ID)
+
+            # printdebug(f"\t\tmask_index: {mask_index}")
             
             # Skip if no masks
             if not mask_index.any():
                 break
+
+            if profile:
+                _end.record()
+                torch.cuda.synchronize()
+                printdebug(f"\t\tStep preparation time: {_start.elapsed_time(_end)} ms")
+                _start.record()
             
             # Get logits from model
+            MODEL_START.record()
             logits = model(x).logits
+            MODEL_END.record()
+            torch.cuda.synchronize()
+            MODEL_TIME.append(MODEL_START.elapsed_time(MODEL_END))
+
+            if profile:
+                _end.record()
+                torch.cuda.synchronize()
+                printdebug(f"\t\tModel inference time: {_start.elapsed_time(_end)} ms")
+                _start.record()
+
+            # torch.set_printoptions(threshold=float('inf'))
+            # printdebug(model(x))
+            # printdebug(f"logits: {logits}")
+            # printdebug()
             
+            # printdebug("\t\tApplying Gumbel noise and sampling... The Gumbel max is a method for sampling categorical distributions. ... but reduces generation quality. Thus, we use float64.")
+
             # Apply Gumbel noise for sampling
             logits_with_noise = add_gumbel_noise(logits, temperature=temperature)
             x0 = torch.argmax(logits_with_noise, dim=-1)
+
+            if profile:
+                _end.record()
+                torch.cuda.synchronize()
+                printdebug(f"\t\tGumbel noise and sampling time: {_start.elapsed_time(_end)} ms")
+                _start.record()
+
+            # printdebug(f"\t\tlogits_with_noise: {logits_with_noise}")
+            # printdebug(f"\t\tx0 (sampled tokens): {x0}")
+
+            # printdebug(f"\t\tremasking strategy: {remasking}")
             
             # Calculate confidence scores for remasking
             if remasking == 'low_confidence':
+                if profile:
+                    printdebug(f"\t\t\t=> type of logits: {logits.dtype}")
+                    _tmp_start.record()
+
+                # p = F.softmax(logits, dim=-1)
                 p = F.softmax(logits.to(torch.float64), dim=-1)
+
+                if profile:
+                    _tmp_end.record()
+                    torch.cuda.synchronize()
+                    printdebug(f"\t\t\tSoftmax calculation time: {_tmp_start.elapsed_time(_tmp_end)} ms")
+                    _tmp_start.record()
+
                 x0_p = torch.squeeze(
                     torch.gather(p, dim=-1, index=torch.unsqueeze(x0, -1)), -1)  # b, l
+
+                if profile:
+                    _tmp_end.record()
+                    torch.cuda.synchronize()
+                    printdebug(f"\t\t\tConfidence score gathering time: {_tmp_start.elapsed_time(_tmp_end)} ms")
+                    _tmp_start.record()
+
             elif remasking == 'random':
                 x0_p = torch.rand((x0.shape[0], x0.shape[1]), device=x0.device)
             else:
                 raise NotImplementedError(f"Remasking strategy '{remasking}' not implemented")
             
+
+            if profile:
+                _end.record()
+                torch.cuda.synchronize()
+                printdebug(f"\t\tConfidence score calculation time: {_start.elapsed_time(_end)} ms")
+                _start.record()
+
+            # printdebug(f"\t\tx0_p (confidence scores): {x0_p}")
+
             # Don't consider positions beyond the current block
             x0_p[:, block_end:] = -float('inf')
+
+            # printdebug(f"\t\tx0_p after masking beyond block_end: {x0_p}")
             
             # Apply predictions where we have masks
             old_x = x.clone()
             x0 = torch.where(mask_index, x0, x)
+
+            if profile:
+                _end.record()
+                torch.cuda.synchronize()
+                printdebug(f"\t\tApply predictions where we have masks time: {_start.elapsed_time(_end)} ms")
+                _start.record()
+
+            # printdebug(f"\t\tx0 after applying mask_index: {x0}")
+
             confidence = torch.where(mask_index, x0_p, -float('inf'))
-            
+
+            # printdebug(f"\t\tconfidence after applying mask_index: {confidence}")
+            # printdebug(f"\t\tnow select transfer index...")
+
             # Select tokens to unmask based on confidence
             transfer_index = torch.zeros_like(x0, dtype=torch.bool, device=x0.device)
+
+            # printdebug(f"\t\ttransfer_index initialized: {transfer_index}")
+
+            if profile:
+                _end.record()
+                torch.cuda.synchronize()
+                printdebug(f"\t\tFind transfer index time: {_start.elapsed_time(_end)} ms")
+                _start.record()
+
+            if profile:
+                _tmp_start.record()
+
             for j in range(confidence.shape[0]):
+
+                # printdebug(f"\t\t\tprocessing batch (?) item: {j}, in step {i}")
+
                 # Only consider positions within the current block for unmasking
                 block_confidence = confidence[j, block_start:block_end]
                 if i < steps_per_block - 1:  # Not the last step
                     # Take top-k confidences
+
+                    # printdebug(f"block_confidence: {block_confidence}")
+                    # printdebug(f"num_transfer_tokens: {num_transfer_tokens}")
+                    # printdebug(f"num_transfer_tokens[{j}, {i}]: {num_transfer_tokens[j, i].item()}, block_confidence.numel(): {block_confidence.numel()}")
+                    # printdebug()
+
                     _, select_indices = torch.topk(block_confidence, 
                                                   k=min(num_transfer_tokens[j, i].item(), 
                                                        block_confidence.numel()))
@@ -437,15 +641,38 @@ def generate_response_with_visualization(model, tokenizer, device, messages, gen
                     transfer_index[j, select_indices] = True
                 else:  # Last step - unmask everything remaining
                     transfer_index[j, block_start:block_end] = mask_index[j, block_start:block_end]
+
+                # printdebug(f"\t\t\tselected indices for transfer: {select_indices if i < steps_per_block - 1 else 'all remaining masks'}")
+                # printdebug(f"\t\t\ttransfer_index after selection: {transfer_index}")
             
+            if profile:
+                _tmp_end.record()
+                torch.cuda.synchronize()
+                printdebug(f"\t\t\tSelecting transfer indices time (topk): {_tmp_start.elapsed_time(_tmp_end)} ms")
+                _tmp_start.record()
+
             # Apply the selected tokens
             x = torch.where(transfer_index, x0, x)
+
+            if profile:
+                _tmp_end.record()
+                torch.cuda.synchronize()
+                printdebug(f"\t\t\tApplying transfer index time (where transfer_index): {_tmp_start.elapsed_time(_tmp_end)} ms")
+
+            # printdebug(f"\t\tx after applying transfer_index: {x}")
             
+            # printdebug(f"\t\tApplying constraints to ensure they are maintained...")
+            # printdebug(f"\t\tprocessed_constraints: {processed_constraints} (== ?)")
             # Ensure constraints are maintained
             for pos, token_id in processed_constraints.items():
                 absolute_pos = prompt_length + pos
                 if absolute_pos < x.shape[1]:
                     x[:, absolute_pos] = token_id
+
+            if profile:
+                _end.record()
+                torch.cuda.synchronize()
+                printdebug(f"\t\tupdate token time: {_start.elapsed_time(_end)} ms")
             
             # Create visualization state only for the response part
             current_state = []
@@ -461,12 +688,30 @@ def generate_response_with_visualization(model, tokenizer, device, messages, gen
                     current_state.append((token, "#6699CC"))  # Light blue
             
             visualization_states.append(current_state)
+
+            # printdebug(f"\t\tcurrent_state: {current_state}")
+            # printdebug(f"length of visualization_states: {len(visualization_states)}")
+        
+        if profile:
+            _block_end.record()
+            torch.cuda.synchronize()
+            printdebug(f"Block {num_block} time: {_block_start.elapsed_time(_block_end)} ms")
     
+    END.record()
+    torch.cuda.synchronize()
+    printdebug(f"[ori]  Total generation time: {START.elapsed_time(END)} ms")
+    printdebug(f"[ori]  \t\tModel execution time: {sum(MODEL_TIME)} ms over {len(MODEL_TIME)} calls")
+    printdebug(f"[ori]  \t\tMean model time per call: {sum(MODEL_TIME)/len(MODEL_TIME)} ms")
+    printdebug(f"[ori]  \t\tOther time: {START.elapsed_time(END) - sum(MODEL_TIME)} ms")
+
     # Extract final text (just the assistant's response)
     response_tokens = x[0, prompt_length:]
     final_text = tokenizer.decode(response_tokens, 
                                skip_special_tokens=True,
                                clean_up_tokenization_spaces=True)
+
+    # printdebug(f"response_tokens: {response_tokens}")
+    # printdebug(f"final_text: {final_text}")
     
     return visualization_states, final_text
 
@@ -790,7 +1035,104 @@ def create_chatbot_demo():
         
     return demo
 
-# Launch the demo
+
 if __name__ == "__main__":
-    demo = create_chatbot_demo()
-    demo.queue().launch(share=True)
+    prompt = "Jen and Tyler are gymnasts practicing flips. Jen is practicing the triple-flip while Tyler is practicing the double-flip. Jen did sixteen triple-flips during practice. Tyler flipped in the air half the number of times Jen did. How many double-flips did Tyler do?"
+
+    prompt2 = """
+You are a powerful diffusion-based language model (dLLM) trained to iteratively refine text through a denoising process. 
+Your goal is to produce a coherent, creative, and logically consistent piece of writing over multiple denoising steps. 
+At each step, you will receive a noisy or partially masked version of the text, and your job is to fill in or improve the missing or low-confidence tokens 
+so that the overall content becomes more complete, fluent, and stylistically appropriate.
+
+Guidelines for Refinement:
+
+1. **Semantic Coherence**
+   - Always maintain the core meaning and topic from previous steps.
+   - Use context to predict missing information logically.
+   - Avoid introducing contradictions between earlier and later parts of the text.
+
+2. **Stylistic Consistency**
+   - Match tone and style across all sentences.
+   - If the genre is unclear, prefer a neutral, academic, and well-structured style.
+   - Use natural transitions between paragraphs and ideas.
+
+3. **Iterative Improvement**
+   - When filling in noise or masked regions, consider global sentence structure before generating local tokens.
+   - Try to smooth grammar and rhythm while keeping semantic precision.
+   - Minor stylistic changes are acceptable if they improve readability.
+
+4. **Handling Ambiguity**
+   - If the prompt or partial text contains uncertainty, propose the most likely completion first.
+   - When multiple valid options exist, favor those that align with the overall context or tone.
+
+5. **Long-Range Dependencies**
+   - Pay attention to consistency in characters, events, or argument structure across distant tokens.
+   - Avoid abrupt topic shifts between denoising iterations.
+
+6. **Fidelity to Conditioning**
+   - If a conditioning input (like an outline, question, or target topic) is provided, 
+     ensure every refinement step moves closer to fulfilling it.
+
+7. **Controlled Creativity**
+   - Encourage expressive phrasing and subtle variation, but ensure clarity and purpose.
+   - Avoid unnecessary repetition or overuse of adjectives.
+
+8. **Noise-Aware Behavior**
+   - In early diffusion steps, prioritize reconstructing grammatical structure and rough semantics.
+   - In later steps, focus on fine-grained word choice, fluency, and stylistic polish.
+
+---
+
+Example Conditioning Context:
+
+Input Topic: "The evolution of human–AI collaboration in scientific research."
+
+Your task is to generate a 4–6 paragraph essay that gradually evolves from abstract ideas 
+to specific applications and implications, showing clear reasoning and factual grounding. 
+In early steps, focus on structural coherence (introduction, body, conclusion). 
+In later steps, refine lexical choice, transitions, and flow.
+
+At each diffusion step, you will:
+- Receive a noisy or masked version of the current text.
+- Predict the denoised version with higher fluency and clarity.
+- Output the refined text as your denoised result.
+
+---
+
+Final Output Expectations:
+- Smooth, logically structured essay with clear topic sentences.
+- Cohesive argument flow.
+- Natural human-like phrasing.
+- No residual masking tokens or artifacts.
+
+[End of Prompt]
+
+"""
+
+    # _, final_text = generate_response_with_visualization(
+    for _ in range(10):
+
+        _, final_text = generate_response_with_visualization(
+            model, tokenizer, device, 
+            messages=[{"role": "user", "content": prompt}], 
+            gen_length=64,
+            steps=64,
+        )
+        _, final_text = generate_response_with_visualization_cache_and_parallel(
+            model, tokenizer, device, 
+            messages=[{"role": "user", "content": prompt}], 
+            gen_length=64,
+            steps=64,
+        )
+
+    print("Final response:", final_text)
+
+
+# # Launch the demo
+# if __name__ == "__main__":
+#     print("Creating the demo...")
+#     demo = create_chatbot_demo()
+
+#     print("Launching the demo...")
+#     demo.queue().launch(share=True, server_name="0.0.0.0", server_port=7777)

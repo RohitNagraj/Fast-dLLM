@@ -223,7 +223,7 @@ class ModelConfig():
     apply RoPE at the precision of the input.
     """
 
-    flash_attention: bool = False
+    flash_attention: bool = True
     """
     If ``True``, use ``FlashAttention``.
     """

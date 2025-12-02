@@ -19,10 +19,14 @@ import torch
 import numpy as np
 import torch.nn.functional as F
 import os
+import argparse
 from transformers import AutoTokenizer, AutoModel
 from model.modeling_llada import LLaDAModelLM
 
 from torch.cuda import nvtx
+
+PRECISION_MAX = torch.float16
+GET_TRANSFER_IDX_TIMER = 0.0
 
 def add_gumbel_noise(logits, temperature):
     '''
@@ -32,8 +36,8 @@ def add_gumbel_noise(logits, temperature):
     '''
     if temperature == 0:
         return logits
-    logits = logits.to(torch.float64)
-    noise = torch.rand_like(logits, dtype=torch.float64)
+    logits = logits.to(PRECISION_MAX)
+    noise = torch.rand_like(logits, dtype=PRECISION_MAX)
     gumbel_noise = (- torch.log(noise)) ** temperature
     return logits.exp() / gumbel_noise
 
@@ -82,8 +86,9 @@ def get_num_transfer_tokens(block_mask_index: torch.Tensor, steps: int) -> torch
 
 
 
-@ torch.no_grad()
-def generate(model, prompt, steps=128, gen_length=128, block_length=128, temperature=0.,
+@torch.no_grad()
+# @torch.compile(mode="max-autotune", fullgraph=True)
+def generate(model, prompt, repeat=1, steps=128, gen_length=128, block_length=128, temperature=0.,
              remasking='low_confidence', mask_id=126336, threshold=None, factor=None):
     '''
     Args:
@@ -97,6 +102,8 @@ def generate(model, prompt, steps=128, gen_length=128, block_length=128, tempera
         remasking: Remasking strategy. 'low_confidence' or 'random'.
         mask_id: The toke id of [MASK] is 126336.
     '''
+    prompt = prompt.repeat(repeat, 1)
+
     x = torch.full((prompt.shape[0], prompt.shape[1] + gen_length), mask_id, dtype=torch.long).to(model.device)
     x[:, :prompt.shape[1]] = prompt.clone()
 
@@ -207,11 +214,18 @@ def generate_with_prefix_cache(model, prompt, steps=128, gen_length=128, block_l
 
     return x, nfe
 
+
 @torch.no_grad()
+# @torch.compile(mode="max-autotune", fullgraph=True)
 def generate_with_dual_cache(
-    model, prompt, steps=128, gen_length=128, block_length=128, temperature=0.,
+    model, prompt, repeat=1, steps=128, gen_length=128, block_length=128, temperature=0.,
     remasking="low_confidence", mask_id=126336, threshold=None, factor=None
 ):
+    global GET_TRANSFER_IDX_TIMER
+    GET_TRANSFER_IDX_TIMER = 0.0
+
+    prompt = prompt.repeat(repeat, 1)
+
     B = prompt.shape[0]
     Lp = int(prompt.shape[1])  # Python int, not Tensor
     assert gen_length % block_length == 0
@@ -260,13 +274,12 @@ def generate_with_dual_cache(
 
         # In-place update via torch.where (no tensor-slice assignment with mask)
         x = torch.where(transfer_index, x0, x)
+        nfe += 1  # counted initial + this update
 
         # 2) Semi-autoregressive refinement, fixed number of steps (graph-friendly)
         #    Each iteration runs on the current block with KV-cache and replace_position
         for i in range(1, steps_per_block):
             # Evaluate logits only for current block with cache
-            if (x[:, s:e] == mask_id).sum() == 0:
-                break
             logits_blk = model(
                 x[:, s:e], past_key_values=past_key_values, use_cache=True, replace_position=replace_position
             ).logits  # shape expected by get_transfer_index*
@@ -291,6 +304,7 @@ def generate_with_dual_cache(
 
             nfe += 1
 
+    # print(f"total GET_TRANSFER_IDX time: {GET_TRANSFER_IDX_TIMER:.3f} sec")
     return x, nfe
 
 
@@ -309,6 +323,10 @@ def get_transfer_index(
         x0: (B, L) long — proposed tokens
         transfer_index: (B, L) bool — which positions to update this step
     """
+    global GET_TRANSFER_IDX_TIMER
+    import time
+    start = time.time()
+    
     # 1) Sample proposal x0
     # Gumbel-noise for exploration; if temperature==0, add_gumbel_noise should no-op
     logits_with_noise = add_gumbel_noise(logits, temperature=temperature)
@@ -317,10 +335,10 @@ def get_transfer_index(
     # 2) Confidence for chosen tokens (or random)
     if remasking == "low_confidence":
         # Use higher precision for softmax stability
-        p = F.softmax(logits.to(torch.float64), dim=-1)
+        p = F.softmax(logits.to(PRECISION_MAX), dim=-1)
         x0_p = torch.gather(p, dim=-1, index=x0.unsqueeze(-1)).squeeze(-1)  # (B, L), float64
     elif remasking == "random":
-        x0_p = torch.rand(x0.shape, device=x0.device, dtype=torch.float64)  # (B, L)
+        x0_p = torch.rand(x0.shape, device=x0.device, dtype=PRECISION_MAX)  # (B, L)
     else:
         raise NotImplementedError(remasking)
 
@@ -335,17 +353,6 @@ def get_transfer_index(
         # Transfer all masked positions whose confidence >= threshold
         # (No top-k; purely threshold-based)
         transfer_index = mask_index & (confidence >= threshold)
-
-        # at least one token is transferred "always unmask max c^i"
-        max_conf_indices = torch.argmax(confidence, dim=1, keepdim=True) # (B, 1)
-        force_mask = torch.zeros_like(transfer_index).scatter_(1, max_conf_indices, True)
-
-        # (Above Threshold) OR (Is Max Confidence)
-        transfer_index = transfer_index | force_mask
-
-        # Safety: do not unmask something that was not masked (consider fully unmasked rows)
-        transfer_index = transfer_index & mask_index
-
         return x0, transfer_index
 
     # Else: per-row top-k with varying k (num_transfer_tokens), fully batched
@@ -374,13 +381,15 @@ def get_transfer_index(
     transfer_int = transfer_int.scatter(1, idx, select_sorted.to(torch.int8))
     transfer_index = transfer_int.bool() & mask_index  # ensure we never select unmasked
 
+    GET_TRANSFER_IDX_TIMER += time.time() - start
+
     return x0, transfer_index
 
 def get_transfer_index_dynamic(logits, temperature, remasking, mask_index, x, num_transfer_tokens, factor=1):
     logits_with_noise = add_gumbel_noise(logits, temperature=temperature)
     x0 = torch.argmax(logits_with_noise, dim=-1) # b, l
     if remasking == 'low_confidence':
-        p = F.softmax(logits.to(torch.float64), dim=-1)
+        p = F.softmax(logits.to(PRECISION_MAX), dim=-1)
         x0_p = torch.squeeze(
             torch.gather(p, dim=-1, index=torch.unsqueeze(x0, -1)), -1) # b, l
     elif remasking == 'random':
@@ -395,10 +404,6 @@ def get_transfer_index_dynamic(logits, temperature, remasking, mask_index, x, nu
     num_transfer_tokens = mask_index.sum(dim=1, keepdim=True)
     
     for j in range(confidence.shape[0]):
-        num_tokens = int(num_transfer_tokens[j].item())
-        if num_tokens == 0:
-            continue
-        
         ns=list(range(1,num_transfer_tokens[j]+1))
         es=[factor/(n+1) for n in ns]
         threshs=[1-e for e in es]
@@ -420,13 +425,102 @@ def get_transfer_index_dynamic(logits, temperature, remasking, mask_index, x, nu
     return x0, transfer_index
 
 def main():
-    device = 'cuda'
+    parser = argparse.ArgumentParser(description='LLaDA text generation')
+    parser.add_argument('--repeat', type=int, default=5, help='Number of repetitions (default: 5)')
+    parser.add_argument('--genlen', type=int, default=128, help='Generation length (default: 128)')
+    parser.add_argument('--block', type=int, default=32, help='Block length (default: 32)')
+    args = parser.parse_args()
 
-    # model = LLaDAModelLM.from_pretrained('GSAI-ML/LLaDA-8B-Instruct', trust_remote_code=True, torch_dtype=torch.bfloat16).to(device).eval()
-    # tokenizer = AutoTokenizer.from_pretrained('GSAI-ML/LLaDA-8B-Instruct', trust_remote_code=True)
+    device = 'cuda'
 
     model = LLaDAModelLM.from_pretrained('GSAI-ML/LLaDA-8B-Instruct', trust_remote_code=True, torch_dtype=torch.bfloat16).to(device).eval()
     tokenizer = AutoTokenizer.from_pretrained('GSAI-ML/LLaDA-8B-Instruct', trust_remote_code=True)
+
+    # model = LLaDAModelLM.from_pretrained('/home/hans/.cache/huggingface/hub/models--GSAI-ML--LLaDA-8B-Instruct/snapshots/9275bf8f5a5687507189baf4657e91c51b2be338', trust_remote_code=True, torch_dtype=torch.bfloat16).to(device).eval()
+    # tokenizer = AutoTokenizer.from_pretrained('/home/hans/.cache/huggingface/hub/models--GSAI-ML--LLaDA-8B-Instruct/snapshots/9275bf8f5a5687507189baf4657e91c51b2be338', trust_remote_code=True)
+    prompt = """
+Mixture-of-Experts (MoE) architectures offer the promise
+of larger model capacity without the prohibitive costs of fully
+dense designs. However, in real-world inference serving, load
+skew across experts often leads to suboptimal device utilization and excessive synchronization overheads. This paper
+introduces Asynchronous Expert Parallelism (AEP), a new
+paradigm that decouples layer execution from barrier-style
+synchronization. By dynamically queuing tokens at each layer
+(referred to as µ-queuing) and adaptively re-batching them
+on demand, GPUs avoid waiting for straggling experts and
+instead continuously process whichever layer is ready. This
+asynchronous approach mitigates two major inefficiencies in
+traditional expert-parallel systems: (1) idle GPU time while
+waiting for the hottest expert, and (2) small-batch executions
+on colder experts that waste memory bandwidth.
+We implement these ideas in a serving system called
+AMoE, which disaggregates attention from expert layers and
+uses a defragging scheduler to reduce batch fragmentation.
+Evaluations on prototype MoE models show that AMoE improves throughput by up to 2.7x compared to state-of-the-art
+baselines, incurring a manageable latency penalty and providing a cost-effective operating point. Furthermore, experiments
+demonstrate nearly linear scalability to multi-node settings,
+whereas the baseline system shows no throughput increase
+even when the number of GPUs is doubled.
+Explain this work in simple terms.
+It is well known that the accuracy of a DNN (including LLM)
+is dependent on the model size [9], so high-performance models [20, 34] are rumored to use more than 1.5 trillion parameters. Unfortunately, such scaling of models increases the serving costs. For example, open AI charges $150 for 1 million
+token generation with GPT-4.5 [3], prohibitively expensive 
+for everyday applications.
+To enable scaling of model sizes without increasing
+the amount of computation for serving, Mixture-of-Experts
+(MoE) models are receiving increasing attention [1, 2, 13, 15,
+17,19,25,40]. MoE models are composed of many specialized
+experts, only a few of which (e.g., 1-2) are activated for each
+token, greatly reducing the amount of computation required
+for each token. In theory, we can increase the model size for
+better accuracy without increasing the amount of computation,
+and it’s proven to reduce training cost greatly [17].
+However, unlike training, today’s cost of MoE serving is
+still suboptimal because of the load skews across experts 1
+.
+As shown in Fig. 1, the load skew causes two serving efficiency challenges: (1) accelerator stalling when experts are
+sharded across GPUs [31] and (2) sub-optimal batch sizes
+for expert layer computations. Many MoE systems, such as
+SwitchTransformer [17], DeepSpeed-MoE [7], DeepSeek [13]
+and GLaM [15], shard experts across GPUs to fit large MoE
+models (expert parallelism). In such sharded deployment,
+GPUs in charge of cold experts will get lower loads and will
+be stalling while waiting for the slowest expert to finish. In
+addition to GPU stalls, expert load skew also hurts GPU efficiency by preventing layers’ executions at optimal batch
+sizes; cold expert computations are heavily bottlenecked by
+the GPU’s High Bandwidth Memory (HBM) bandwidth for
+loading parameters, while hot experts run at too large of a
+batch which hurts latency without any throughput benefits.
+These inefficiencies arise because today’s serving systems
+batch multiple requests and execute the fixed batch through
+all layers. With the rigid batching across all layers, all-to-all
+barrier-style communication before and after expert layers is
+inevitable and causes inefficiency when loads are not perfectly
+balanced. Strawman approaches like matching the skewed
+loads by provisioning more GPUs for hot experts won’t work
+well enough since expert load skews are known to shift dynamically [11, 21, 23, 31].
+We propose to solve the efficiency challenges in MoE serving via Asynchronous Expert Parallelism (AEP), where
+each device can execute and forward output independently
+in an asynchronous manner (Figure 2). The key technique is
+layer-wise scheduling: queuing tokens at the granularity of
+individual layers (which we call µ-queuing) and adaptively
+re-batching and executing just in time with the tokens so far
+accumulated at the layer’s own µ-queue. Due to adaptive rebatching, GPUs do not need to wait for barrier-style all-to-all
+communication to finish. Instead, they stay busy as long as
+enough load is offered at any layer. By colocating more than
+one expert layer on a GPU, scheduler can multiplex layers
+to prioritize execution of hot experts with enough input tokens and let cold experts to accumulate more tokens before
+execution.
+To demonstrate the efficacy of AEP, we built a prototype
+MoE serving, AMoE. With a small scale (8 experts, 8 GPUs)
+expert-compute-heavy workloads, our approach improved
+throughput up to 2.7x from the state of the art serving system with expert parallelism support (SGLang [49]), with a
+penalty on higher inter-token latency. On an extended scale
+(16 experts, 16 GPUs), AEP showed almost linear scaling
+of throughput while SGLang with standard EP showed no
+throughput increase when scaled from 8 GPU settings.
+"""
+    
     prompt = "Lily can run 12 kilometers per hour for 4 hours. After that, she runs 6 kilometers per hour. How many kilometers can she run in 8 hours?"
 
     # Add special tokens for the Instruct model. The Base model does not require the following two lines.
@@ -435,11 +529,26 @@ def main():
 
     input_ids = tokenizer(prompt)['input_ids']
     input_ids = torch.tensor(input_ids).to(device).unsqueeze(0)
+    print(input_ids.shape)
+    print()
     with torch.inference_mode():
         nvtx.range_push("INFER")
 
-        out = generate_with_dual_cache(model, input_ids, steps=128, gen_length=128, block_length=32, temperature=0., remasking='low_confidence')
-    
+        import time
+        for i in [0, 1, 3, 7, 15]:
+            
+            start_ = time.time()
+            out = generate_with_dual_cache(model, input_ids, repeat=i+1, steps=args.genlen, gen_length=args.genlen, block_length=args.block, temperature=0., remasking='low_confidence')
+            end_ = time.time()
+            print(f"[{i+1:2d}] (dual cache):", end_ - start_)
+
+            start_ = time.time()
+            out = generate(model, input_ids, repeat=i+1, steps=args.genlen, gen_length=args.genlen, block_length=args.block, temperature=0., remasking='low_confidence')
+            end_ = time.time()
+            print(f"[{i+1:2d}] ( original ):", end_ - start_)
+
+        # out = generate_with_dual_cache(model, input_ids, repeat=args.repeat, steps=args.genlen, gen_length=args.genlen, block_length=args.block, temperature=0., remasking='low_confidence')
+        
         torch.cuda.synchronize()
         nvtx.range_pop()
     print(tokenizer.batch_decode(out[0][:, input_ids.shape[1]:], skip_special_tokens=True)[0])
