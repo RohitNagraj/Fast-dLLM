@@ -52,6 +52,16 @@ from transformers.modeling_outputs import CausalLMOutputWithPast
 from transformers.models.auto import AutoModel
 from transformers.cache_utils import Cache
 
+from sgl_kernel import (
+    gemma_rmsnorm as GemmaRMSLayerNorm,
+    rotary_embedding as rotary_embedding_impl,
+)
+"""
+TODO: 
+1. silu and mul should be merged into one kernel
+
+"""
+
 from .configuration_llada import (
     LLaDAConfig,
     StrEnum,
@@ -353,7 +363,7 @@ class RMSLayerNorm(LayerNormBase):
             return x
 
 
-class GemmaRMSLayerNorm(LayerNormBase):
+class GemmaRMSLayerNormOld(LayerNormBase):
     """
     Gemma RMS layer norm, a simplified :class:`LayerNorm` implementation
     """
@@ -384,7 +394,7 @@ class GemmaRMSLayerNorm(LayerNormBase):
             return x
 
 
-class RotaryEmbedding(nn.Module):
+class RotaryEmbeddingOld(nn.Module):
     """
     [Rotary positional embeddings (RoPE)](https://arxiv.org/abs/2104.09864).
     """
@@ -467,6 +477,98 @@ class RotaryEmbedding(nn.Module):
         return q_.type_as(q), k_.type_as(k)
 
 
+class RotaryEmbedding(nn.Module):
+    """
+    Wrapper for sgl_kernel rotary_embedding function.
+    [Rotary positional embeddings (RoPE)](https://arxiv.org/abs/2104.09864).
+    """
+
+    def __init__(self, config: ModelConfig, cache: BufferCache):
+        super().__init__()
+        self.config = config
+        self.__cache = cache
+        self.rope_theta = config.rope_theta
+        self.head_size = config.d_model // config.n_heads
+        # Pre-compute cos_sin_cache
+        self._prepare_cos_sin_cache(config.max_sequence_length, _non_meta_init_device(config))
+
+    def _prepare_cos_sin_cache(self, seq_len: int, device: torch.device) -> torch.Tensor:
+        """Prepare cos/sin cache for rotary embeddings."""
+        with torch.autocast(device.type, enabled=False):
+            dim = self.head_size
+            inv_freq = 1.0 / (self.rope_theta ** (torch.arange(0, dim, 2, device=device, dtype=torch.float) / dim))
+            seq = torch.arange(seq_len, device=device, dtype=torch.float)
+            freqs = einsum("i , j -> i j", seq, inv_freq)
+            # cos_sin_cache shape: [seq_len, dim] with cos and sin interleaved
+            emb = torch.cat((freqs, freqs), dim=-1)
+            cos_sin_cache = torch.stack([emb.cos(), emb.sin()], dim=-1).flatten(-2)
+        self.__cache["rope_cos_sin_cache"] = cos_sin_cache
+        return cos_sin_cache
+
+    def get_cos_sin_cache(self, seq_len: int, device: torch.device) -> torch.Tensor:
+        """Get or create cos_sin_cache."""
+        if (cos_sin_cache := self.__cache.get("rope_cos_sin_cache")) is not None:
+            if cos_sin_cache.shape[0] >= seq_len:
+                if cos_sin_cache.device != device:
+                    cos_sin_cache = cos_sin_cache.to(device)
+                    self.__cache["rope_cos_sin_cache"] = cos_sin_cache
+                return cos_sin_cache
+        return self._prepare_cos_sin_cache(max(seq_len, self.config.max_sequence_length), device)
+
+    def forward(self, q: torch.Tensor, k: torch.Tensor,
+                block_end_index: Optional[torch.Tensor] = None) -> Tuple[torch.Tensor, torch.Tensor]:
+        """
+        Apply rotary embeddings to query and key tensors using sgl_kernel.
+
+        Args:
+            q: Query tensor of shape [B, num_heads, query_len, head_size]
+            k: Key tensor of shape [B, num_kv_heads, key_len, head_size]
+            block_end_index: Optional position index for the block
+
+        Returns:
+            Tuple of (rotated_q, rotated_k)
+        """
+        B, num_heads, query_len, head_size = q.shape
+        key_len = k.shape[2]
+
+        # Get cos_sin_cache and convert to same dtype as q
+        cos_sin_cache = self.get_cos_sin_cache(key_len, q.device)
+        cos_sin_cache = cos_sin_cache.to(dtype=q.dtype)
+
+        # Determine positions for query
+        if block_end_index is None:
+            start_pos = key_len - query_len
+            positions_q = torch.arange(start_pos, key_len, device=q.device, dtype=torch.long)
+        else:
+            if isinstance(block_end_index, torch.Tensor):
+                block_end_idx = block_end_index.item() if block_end_index.numel() == 1 else block_end_index.max().item()
+            else:
+                block_end_idx = block_end_index
+            start_pos = block_end_idx - query_len
+            positions_q = torch.arange(start_pos, block_end_idx, device=q.device, dtype=torch.long)
+
+        # Positions for key (full sequence)
+        positions_k = torch.arange(key_len, device=k.device, dtype=torch.long)
+
+        # Reshape q and k for the kernel: [B, num_heads, seq_len, head_size] -> [B * num_heads, seq_len, head_size]
+        num_kv_heads = k.shape[1]
+        q_reshaped = q.reshape(B * num_heads, query_len, head_size).contiguous()
+        k_reshaped = k.reshape(B * num_kv_heads, key_len, head_size).contiguous()
+
+        # Expand positions to match batch dimension
+        positions_q_expanded = positions_q.unsqueeze(0).expand(B * num_heads, -1)
+        positions_k_expanded = positions_k.unsqueeze(0).expand(B * num_kv_heads, -1)
+
+        # Apply rotary embeddings using sgl_kernel (modifies tensors in-place)
+        # Note: First call will trigger Triton kernel compilation and be slower
+        rotary_embedding_impl(positions_k_expanded, q_reshaped, k_reshaped, head_size, cos_sin_cache, is_neox=True)
+
+        # Reshape back to [B, num_heads, seq_len, head_size]
+        q = q_reshaped.view(B, num_heads, query_len, head_size)
+        k = k_reshaped.view(B, num_kv_heads, key_len, head_size)
+
+        return q, k
+
 
 class Activation(nn.Module):
     def __init__(self, config: ModelConfig):
@@ -521,6 +623,10 @@ class SwiGLU(Activation):
     def output_multiplier(self) -> float:
         return 0.5
 
+class GeluAndMul(nn.Module):
+    def __init__(self):
+        """placeholder"""
+        raise NotImplementedError
 
 def causal_attention_bias(seq_len: int, device: torch.device) -> torch.FloatTensor:
     att_bias = torch.triu(
@@ -613,6 +719,7 @@ class LLaDABlock(nn.Module):
 
         self.flash_attn_func = None
         if config.flash_attention:
+            log.info(f"Flash attention enabled: {config.flash_attention}")
             try:
                 from flash_attn import flash_attn_func  # type: ignore
 
@@ -802,6 +909,7 @@ class LLaDABlock(nn.Module):
 
     @classmethod
     def build(cls, layer_id: int, config: ModelConfig, cache: BufferCache) -> LLaDABlock:
+        log.info(f"Building block type: {config.block_type}")
         if config.block_type == BlockType.sequential:
             return LLaDASequentialBlock(layer_id, config, cache)
         elif config.block_type == BlockType.llama:
@@ -1297,6 +1405,7 @@ class LLaDAModel(nn.Module):
             return device
 
     def reset_parameters(self):
+        print("[DEBUG] Initializing model parameters...")  # Debug print
         log.info("Initializing model parameters...")
         # Top-level embeddings / linear layers.
         init_weights(
