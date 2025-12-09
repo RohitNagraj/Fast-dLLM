@@ -24,6 +24,7 @@ import numpy as np
 import torch.nn.functional as F
 import os
 from transformers import AutoTokenizer, AutoModel
+# from model.modeling_llada import LLaDAModelLM
 from model.modeling_llada_sgl_kernel import LLaDAModelLM
 
 from torch.cuda import nvtx
@@ -169,6 +170,8 @@ def generate_with_prefix_cache(model, prompt, steps=128, gen_length=128, block_l
         past_key_values = output.past_key_values
 
         mask_index = (x == mask_id)
+        print(current_block_end, flush=True)
+        print(mask_index.shape, flush=True)
         mask_index[:, current_block_end:] = 0
         if factor is None:
             x0, transfer_index = get_transfer_index(output.logits, temperature, remasking, mask_index, x, num_transfer_tokens[:, 0] if threshold is None else None, threshold)
@@ -443,13 +446,13 @@ def main():
         nvtx.range_push("INFER")
 
         print("warming up...")
-        [ generate_with_prefix_cache(model, input_ids, steps=128, gen_length=128, block_length=32, temperature=0., remasking='low_confidence') for _ in range(1) ]
+        [ generate_with_prefix_cache(model, input_ids, steps=128, gen_length=128, block_length=32, temperature=0., remasking='low_confidence') for _ in range(10) ]
         print("start timed generation...")
         start = torch.cuda.Event(enable_timing=True)
         end = torch.cuda.Event(enable_timing=True)
         torch.cuda.synchronize()
         start.record()
-        [ generate_with_prefix_cache(model, input_ids, steps=128, gen_length=128, block_length=32, temperature=0., remasking='low_confidence') for _ in range(1) ]
+        [ generate_with_prefix_cache(model, input_ids, steps=128, gen_length=128, block_length=32, temperature=0., remasking='low_confidence') for _ in range(10) ]
         end.record()
         torch.cuda.synchronize()
         print(f"Avg latency with prefix cache: {start.elapsed_time(end)/10:.2f} ms")

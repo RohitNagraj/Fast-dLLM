@@ -53,8 +53,9 @@ from transformers.models.auto import AutoModel
 from transformers.cache_utils import Cache
 
 from sgl_kernel import (
-    gemma_rmsnorm as GemmaRMSLayerNorm,
-    rotary_embedding as rotary_embedding_impl,
+    rmsnorm as rmsnorm_sgl_impl,
+    gemma_rmsnorm as gemma_rmsnorm_sgl_impl,
+    rotary_embedding as rotary_embedding_sgl_impl,
 )
 """
 TODO: 
@@ -83,8 +84,8 @@ else:
 __all__ = [
     "LayerNormBase",
     "LayerNorm",
-    "RMSLayerNorm",
-    "GemmaRMSLayerNorm",
+    # "RMSLayerNorm",
+    # "GemmaRMSLayerNorm",
     "RotaryEmbedding",
     "Activation",
     "GELU",
@@ -332,7 +333,7 @@ class LayerNorm(LayerNormBase):
             return F.layer_norm(x, self.normalized_shape, weight=self.weight, bias=self.bias, eps=self.eps)
 
 
-class RMSLayerNorm(LayerNormBase):
+class RMSLayerNormOri(LayerNormBase):
     """
     RMS layer norm, a simplified :class:`LayerNorm` implementation
     """
@@ -363,7 +364,7 @@ class RMSLayerNorm(LayerNormBase):
             return x
 
 
-class GemmaRMSLayerNormOld(LayerNormBase):
+class GemmaRMSLayerNormOri(LayerNormBase):
     """
     Gemma RMS layer norm, a simplified :class:`LayerNorm` implementation
     """
@@ -394,7 +395,97 @@ class GemmaRMSLayerNormOld(LayerNormBase):
             return x
 
 
-class RotaryEmbeddingOld(nn.Module):
+class RMSLayerNormSgl(LayerNormBase):
+    """
+    RMS layer norm using SGL kernel implementation
+    """
+
+    def __init__(
+        self,
+        config: ModelConfig,
+        size: Optional[int] = None,
+        elementwise_affine: Optional[bool] = None,
+        eps: float = 1e-5,
+    ):
+        super().__init__(config, size=size, elementwise_affine=elementwise_affine, eps=config.rms_norm_eps)
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        # SGL kernel expects weight parameter
+        if self.weight is None:
+            raise RuntimeError("RMSLayerNorm requires weight parameter")
+
+        # SGL kernel expects 2D input: (batch_size * seq_len, hidden_dim)
+        # Save original shape and reshape if needed
+        original_shape = x.shape
+        if x.dim() == 3:
+            # Reshape from (batch_size, seq_len, hidden_dim) to (batch_size * seq_len, hidden_dim)
+            x = x.view(-1, x.shape[-1]).contiguous()
+        elif x.dim() == 2:
+            x = x.contiguous()
+        else:
+            raise RuntimeError(f"RMSLayerNorm expects 2D or 3D input, got {x.dim()}D")
+
+        # Call SGL kernel RMSNorm function
+        # rmsnorm_sgl_impl(input: Tensor, weight: Tensor, eps: float) -> Tensor
+        output = rmsnorm_sgl_impl(x, self.weight, self.eps)
+
+        # Reshape back to original shape
+        if len(original_shape) == 3:
+            output = output.view(original_shape)
+
+        # Apply bias if present
+        if self.bias is not None:
+            output = output + self.bias
+
+        return output
+
+
+class GemmaRMSLayerNormSgl(LayerNormBase):
+    """
+    Gemma RMS layer norm using SGL kernel implementation
+    """
+
+    def __init__(
+        self,
+        config: ModelConfig,
+        size: Optional[int] = None,
+        elementwise_affine: Optional[bool] = None,
+        eps: float = 1e-5,
+    ):
+        super().__init__(config, size=size, elementwise_affine=elementwise_affine, eps=config.rms_norm_eps)
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        # SGL kernel expects weight parameter
+        if self.weight is None:
+            raise RuntimeError("GemmaRMSLayerNorm requires weight parameter")
+
+        # SGL kernel expects 2D input: (batch_size * seq_len, hidden_dim)
+        # Save original shape and reshape if needed
+        original_shape = x.shape
+        if x.dim() == 3:
+            # Reshape from (batch_size, seq_len, hidden_dim) to (batch_size * seq_len, hidden_dim)
+            x = x.view(-1, x.shape[-1]).contiguous()
+        elif x.dim() == 2:
+            x = x.contiguous()
+        else:
+            raise RuntimeError(f"GemmaRMSLayerNorm expects 2D or 3D input, got {x.dim()}D")
+
+        # Call SGL kernel Gemma RMSNorm function
+        # gemma_rmsnorm_sgl_impl(input: Tensor, weight: Tensor, eps: float) -> Tensor
+        output = gemma_rmsnorm_sgl_impl(x, self.weight, self.eps)
+
+        # Reshape back to original shape
+        if len(original_shape) == 3:
+            output = output.view(original_shape)
+
+        # Apply bias if present (though Gemma typically doesn't use bias)
+        if self.bias is not None:
+            output = output + self.bias
+
+        return output
+
+
+class RotaryEmbeddingOri(nn.Module):
     """
     [Rotary positional embeddings (RoPE)](https://arxiv.org/abs/2104.09864).
     """
@@ -476,8 +567,7 @@ class RotaryEmbeddingOld(nn.Module):
 
         return q_.type_as(q), k_.type_as(k)
 
-
-class RotaryEmbedding(nn.Module):
+class RotaryEmbeddingSgl(nn.Module):
     """
     Wrapper for sgl_kernel rotary_embedding function.
     [Rotary positional embeddings (RoPE)](https://arxiv.org/abs/2104.09864).
@@ -561,11 +651,133 @@ class RotaryEmbedding(nn.Module):
 
         # Apply rotary embeddings using sgl_kernel (modifies tensors in-place)
         # Note: First call will trigger Triton kernel compilation and be slower
-        rotary_embedding_impl(positions_k_expanded, q_reshaped, k_reshaped, head_size, cos_sin_cache, is_neox=True)
+        rotary_embedding_sgl_impl(positions_k_expanded, q_reshaped, k_reshaped, head_size, cos_sin_cache, is_neox=True)
 
         # Reshape back to [B, num_heads, seq_len, head_size]
         q = q_reshaped.view(B, num_heads, query_len, head_size)
         k = k_reshaped.view(B, num_kv_heads, key_len, head_size)
+
+        return q, k
+
+class RotaryEmbeddingSGL(nn.Module):
+    """
+    Fast Rotary Positional Embedding using sgl_kernel fused Triton implementation.
+    This fully replaces RotaryEmbeddingOri while matching its semantics.
+    """
+
+    def __init__(self, config: ModelConfig, cache: BufferCache):
+        super().__init__()
+        self.config = config
+        self.cache = cache
+
+        self.rope_theta = config.rope_theta
+        self.head_size = config.d_model // config.n_heads
+        self.max_seq_len = config.max_sequence_length
+
+        # Precompute full cos/sin table once
+        self._init_cache(self.max_seq_len, _non_meta_init_device(config))
+
+    # ------------------------------------------------------------------
+    # Cache creator
+    # ------------------------------------------------------------------
+    def _init_cache(self, seq_len: int, device: torch.device):
+        """
+        Create interleaved cos/sin cache with shape [seq_len, head_size].
+        This is what sgl_kernel expects.
+        """
+        with torch.autocast(device.type, enabled=False):
+            dim = self.head_size
+
+            inv_freq = 1.0 / (
+                self.rope_theta ** (torch.arange(0, dim, 2, device=device, dtype=torch.float32) / dim)
+            )
+            t = torch.arange(seq_len, device=device, dtype=torch.float32)
+
+            freqs = torch.einsum("i,j->ij", t, inv_freq)  # [seq_len, dim/2]
+
+            # Build interleaved cos/sin dim:
+            # RoPE expects: [cos(0), sin(0), cos(1), sin(1), ...]
+            cos = freqs.cos()
+            sin = freqs.sin()
+            cos_sin = torch.stack([cos, sin], dim=-1).reshape(seq_len, dim)
+
+        self.cache["rope_cos_sin"] = cos_sin
+        return cos_sin
+
+    # ------------------------------------------------------------------
+    # Cache accessor
+    # ------------------------------------------------------------------
+    def _get_cache(self, seq_len: int, device: torch.device):
+        cos_sin = self.cache.get("rope_cos_sin")
+
+        if cos_sin is not None and cos_sin.shape[0] >= seq_len:
+            # move to device if needed
+            if cos_sin.device != device:
+                cos_sin = cos_sin.to(device)
+                self.cache["rope_cos_sin"] = cos_sin
+            return cos_sin
+
+        # otherwise regenerate for max(seq_len, max_sequence_length)
+        return self._init_cache(max(seq_len, self.max_seq_len), device)
+
+    # ------------------------------------------------------------------
+    # Forward (q,k)
+    # ------------------------------------------------------------------
+    def forward(
+        self,
+        q: torch.Tensor,  # [B, n_heads, q_len, head_size]
+        k: torch.Tensor,  # [B, n_kv_heads, k_len, head_size]
+        block_end_index: Optional[torch.Tensor] = None
+    ) -> Tuple[torch.Tensor, torch.Tensor]:
+
+        B, H, q_len, hs = q.shape
+        _, H_kv, k_len, _ = k.shape
+        device = q.device
+
+        cos_sin_cache = self._get_cache(k_len, device).to(q.dtype)
+
+        # --------------------------------------------------------------
+        # Compute positions for q
+        # --------------------------------------------------------------
+        if block_end_index is None:
+            start = k_len - q_len
+            end = k_len
+        else:
+            # block_end_index is a scalar tensor in all inference cases
+            end = block_end_index.to(device)
+            start = end - q_len
+
+        # Positions for q and k
+        pos_q = torch.arange(start, end, device=device, dtype=torch.long)
+        pos_k = torch.arange(0, k_len, device=device, dtype=torch.long)
+
+        # --------------------------------------------------------------
+        # Reshape to [B*heads, seq, hs] for fused kernel
+        # --------------------------------------------------------------
+        q_flat = q.reshape(B * H, q_len, hs).contiguous()
+        k_flat = k.reshape(B * H_kv, k_len, hs).contiguous()
+
+        # Expand indices for kernel (batch dimension matches q_flat/k_flat)
+        pos_q = pos_q.unsqueeze(0).expand(q_flat.size(0), -1)
+        pos_k = pos_k.unsqueeze(0).expand(k_flat.size(0), -1)
+
+        # --------------------------------------------------------------
+        # Apply SGL fused Triton RoPE kernel (in-place)
+        # --------------------------------------------------------------
+        rotary_embedding_sgl_impl(
+            pos_k,
+            q_flat,
+            k_flat,
+            hs,
+            cos_sin_cache,
+            is_neox=True,   # IMPORTANT: use GPT-NeoX convention (LLaMA uses this)
+        )
+
+        # --------------------------------------------------------------
+        # Reshape back
+        # --------------------------------------------------------------
+        q = q_flat.view(B, H, q_len, hs)
+        k = k_flat.view(B, H_kv, k_len, hs)
 
         return q, k
 
@@ -1771,3 +1983,20 @@ class LLaDAModelLM(PreTrainedModel):
 
 # Register the model so that it is available for transformer pipelines, auto-loading, etc.
 AutoModel.register(LLaDAConfig, LLaDAModelLM)
+
+
+# ==============================================================================
+# Export mechanism: Choose between Original (Ori) and SGL kernel implementations
+# ==============================================================================
+# Set USE_SGL_KERNEL = True to use SGL kernel implementations (faster with Triton)
+# Set USE_SGL_KERNEL = False to use original PyTorch implementations
+USE_SGL_KERNEL = True
+
+# if USE_SGL_KERNEL:
+RMSLayerNorm = RMSLayerNormSgl
+GemmaRMSLayerNorm = GemmaRMSLayerNormSgl
+RotaryEmbedding = RotaryEmbeddingSGL
+# else:
+# RMSLayerNorm = RMSLayerNormOri
+# GemmaRMSLayerNorm = GemmaRMSLayerNormOri
+# RotaryEmbedding = RotaryEmbeddingOri

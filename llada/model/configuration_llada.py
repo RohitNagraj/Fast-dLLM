@@ -217,13 +217,14 @@ class ModelConfig():
     Use rotary positional embeddings (RoPE). Mutually exclusive with ``alibi``.
     """
 
-    rope_full_precision: bool = True
+    rope_full_precision: bool = False
     """
     If ``True``, apply RoPE embeddings at full precision regardless of the input type. Otherwise,
     apply RoPE at the precision of the input.
     """
 
-    flash_attention: bool = True
+    flash_attention: bool = False
+    # flash_attention: bool = True
     """
     If ``True``, use ``FlashAttention``.
     """
