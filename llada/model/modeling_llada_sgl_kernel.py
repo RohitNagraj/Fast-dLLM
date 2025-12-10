@@ -56,12 +56,8 @@ from sgl_kernel import (
     rmsnorm as rmsnorm_sgl_impl,
     gemma_rmsnorm as gemma_rmsnorm_sgl_impl,
     rotary_embedding as rotary_embedding_sgl_impl,
+    silu_and_mul as silu_and_mul_sgl_impl,
 )
-"""
-TODO: 
-1. silu and mul should be merged into one kernel
-
-"""
 
 from .configuration_llada import (
     LLaDAConfig,
@@ -97,6 +93,13 @@ __all__ = [
     "LLaDAOutput",
     "LLaDAGenerateOutput",
 ]
+
+SGL_K = {
+    "rmsnorm": True,
+    "gemma_rmsnorm": True,
+    "rotary_embedding": True,
+    "llama_block": True,
+}
 
 
 log = logging.getLogger(__name__)
@@ -363,6 +366,36 @@ class RMSLayerNormOri(LayerNormBase):
         else:
             return x
 
+class RMSLayerNormSgl(LayerNormBase):
+    """
+    RMS layer norm using SGL kernel implementation
+    """
+
+    def __init__(
+        self,
+        config: ModelConfig,
+        size: Optional[int] = None,
+        elementwise_affine: Optional[bool] = None,
+        eps: float = 1e-5,
+    ):
+        super().__init__(config, size=size, elementwise_affine=elementwise_affine, eps=config.rms_norm_eps)
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        if self.weight is None or self.bias is not None:
+            raise RuntimeError("SGL kernel expects weight parameter and no bias")
+
+        # SGL kernel expects 2D input: 
+        #   (batch_size, seq_len, hidden_dim) -> (batch_size * seq_len, hidden_dim)
+        original_shape = x.shape
+        x = x.view(-1, x.shape[-1]).contiguous()
+
+        output = rmsnorm_sgl_impl(x, self.weight, self.eps)
+
+        output = output.view(original_shape)
+        return output
+
+RMSLayerNorm = RMSLayerNormSgl if SGL_K["rmsnorm"] else RMSLayerNormOri
+
 
 class GemmaRMSLayerNormOri(LayerNormBase):
     """
@@ -394,36 +427,6 @@ class GemmaRMSLayerNormOri(LayerNormBase):
         else:
             return x
 
-
-class RMSLayerNormSgl(LayerNormBase):
-    """
-    RMS layer norm using SGL kernel implementation
-    """
-
-    def __init__(
-        self,
-        config: ModelConfig,
-        size: Optional[int] = None,
-        elementwise_affine: Optional[bool] = None,
-        eps: float = 1e-5,
-    ):
-        super().__init__(config, size=size, elementwise_affine=elementwise_affine, eps=config.rms_norm_eps)
-
-    def forward(self, x: torch.Tensor) -> torch.Tensor:
-        if self.weight is None or self.bias is not None:
-            raise RuntimeError("SGL kernel expects weight parameter and no bias")
-
-        # SGL kernel expects 2D input: 
-        #   (batch_size, seq_len, hidden_dim) -> (batch_size * seq_len, hidden_dim)
-        original_shape = x.shape
-        x = x.view(-1, x.shape[-1]).contiguous()
-
-        output = rmsnorm_sgl_impl(x, self.weight, self.eps)
-
-        output = output.view(original_shape)
-        return output
-
-
 class GemmaRMSLayerNormSgl(LayerNormBase):
     """
     Gemma RMS layer norm using SGL kernel implementation
@@ -451,6 +454,8 @@ class GemmaRMSLayerNormSgl(LayerNormBase):
 
         output = output.view(original_shape)
         return output
+
+GemmaRMSLayerNorm = GemmaRMSLayerNormSgl if SGL_K["gemma_rmsnorm"] else GemmaRMSLayerNormOri
 
 
 class RotaryEmbeddingOri(nn.Module):
@@ -536,7 +541,6 @@ class RotaryEmbeddingOri(nn.Module):
             # print(idx.shape, q_.shape, k_.shape, idx.dtype, q_.dtype, k_.dtype)
 
         return q_.type_as(q), k_.type_as(k)
-
 
 class RotaryEmbeddingSgl(nn.Module):
     """
@@ -637,6 +641,8 @@ class RotaryEmbeddingSgl(nn.Module):
         k = k.view(original_shape_k)
 
         return q, k
+
+RotaryEmbedding = RotaryEmbeddingSgl if SGL_K["rotary_embedding"] else RotaryEmbeddingOri
 
 
 class Activation(nn.Module):
@@ -1077,7 +1083,7 @@ class LLaDASequentialBlock(LLaDABlock):
         return x, cache
 
 
-class LLaDALlamaBlock(LLaDABlock):
+class LLaDALlamaBlockOri(LLaDABlock):
     """
     This is a transformer block where the output is computed as ``MLP(LN(x + Attention(LN(x))))``
     (plus another skip connection). This block is similar to `LLaDASequentialBlock`
@@ -1179,6 +1185,118 @@ class LLaDALlamaBlock(LLaDABlock):
         x = og_x + x
 
         return x, cache
+
+class LLaDALlamaBlockSgl(LLaDABlock):
+    """
+    This is a transformer block where the output is computed as ``MLP(LN(x + Attention(LN(x))))``
+    (plus another skip connection). This block is similar to `LLaDASequentialBlock`
+    but some operations have slightly different implementations to imitate the
+    behavior of Llama.
+    """
+
+    def __init__(self, layer_id: int, config: ModelConfig, cache: BufferCache):
+        super().__init__(layer_id, config, cache)
+        # Layer norms.
+        self.attn_norm = LayerNorm.build(config)
+        self.ff_norm = LayerNorm.build(config)
+        self.__cache = cache
+
+        # Attention input projection. Projects x -> (q, k, v)
+        head_dim = config.d_model // config.n_heads
+        q_proj_out_dim = config.d_model
+        k_proj_out_dim = config.effective_n_kv_heads * head_dim
+        v_proj_out_dim = config.effective_n_kv_heads * head_dim
+        self.q_proj = nn.Linear(
+            config.d_model, q_proj_out_dim, bias=config.include_bias | config.include_qkv_bias, device=config.init_device
+        )
+        self.k_proj = nn.Linear(
+            config.d_model, k_proj_out_dim, bias=config.include_bias | config.include_qkv_bias, device=config.init_device
+        )
+        self.v_proj = nn.Linear(
+            config.d_model, v_proj_out_dim, bias=config.include_bias | config.include_qkv_bias, device=config.init_device
+        )
+
+        # Feed-forward input projection.
+        self.ff_proj = nn.Linear(
+            config.d_model, self.hidden_size, bias=config.include_bias, device=config.init_device
+        )
+        # new add
+        self.up_proj = nn.Linear(
+            config.d_model, self.hidden_size, bias=config.include_bias, device=config.init_device
+        )
+
+        # fuse ff_proj and up_proj weights
+        self.fused_weight = None
+
+    def reset_parameters(self):
+        super().reset_parameters()
+        self.attn_norm.reset_parameters()
+        self.ff_norm.reset_parameters()
+        # NOTE: the standard deviation for these weights does not depend on the layer.
+        init_weights(self.config, self.q_proj, d=self.config.d_model, layer_id=None)
+        init_weights(self.config, self.k_proj, d=self.config.d_model, layer_id=None)
+        init_weights(self.config, self.v_proj, d=self.config.d_model, layer_id=None)
+        init_weights(self.config, self.ff_proj, d=self.config.d_model, layer_id=None)
+        init_weights(self.config, self.up_proj, d=self.config.d_model, layer_id=None)  # new add
+
+    def forward(
+        self,
+        x: torch.Tensor,
+        attention_bias: Optional[torch.Tensor] = None,
+        layer_past: Optional[Tuple[torch.Tensor, torch.Tensor]] = None,
+        use_cache: bool = False,
+        replace_position: Optional[torch.Tensor] = None,
+    ) -> Tuple[torch.Tensor, Optional[Tuple[torch.Tensor, torch.Tensor]]]:
+        # Get query, key, value projections.
+        # shape:
+        #  - for regular attn q, k, v: (batch_size, seq_len, d_model)
+        #  - for multi-query attn q: (batch_size, seq_len, d_model)
+        #                      k, v: (batch_size, seq_len, d_model // n_heads)
+        #  - for group query attn q: (batch_size, seq_len, d_model)
+        #                      k, v: (batch_size, seq_len, d_model // n_kv_heads)
+        x_normed = self.attn_norm(x) #x:torch.Size([2, 168, 4096])
+        q = self.q_proj(x_normed) #q:torch.Size([2, 168, 4096])
+        k = self.k_proj(x_normed) #k:torch.Size([2, 168, 4096])
+        v = self.v_proj(x_normed) #v:torch.Size([2, 168, 4096])
+        # attention_bias: None
+        # layer_past: None
+        # use_cache: False
+        # Get attention scores.
+  
+        att, cache = self.attention(q, k, v, attention_bias, layer_past=layer_past, use_cache=use_cache,replace_position=replace_position)
+        x = x + self.dropout(att)
+        og_x = x
+        x = self.ff_norm(x)
+
+        # x, x_up = self.ff_proj(x), self.up_proj(x) # new add
+        # x, x_up = x_fused.chunk(2, dim=-1)
+        # x = self.act(x)
+        # x = x * x_up # new add
+        if self.fused_weight is None:
+            self.fused_weight = torch.cat([self.ff_proj.weight, self.up_proj.weight], dim=0)
+        # fused_weight = torch.cat([self.ff_proj.weight, self.up_proj.weight], dim=0)
+        x_fused = F.linear(x, self.fused_weight, bias=None)  # Single matmul
+
+        out_x = torch.zeros(
+            x_fused.shape[0], 
+            x_fused.shape[1], 
+            x_fused.shape[2]//2, 
+            dtype=x_fused.dtype, device=x_fused.device
+        )
+        silu_and_mul_sgl_impl(
+            x_fused, 
+            out_x
+        )
+
+        # x = self.ff_out(x)
+        x = self.ff_out(out_x)
+
+        x = self.dropout(x)
+        x = og_x + x
+
+        return x, cache
+
+LLaDALlamaBlock = LLaDALlamaBlockSgl if SGL_K["llama_block"] else LLaDALlamaBlockOri
 
 
 class LLaDABlockDiffBlock(LLaDABlock):
@@ -1840,20 +1958,3 @@ class LLaDAModelLM(PreTrainedModel):
 
 # Register the model so that it is available for transformer pipelines, auto-loading, etc.
 AutoModel.register(LLaDAConfig, LLaDAModelLM)
-
-
-# ==============================================================================
-# Export mechanism: Choose between Original (Ori) and SGL kernel implementations
-# ==============================================================================
-# Set USE_SGL_KERNEL = True to use SGL kernel implementations (faster with Triton)
-# Set USE_SGL_KERNEL = False to use original PyTorch implementations
-USE_SGL_KERNEL = True
-
-# if USE_SGL_KERNEL:
-RMSLayerNorm = RMSLayerNormSgl
-GemmaRMSLayerNorm = GemmaRMSLayerNormSgl
-RotaryEmbedding = RotaryEmbeddingSgl
-# else:
-# RMSLayerNorm = RMSLayerNormOri
-# GemmaRMSLayerNorm = GemmaRMSLayerNormOri
-# RotaryEmbedding = RotaryEmbeddingOri
