@@ -445,17 +445,18 @@ def main():
     with torch.inference_mode():
         nvtx.range_push("INFER")
 
+        REPEAT = 1
         print("warming up...")
-        [ generate_with_prefix_cache(model, input_ids, steps=128, gen_length=128, block_length=32, temperature=0., remasking='low_confidence') for _ in range(10) ]
+        [ generate_with_prefix_cache(model, input_ids, steps=128, gen_length=128, block_length=32, temperature=0., remasking='low_confidence') for _ in range(REPEAT) ]
         print("start timed generation...")
         start = torch.cuda.Event(enable_timing=True)
         end = torch.cuda.Event(enable_timing=True)
         torch.cuda.synchronize()
         start.record()
-        [ generate_with_prefix_cache(model, input_ids, steps=128, gen_length=128, block_length=32, temperature=0., remasking='low_confidence') for _ in range(10) ]
+        [ generate_with_prefix_cache(model, input_ids, steps=128, gen_length=128, block_length=32, temperature=0., remasking='low_confidence') for _ in range(REPEAT) ]
         end.record()
         torch.cuda.synchronize()
-        print(f"Avg latency with prefix cache: {start.elapsed_time(end)/10:.2f} ms")
+        print(f"Avg latency with prefix cache: {start.elapsed_time(end)/REPEAT:.2f} ms")
 
         out = generate_with_dual_cache(model, input_ids, steps=128, gen_length=128, block_length=32, temperature=0., remasking='low_confidence')
     

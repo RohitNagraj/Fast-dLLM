@@ -84,8 +84,8 @@ else:
 __all__ = [
     "LayerNormBase",
     "LayerNorm",
-    # "RMSLayerNorm",
-    # "GemmaRMSLayerNorm",
+    "RMSLayerNorm",
+    "GemmaRMSLayerNorm",
     "RotaryEmbedding",
     "Activation",
     "GELU",
@@ -410,33 +410,17 @@ class RMSLayerNormSgl(LayerNormBase):
         super().__init__(config, size=size, elementwise_affine=elementwise_affine, eps=config.rms_norm_eps)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        # SGL kernel expects weight parameter
-        if self.weight is None:
-            raise RuntimeError("RMSLayerNorm requires weight parameter")
+        if self.weight is None or self.bias is not None:
+            raise RuntimeError("SGL kernel expects weight parameter and no bias")
 
-        # SGL kernel expects 2D input: (batch_size * seq_len, hidden_dim)
-        # Save original shape and reshape if needed
+        # SGL kernel expects 2D input: 
+        #   (batch_size, seq_len, hidden_dim) -> (batch_size * seq_len, hidden_dim)
         original_shape = x.shape
-        if x.dim() == 3:
-            # Reshape from (batch_size, seq_len, hidden_dim) to (batch_size * seq_len, hidden_dim)
-            x = x.view(-1, x.shape[-1]).contiguous()
-        elif x.dim() == 2:
-            x = x.contiguous()
-        else:
-            raise RuntimeError(f"RMSLayerNorm expects 2D or 3D input, got {x.dim()}D")
+        x = x.view(-1, x.shape[-1]).contiguous()
 
-        # Call SGL kernel RMSNorm function
-        # rmsnorm_sgl_impl(input: Tensor, weight: Tensor, eps: float) -> Tensor
         output = rmsnorm_sgl_impl(x, self.weight, self.eps)
 
-        # Reshape back to original shape
-        if len(original_shape) == 3:
-            output = output.view(original_shape)
-
-        # Apply bias if present
-        if self.bias is not None:
-            output = output + self.bias
-
+        output = output.view(original_shape)
         return output
 
 
@@ -455,33 +439,17 @@ class GemmaRMSLayerNormSgl(LayerNormBase):
         super().__init__(config, size=size, elementwise_affine=elementwise_affine, eps=config.rms_norm_eps)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        # SGL kernel expects weight parameter
-        if self.weight is None:
-            raise RuntimeError("GemmaRMSLayerNorm requires weight parameter")
-
-        # SGL kernel expects 2D input: (batch_size * seq_len, hidden_dim)
-        # Save original shape and reshape if needed
+        if self.weight is None or self.bias is not None:
+            raise RuntimeError("SGL kernel expects weight parameter and no bias")
+        
+        # SGL kernel expects 2D input: 
+        #   (batch_size, seq_len, hidden_dim) -> (batch_size * seq_len, hidden_dim)
         original_shape = x.shape
-        if x.dim() == 3:
-            # Reshape from (batch_size, seq_len, hidden_dim) to (batch_size * seq_len, hidden_dim)
-            x = x.view(-1, x.shape[-1]).contiguous()
-        elif x.dim() == 2:
-            x = x.contiguous()
-        else:
-            raise RuntimeError(f"GemmaRMSLayerNorm expects 2D or 3D input, got {x.dim()}D")
+        x = x.view(-1, x.shape[-1]).contiguous()
 
-        # Call SGL kernel Gemma RMSNorm function
-        # gemma_rmsnorm_sgl_impl(input: Tensor, weight: Tensor, eps: float) -> Tensor
-        output = gemma_rmsnorm_sgl_impl(x, self.weight, self.eps)
+        output = rmsnorm_sgl_impl(x, self.weight, self.eps)
 
-        # Reshape back to original shape
-        if len(original_shape) == 3:
-            output = output.view(original_shape)
-
-        # Apply bias if present (though Gemma typically doesn't use bias)
-        if self.bias is not None:
-            output = output + self.bias
-
+        output = output.view(original_shape)
         return output
 
 
@@ -565,219 +533,108 @@ class RotaryEmbeddingOri(nn.Module):
             q_ = self.apply_rotary_pos_emb(pos_sin_slice, pos_cos_slice, q_)
             k_ = self.apply_rotary_pos_emb(pos_sin, pos_cos, k_)
 
+            # print(idx.shape, q_.shape, k_.shape, idx.dtype, q_.dtype, k_.dtype)
+
         return q_.type_as(q), k_.type_as(k)
+
 
 class RotaryEmbeddingSgl(nn.Module):
     """
-    Wrapper for sgl_kernel rotary_embedding function.
-    [Rotary positional embeddings (RoPE)](https://arxiv.org/abs/2104.09864).
+    Rotary positional embeddings (RoPE) using SGL kernel implementation.
     """
-
     def __init__(self, config: ModelConfig, cache: BufferCache):
         super().__init__()
         self.config = config
-        self.__cache = cache
-        self.rope_theta = config.rope_theta
         self.head_size = config.d_model // config.n_heads
-        # Pre-compute cos_sin_cache
-        self._prepare_cos_sin_cache(config.max_sequence_length, _non_meta_init_device(config))
+        self.rotary_dim = self.head_size
+        self.max_position_embeddings = config.max_sequence_length
+        self.base = config.rope_theta
 
-    def _prepare_cos_sin_cache(self, seq_len: int, device: torch.device) -> torch.Tensor:
-        """Prepare cos/sin cache for rotary embeddings."""
-        with torch.autocast(device.type, enabled=False):
-            dim = self.head_size
-            inv_freq = 1.0 / (self.rope_theta ** (torch.arange(0, dim, 2, device=device, dtype=torch.float) / dim))
-            seq = torch.arange(seq_len, device=device, dtype=torch.float)
-            freqs = einsum("i , j -> i j", seq, inv_freq)
-            # cos_sin_cache shape: [seq_len, dim] with cos and sin interleaved
-            emb = torch.cat((freqs, freqs), dim=-1)
-            cos_sin_cache = torch.stack([emb.cos(), emb.sin()], dim=-1).flatten(-2)
-        self.__cache["rope_cos_sin_cache"] = cos_sin_cache
-        return cos_sin_cache
+        # SGL init of cache
+        cache = self._compute_cos_sin_cache()
+        self.cos_sin_cache: torch.Tensor
+        self.register_buffer("cos_sin_cache", cache, persistent=False)
 
-    def get_cos_sin_cache(self, seq_len: int, device: torch.device) -> torch.Tensor:
-        """Get or create cos_sin_cache."""
-        if (cos_sin_cache := self.__cache.get("rope_cos_sin_cache")) is not None:
-            if cos_sin_cache.shape[0] >= seq_len:
-                if cos_sin_cache.device != device:
-                    cos_sin_cache = cos_sin_cache.to(device)
-                    self.__cache["rope_cos_sin_cache"] = cos_sin_cache
-                return cos_sin_cache
-        return self._prepare_cos_sin_cache(max(seq_len, self.config.max_sequence_length), device)
-
-    def forward(self, q: torch.Tensor, k: torch.Tensor,
-                block_end_index: Optional[torch.Tensor] = None) -> Tuple[torch.Tensor, torch.Tensor]:
-        """
-        Apply rotary embeddings to query and key tensors using sgl_kernel.
-
-        Args:
-            q: Query tensor of shape [B, num_heads, query_len, head_size]
-            k: Key tensor of shape [B, num_kv_heads, key_len, head_size]
-            block_end_index: Optional position index for the block
-
-        Returns:
-            Tuple of (rotated_q, rotated_k)
-        """
-        B, num_heads, query_len, head_size = q.shape
-        key_len = k.shape[2]
-
-        # Get cos_sin_cache and convert to same dtype as q
-        cos_sin_cache = self.get_cos_sin_cache(key_len, q.device)
-        cos_sin_cache = cos_sin_cache.to(dtype=q.dtype)
-
-        # Determine positions for query
-        if block_end_index is None:
-            start_pos = key_len - query_len
-            positions_q = torch.arange(start_pos, key_len, device=q.device, dtype=torch.long)
-        else:
-            if isinstance(block_end_index, torch.Tensor):
-                block_end_idx = block_end_index.item() if block_end_index.numel() == 1 else block_end_index.max().item()
-            else:
-                block_end_idx = block_end_index
-            start_pos = block_end_idx - query_len
-            positions_q = torch.arange(start_pos, block_end_idx, device=q.device, dtype=torch.long)
-
-        # Positions for key (full sequence)
-        positions_k = torch.arange(key_len, device=k.device, dtype=torch.long)
-
-        # Reshape q and k for the kernel: [B, num_heads, seq_len, head_size] -> [B * num_heads, seq_len, head_size]
-        num_kv_heads = k.shape[1]
-        q_reshaped = q.reshape(B * num_heads, query_len, head_size).contiguous()
-        k_reshaped = k.reshape(B * num_kv_heads, key_len, head_size).contiguous()
-
-        # Expand positions to match batch dimension
-        positions_q_expanded = positions_q.unsqueeze(0).expand(B * num_heads, -1)
-        positions_k_expanded = positions_k.unsqueeze(0).expand(B * num_kv_heads, -1)
-
-        # Apply rotary embeddings using sgl_kernel (modifies tensors in-place)
-        # Note: First call will trigger Triton kernel compilation and be slower
-        rotary_embedding_sgl_impl(positions_k_expanded, q_reshaped, k_reshaped, head_size, cos_sin_cache, is_neox=True)
-
-        # Reshape back to [B, num_heads, seq_len, head_size]
-        q = q_reshaped.view(B, num_heads, query_len, head_size)
-        k = k_reshaped.view(B, num_kv_heads, key_len, head_size)
-
-        return q, k
-
-class RotaryEmbeddingSGL(nn.Module):
-    """
-    Fast Rotary Positional Embedding using sgl_kernel fused Triton implementation.
-    This fully replaces RotaryEmbeddingOri while matching its semantics.
-    """
-
-    def __init__(self, config: ModelConfig, cache: BufferCache):
-        super().__init__()
-        self.config = config
-        self.cache = cache
-
-        self.rope_theta = config.rope_theta
-        self.head_size = config.d_model // config.n_heads
-        self.max_seq_len = config.max_sequence_length
-
-        # Precompute full cos/sin table once
-        self._init_cache(self.max_seq_len, _non_meta_init_device(config))
-
-    # ------------------------------------------------------------------
-    # Cache creator
-    # ------------------------------------------------------------------
-    def _init_cache(self, seq_len: int, device: torch.device):
-        """
-        Create interleaved cos/sin cache with shape [seq_len, head_size].
-        This is what sgl_kernel expects.
-        """
-        with torch.autocast(device.type, enabled=False):
-            dim = self.head_size
-
-            inv_freq = 1.0 / (
-                self.rope_theta ** (torch.arange(0, dim, 2, device=device, dtype=torch.float32) / dim)
+    def _compute_inv_freq(self, base: Union[int, float]) -> torch.Tensor:
+        inv_freq = 1.0 / (
+            base
+            ** (
+                torch.arange(0, self.rotary_dim, 2, dtype=torch.float) / self.rotary_dim
             )
-            t = torch.arange(seq_len, device=device, dtype=torch.float32)
+        )
+        return inv_freq
 
-            freqs = torch.einsum("i,j->ij", t, inv_freq)  # [seq_len, dim/2]
+    def _compute_cos_sin_cache(self) -> torch.Tensor:
+        """Compute the cos and sin cache."""
+        inv_freq = self._compute_inv_freq(self.base)
+        t = torch.arange(self.max_position_embeddings, dtype=torch.float)
 
-            # Build interleaved cos/sin dim:
-            # RoPE expects: [cos(0), sin(0), cos(1), sin(1), ...]
-            cos = freqs.cos()
-            sin = freqs.sin()
-            cos_sin = torch.stack([cos, sin], dim=-1).reshape(seq_len, dim)
-
-        self.cache["rope_cos_sin"] = cos_sin
-        return cos_sin
-
-    # ------------------------------------------------------------------
-    # Cache accessor
-    # ------------------------------------------------------------------
-    def _get_cache(self, seq_len: int, device: torch.device):
-        cos_sin = self.cache.get("rope_cos_sin")
-
-        if cos_sin is not None and cos_sin.shape[0] >= seq_len:
-            # move to device if needed
-            if cos_sin.device != device:
-                cos_sin = cos_sin.to(device)
-                self.cache["rope_cos_sin"] = cos_sin
-            return cos_sin
-
-        # otherwise regenerate for max(seq_len, max_sequence_length)
-        return self._init_cache(max(seq_len, self.max_seq_len), device)
-
-    # ------------------------------------------------------------------
-    # Forward (q,k)
-    # ------------------------------------------------------------------
+        freqs = torch.einsum("i,j -> ij", t, inv_freq)
+        cos = freqs.cos()
+        sin = freqs.sin()
+        cache = torch.cat((cos, sin), dim=-1)
+        return cache
+    
     def forward(
-        self,
+        self, 
         q: torch.Tensor,  # [B, n_heads, q_len, head_size]
         k: torch.Tensor,  # [B, n_kv_heads, k_len, head_size]
         block_end_index: Optional[torch.Tensor] = None
     ) -> Tuple[torch.Tensor, torch.Tensor]:
+        if self.cos_sin_cache.dtype != q.dtype:
+            self.cos_sin_cache = self.cos_sin_cache.to(q.dtype)
+        # if self.config.rope_full_precision:
+        #     raise RuntimeError("Too slow! Do not expect full precision RoPE.")
+        
+        query_len, key_len = q.shape[-2], k.shape[-2]
 
-        B, H, q_len, hs = q.shape
-        _, H_kv, k_len, _ = k.shape
-        device = q.device
-
-        cos_sin_cache = self._get_cache(k_len, device).to(q.dtype)
-
-        # --------------------------------------------------------------
-        # Compute positions for q
-        # --------------------------------------------------------------
+        # Build tensor indices instead of using .item()
         if block_end_index is None:
-            start = k_len - q_len
-            end = k_len
+            start = key_len - query_len
+            end = key_len
         else:
-            # block_end_index is a scalar tensor in all inference cases
-            end = block_end_index.to(device)
-            start = end - q_len
+            # block_end_index is a tensor; keep ops tensor-based
+            start = (block_end_index - query_len)
+            end = block_end_index
+    
+        # pos_sin_slice = pos_sin.index_select(2, idx)
+        # pos_cos_slice = pos_cos.index_select(2, idx)
+        original_shape_q, original_shape_k = q.shape, k.shape
+        q = q.view(-1, q.shape[-2], q.shape[-1]).contiguous()
+        k = k.view(-1, k.shape[-2], k.shape[-1]).contiguous()
 
-        # Positions for q and k
-        pos_q = torch.arange(start, end, device=device, dtype=torch.long)
-        pos_k = torch.arange(0, k_len, device=device, dtype=torch.long)
+        # placeholder tensors for k/q output
+        # This is because SGL kernel forces q, k to be the same size, 
+        #   but len(q) != len(k) in Fast-dLLM, so two kernels are needed.
+        #   These place holders will be used as dummy inputs and ignored in output.
+        q_zeros = torch.zeros(q.shape, device=q.device, dtype=q.dtype)
+        k_zeros = torch.zeros(k.shape, device=k.device, dtype=k.dtype)
 
-        # --------------------------------------------------------------
-        # Reshape to [B*heads, seq, hs] for fused kernel
-        # --------------------------------------------------------------
-        q_flat = q.reshape(B * H, q_len, hs).contiguous()
-        k_flat = k.reshape(B * H_kv, k_len, hs).contiguous()
+        # (position tensors) Make an index tensor [start, ..., end-1] on the right device/dtype
+        idx_q = torch.arange(start, end, device=q.device, dtype=torch.long)
+        idx_q = idx_q.unsqueeze(0).expand(q.shape[0], -1).contiguous()
 
-        # Expand indices for kernel (batch dimension matches q_flat/k_flat)
-        pos_q = pos_q.unsqueeze(0).expand(q_flat.size(0), -1)
-        pos_k = pos_k.unsqueeze(0).expand(k_flat.size(0), -1)
+        idx_k = torch.arange(0, key_len, device=k.device, dtype=torch.long)
+        idx_k = idx_k.unsqueeze(0).expand(k.shape[0], -1).contiguous()
 
-        # --------------------------------------------------------------
-        # Apply SGL fused Triton RoPE kernel (in-place)
-        # --------------------------------------------------------------
         rotary_embedding_sgl_impl(
-            pos_k,
-            q_flat,
-            k_flat,
-            hs,
-            cos_sin_cache,
-            is_neox=True,   # IMPORTANT: use GPT-NeoX convention (LLaMA uses this)
+            idx_q,
+            q,
+            q_zeros,
+            self.head_size,
+            self.cos_sin_cache,
+            True,  # Llama uses this
         )
-
-        # --------------------------------------------------------------
-        # Reshape back
-        # --------------------------------------------------------------
-        q = q_flat.view(B, H, q_len, hs)
-        k = k_flat.view(B, H_kv, k_len, hs)
+        rotary_embedding_sgl_impl(
+            idx_k,
+            k_zeros,
+            k,
+            self.head_size,
+            self.cos_sin_cache,
+            True,  # Llama uses this
+        )
+        q = q.view(original_shape_q)
+        k = k.view(original_shape_k)
 
         return q, k
 
@@ -1995,7 +1852,7 @@ USE_SGL_KERNEL = True
 # if USE_SGL_KERNEL:
 RMSLayerNorm = RMSLayerNormSgl
 GemmaRMSLayerNorm = GemmaRMSLayerNormSgl
-RotaryEmbedding = RotaryEmbeddingSGL
+RotaryEmbedding = RotaryEmbeddingSgl
 # else:
 # RMSLayerNorm = RMSLayerNormOri
 # GemmaRMSLayerNorm = GemmaRMSLayerNormOri
