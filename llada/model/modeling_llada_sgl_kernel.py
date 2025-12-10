@@ -96,7 +96,7 @@ __all__ = [
 
 SGL_K = {
     "rmsnorm": True,
-    "gemma_rmsnorm": True,
+    "gemma_rmsnorm": False,
     "rotary_embedding": True,
     "llama_block": True,
 }
@@ -984,7 +984,6 @@ class LLaDABlock(nn.Module):
 
     @classmethod
     def build(cls, layer_id: int, config: ModelConfig, cache: BufferCache) -> LLaDABlock:
-        log.info(f"Building block type: {config.block_type}")
         if config.block_type == BlockType.sequential:
             return LLaDASequentialBlock(layer_id, config, cache)
         elif config.block_type == BlockType.llama:

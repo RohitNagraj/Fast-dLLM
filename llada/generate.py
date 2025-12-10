@@ -170,8 +170,8 @@ def generate_with_prefix_cache(model, prompt, steps=128, gen_length=128, block_l
         past_key_values = output.past_key_values
 
         mask_index = (x == mask_id)
-        print(current_block_end, flush=True)
-        print(mask_index.shape, flush=True)
+        # print(current_block_end, flush=True)
+        # print(mask_index.shape, flush=True)
         mask_index[:, current_block_end:] = 0
         if factor is None:
             x0, transfer_index = get_transfer_index(output.logits, temperature, remasking, mask_index, x, num_transfer_tokens[:, 0] if threshold is None else None, threshold)
@@ -445,7 +445,7 @@ def main():
     with torch.inference_mode():
         nvtx.range_push("INFER")
 
-        REPEAT = 1
+        REPEAT = 10
         print("warming up...")
         [ generate_with_prefix_cache(model, input_ids, steps=128, gen_length=128, block_length=32, temperature=0., remasking='low_confidence') for _ in range(REPEAT) ]
         print("start timed generation...")

@@ -1,0 +1,7 @@
+warming up...
+start timed generation...
+Avg latency with prefix cache: 4542.36 ms
+Lily can run 12 kilometers per hour for 4 hours, so she runs a total of 12 kilometers per hour x 4 hours = 48 kilometers.
+After that, she runs 6 kilometers per hour for the remaining 4 hours, so she runs a total of 6 kilometers per hour x 4 hours = 24 kilometers.
+Therefore, Lily can run a total of 48 kilometers + 24 kilometers = 72 kilometers in 8 hours.
+Conclusively: 72
