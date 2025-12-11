@@ -59,6 +59,32 @@ from sgl_kernel import (
     silu_and_mul as silu_and_mul_sgl_impl,
 )
 
+@torch._dynamo.allow_in_graph
+def rmsnorm_sgl(*args, **kwargs):
+    return rmsnorm_sgl_impl(*args, **kwargs)
+@torch._dynamo.allow_in_graph
+def gemma_rmsnorm_sgl(*args, **kwargs):
+    return gemma_rmsnorm_sgl_impl(*args, **kwargs)
+@torch._dynamo.allow_in_graph
+def rotary_embedding_sgl(*args, **kwargs):
+    return rotary_embedding_sgl_impl(*args, **kwargs)
+@torch._dynamo.allow_in_graph
+def silu_and_mul_sgl(*args, **kwargs):
+    return silu_and_mul_sgl_impl(*args, **kwargs)
+SGL_K = {
+    "rmsnorm": False,
+    "gemma_rmsnorm": False,
+    "rotary_embedding": False,
+    "llama_block": True,
+}
+# SGL_K = {
+#     "rmsnorm": False,
+#     "gemma_rmsnorm": False,
+#     "rotary_embedding": False,
+#     "llama_block": False,
+# }
+
+
 from .configuration_llada import (
     LLaDAConfig,
     StrEnum,
@@ -93,14 +119,6 @@ __all__ = [
     "LLaDAOutput",
     "LLaDAGenerateOutput",
 ]
-
-SGL_K = {
-    "rmsnorm": True,
-    "gemma_rmsnorm": False,
-    "rotary_embedding": True,
-    "llama_block": True,
-}
-
 
 log = logging.getLogger(__name__)
 
@@ -389,7 +407,7 @@ class RMSLayerNormSgl(LayerNormBase):
         original_shape = x.shape
         x = x.view(-1, x.shape[-1]).contiguous()
 
-        output = rmsnorm_sgl_impl(x, self.weight, self.eps)
+        output = rmsnorm_sgl(x, self.weight, self.eps)
 
         output = output.view(original_shape)
         return output
@@ -450,7 +468,7 @@ class GemmaRMSLayerNormSgl(LayerNormBase):
         original_shape = x.shape
         x = x.view(-1, x.shape[-1]).contiguous()
 
-        output = rmsnorm_sgl_impl(x, self.weight, self.eps)
+        output = gemma_rmsnorm_sgl(x, self.weight, self.eps)
 
         output = output.view(original_shape)
         return output
@@ -621,7 +639,7 @@ class RotaryEmbeddingSgl(nn.Module):
         idx_k = torch.arange(0, key_len, device=k.device, dtype=torch.long)
         idx_k = idx_k.unsqueeze(0).expand(k.shape[0], -1).contiguous()
 
-        rotary_embedding_sgl_impl(
+        rotary_embedding_sgl(
             idx_q,
             q,
             q_zeros,
@@ -629,7 +647,7 @@ class RotaryEmbeddingSgl(nn.Module):
             self.cos_sin_cache,
             True,  # Llama uses this
         )
-        rotary_embedding_sgl_impl(
+        rotary_embedding_sgl(
             idx_k,
             k_zeros,
             k,
@@ -1276,19 +1294,21 @@ class LLaDALlamaBlockSgl(LLaDABlock):
         # fused_weight = torch.cat([self.ff_proj.weight, self.up_proj.weight], dim=0)
         x_fused = F.linear(x, self.fused_weight, bias=None)  # Single matmul
 
-        out_x = torch.zeros(
-            x_fused.shape[0], 
-            x_fused.shape[1], 
-            x_fused.shape[2]//2, 
-            dtype=x_fused.dtype, device=x_fused.device
-        )
-        silu_and_mul_sgl_impl(
-            x_fused, 
-            out_x
-        )
+        # out_x = torch.zeros(
+        #     x_fused.shape[0], 
+        #     x_fused.shape[1], 
+        #     x_fused.shape[2]//2, 
+        #     dtype=x_fused.dtype, device=x_fused.device
+        # )
+        # silu_and_mul_sgl(
+        #     x_fused, 
+        #     out_x
+        # )
+        x, x_up = x_fused.chunk(2, dim=-1)
+        x = F.silu(x) * x_up
 
-        # x = self.ff_out(x)
-        x = self.ff_out(out_x)
+        x = self.ff_out(x)
+        # x = self.ff_out(out_x)
 
         x = self.dropout(x)
         x = og_x + x

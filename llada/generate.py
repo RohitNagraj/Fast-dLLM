@@ -134,6 +134,7 @@ def generate(model, prompt, steps=128, gen_length=128, block_length=128, tempera
 
 
 @ torch.no_grad()
+@torch.compile
 def generate_with_prefix_cache(model, prompt, steps=128, gen_length=128, block_length=128, temperature=0.,
              remasking='low_confidence', mask_id=126336, threshold=None, factor=None):
     '''
@@ -448,6 +449,8 @@ def main():
         REPEAT = 10
         print("warming up...")
         [ generate_with_prefix_cache(model, input_ids, steps=128, gen_length=128, block_length=32, temperature=0., remasking='low_confidence') for _ in range(REPEAT) ]
+        import time
+        time.sleep(1)
         print("start timed generation...")
         start = torch.cuda.Event(enable_timing=True)
         end = torch.cuda.Event(enable_timing=True)
@@ -457,8 +460,9 @@ def main():
         end.record()
         torch.cuda.synchronize()
         print(f"Avg latency with prefix cache: {start.elapsed_time(end)/REPEAT:.2f} ms")
+        time.sleep(1)
 
-        out = generate_with_dual_cache(model, input_ids, steps=128, gen_length=128, block_length=32, temperature=0., remasking='low_confidence')
+        out = generate_with_prefix_cache(model, input_ids, steps=128, gen_length=128, block_length=32, temperature=0., remasking='low_confidence')
     
         torch.cuda.synchronize()
         nvtx.range_pop()

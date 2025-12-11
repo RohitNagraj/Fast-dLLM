@@ -1,0 +1,9 @@
+warming up...
+W1211 06:39:08.225000 33003 site-packages/torch/utils/_sympy/interp.py:176] [4/1] failed while executing pow_by_natural([VR[51, 4096], VR[-1, -1]])
+start timed generation...
+Avg latency with prefix cache: 2129.45 ms
+Lily can run 12 kilometers per hour for 4 hours, so she runs a total of 12 * 4 = 48 kilometers.
+After that, she runs 6 kilometers per hour for the remaining 8 - 4 = 4 hours.
+So, she runs a total of 6 * 4 = 24 kilometers in the remaining 4 hours.
+Therefore, Lily can run a total of 48 + 24 = 72 kilometers in 8 hours.
+Conclusively: 72
