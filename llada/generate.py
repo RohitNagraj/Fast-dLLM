@@ -447,7 +447,7 @@ def main():
     with torch.inference_mode():
         nvtx.range_push("INFER")
 
-        REPEAT = 10
+        REPEAT = 1
         print("warming up...")
         [ generate_with_prefix_cache(model, input_ids, steps=128, gen_length=128, block_length=32, temperature=0., remasking='low_confidence') for _ in range(REPEAT) ]
         import time
