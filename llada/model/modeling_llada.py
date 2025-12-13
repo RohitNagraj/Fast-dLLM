@@ -1336,6 +1336,7 @@ class LLaDAModel(nn.Module):
         self.__cache["alibi_attention_bias"] = alibi_bias
         return alibi_bias
 
+    @torch.compile
     def forward(
         self,
         input_ids: torch.LongTensor,

@@ -25,7 +25,8 @@ import torch.nn.functional as F
 import os
 from transformers import AutoTokenizer, AutoModel
 # from model.modeling_llada import LLaDAModelLM
-from model.modeling_llada_sgl_kernel import LLaDAModelLM
+# from model.modeling_llada_sgl_kernel import LLaDAModelLM
+from model.modeling_llada_cudagraph import LLaDAModelLM 
 
 from torch.cuda import nvtx
 
@@ -134,7 +135,7 @@ def generate(model, prompt, steps=128, gen_length=128, block_length=128, tempera
 
 
 @ torch.no_grad()
-@torch.compile
+# @torch.compile
 def generate_with_prefix_cache(model, prompt, steps=128, gen_length=128, block_length=128, temperature=0.,
              remasking='low_confidence', mask_id=126336, threshold=None, factor=None):
     '''
@@ -446,11 +447,11 @@ def main():
     with torch.inference_mode():
         nvtx.range_push("INFER")
 
-        REPEAT = 10
+        REPEAT = 1
         print("warming up...")
         [ generate_with_prefix_cache(model, input_ids, steps=128, gen_length=128, block_length=32, temperature=0., remasking='low_confidence') for _ in range(REPEAT) ]
         import time
-        time.sleep(1)
+        # time.sleep(1)
         print("start timed generation...")
         start = torch.cuda.Event(enable_timing=True)
         end = torch.cuda.Event(enable_timing=True)

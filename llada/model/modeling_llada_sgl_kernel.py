@@ -918,6 +918,9 @@ class LLaDABlock(nn.Module):
             q = self.q_norm(q).to(dtype=dtype)
             k = self.k_norm(k).to(dtype=dtype)
 
+        # start = torch.cuda.Event(enable_timing=True)
+        # end = torch.cuda.Event(enable_timing=True)
+        # start.record()
         # Move head forward to be next to the batch dim.
         # shape: (B, nh, T, hs)
         # self.config.n_heads: 32
@@ -929,9 +932,11 @@ class LLaDABlock(nn.Module):
 
         if layer_past is not None: 
             past_key, past_value = layer_past
+            # print(past_key.shape, k.shape, past_value.shape, v.shape)
             if replace_position is None:
                 k = torch.cat((past_key, k), dim=-2)
                 v = torch.cat((past_value, v), dim=-2)
+                # print("After cat:", k.shape, v.shape)
             else:
                 # k shape is [B, n_kv_h, selected_length, hs]
                 # replace_position shape is [B, L], where L contains 0s and 1s, 0 means no replacement, 1 means replace, with selected_length number of 1s
@@ -975,6 +980,7 @@ class LLaDABlock(nn.Module):
 
         # Get the attention scores.
         # shape: (B, nh, T, hs)
+        # print("\tBefore att:", q.shape, k.shape, v.shape)
         att = self._scaled_dot_product_attention(
             q,
             k,
@@ -985,6 +991,10 @@ class LLaDABlock(nn.Module):
         )
         # Re-assemble all head outputs side-by-side.
         att = att.transpose(1, 2).contiguous().view(B, T, C)
+
+        # end.record()
+        # torch.cuda.synchronize()
+        # print(f"Layer {self.layer_id} attention time: {start.elapsed_time(end)} ms")
 
         # Apply output projection.
         return self.attn_out(att), present
@@ -1292,6 +1302,9 @@ class LLaDALlamaBlockSgl(LLaDABlock):
         if self.fused_weight is None:
             self.fused_weight = torch.cat([self.ff_proj.weight, self.up_proj.weight], dim=0)
         # fused_weight = torch.cat([self.ff_proj.weight, self.up_proj.weight], dim=0)
+        
+        # print("-- x shape:", x.shape)
+
         x_fused = F.linear(x, self.fused_weight, bias=None)  # Single matmul
 
         # out_x = torch.zeros(
@@ -1389,10 +1402,21 @@ class LLaDABlockDiffBlock(LLaDABlock):
         #                      k, v: (batch_size, seq_len, d_model // n_heads)
         #  - for group query attn q: (batch_size, seq_len, d_model)
         #                      k, v: (batch_size, seq_len, d_model // n_kv_heads)
+
+        # start = torch.cuda.Event(enable_timing=True)
+        # end = torch.cuda.Event(enable_timing=True)
+        # start.record()
+
         x_normed = self.attn_norm(x)
         q = self.q_proj(x_normed)
         k = self.k_proj(x_normed)
         v = self.v_proj(x_normed)
+
+        # end.record()
+        # torch.cuda.synchronize()
+        # elapsed_time = start.elapsed_time(end)
+        # print(f"Layer {self.layer_id} pre-attn time: {elapsed_time} ms")
+        # start.record()
 
         # Get attention scores.
         if self._activation_checkpoint_fn is not None:
@@ -1401,6 +1425,12 @@ class LLaDABlockDiffBlock(LLaDABlock):
             )
         else:
             att, cache = self.attention(q, k, v, attention_bias, layer_past=layer_past, use_cache=use_cache)
+
+        # end.record()
+        # torch.cuda.synchronize()
+        # elapsed_time = start.elapsed_time(end)
+        # print(f"Layer {self.layer_id} attn time: {elapsed_time} ms")
+        # start.record()
 
         # Add attention scores.
         # shape: (B, T, C)
@@ -1422,6 +1452,11 @@ class LLaDABlockDiffBlock(LLaDABlock):
         x = self.ff_out(x)
         x = self.dropout(x)
         x = og_x + x
+
+        # end.record()
+        # torch.cuda.synchronize()
+        # elapsed_time = start.elapsed_time(end)
+        # print(f"Layer {self.layer_id} post-attn time: {elapsed_time} ms")
 
         return x, cache
 
@@ -1651,6 +1686,7 @@ class LLaDAModel(nn.Module):
         self.__cache["alibi_attention_bias"] = alibi_bias
         return alibi_bias
 
+    @torch.compile
     def forward(
         self,
         input_ids: torch.LongTensor,
@@ -1909,6 +1945,11 @@ class LLaDAModelLM(PreTrainedModel):
         return_dict = return_dict if return_dict is not None else self.config.use_return_dict
         # import pdb; pdb.set_trace()
         # decoder outputs consists of (dec_features, layer_state, dec_hidden, dec_attn)
+
+        # start = torch.cuda.Event(enable_timing=True)
+        # end = torch.cuda.Event(enable_timing=True)
+        # start.record()
+
         outputs = self.model.forward(
             input_ids=input_ids,
             input_embeddings=inputs_embeds,
@@ -1919,6 +1960,12 @@ class LLaDAModelLM(PreTrainedModel):
             output_hidden_states=output_hidden_states,
             replace_position=replace_position,
         )
+
+        # end.record()
+        # torch.cuda.synchronize()
+        # elapsed_time = start.elapsed_time(end)
+        # print(f"Model forward time: {elapsed_time} ms")
+
         # import pdb; pdb.set_trace()
         logits = outputs.logits
         hidden_states = outputs.hidden_states
