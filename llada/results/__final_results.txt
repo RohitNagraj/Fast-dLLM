@@ -7,5 +7,5 @@ Avg latency with prefix cache: 2189.51 ms
 torch compile + cudagraph + layerfusion
 Avg latency with prefix cache: 2049.01 ms
 
-torch compile + cudagraph + sgl kernel (explain)
+torch compile + cudagraph + sgl kerne l (explain)
 Avg latency with prefix cache: 2105.35 ms
