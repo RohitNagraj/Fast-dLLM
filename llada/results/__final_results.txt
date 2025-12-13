@@ -1,3 +1,6 @@
+original
+Avg latency with prefix cache: 6686.01 ms
+
 torch compile
 Avg latency with prefix cache: 2347.77 ms
 
